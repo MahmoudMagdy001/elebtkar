@@ -82,3 +82,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ─── Discount Code Generation ─────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    // Supabase Initialization (using credentials from blog-logic.js)
+    const SUPABASE_URL = 'https://fdevgkvjloezhyelciqb.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkZXZna3ZqbG9lemh5ZWxjaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTQ5MzgsImV4cCI6MjA4ODYzMDkzOH0.hahG-eXojQZulQPTRJ59rn3oaqGcuHWEHn6YVChAE_M';
+    const { createClient } = supabase;
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const discountForm = document.getElementById('discountForm');
+    const codeResult = document.getElementById('codeResult');
+    const generatedCode = document.getElementById('generatedCode');
+    const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+    if (discountForm) {
+        discountForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = discountForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            
+            const nameField = document.getElementById('userName');
+            const phoneField = document.getElementById('userPhone');
+            const name = nameField.value.trim();
+            const phone = phoneField.value.trim();
+            
+            // Basic validation for name (English only, no spaces)
+            const nameRegex = /^[A-Za-z]+$/;
+            if (!nameRegex.test(name)) {
+                alert('يرجى إدخال الاسم بالإنجليزية فقط وبدون مسافات');
+                return;
+            }
+
+            // Get last 4 digits of phone
+            const lastFour = phone.slice(-4).padStart(4, '0');
+            
+            // Generate code: Name + Last4
+            const code = (name + lastFour).toUpperCase();
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'جاري التوليد...';
+
+                // Save to Supabase
+                const { error } = await sb
+                    .from('discount_codes')
+                    .insert([
+                        { user_name: name, user_phone: phone, discount_code: code }
+                    ]);
+
+                if (error) throw error;
+
+                // Display result
+                generatedCode.textContent = code;
+                codeResult.style.display = 'block';
+                
+                // Scroll to result
+                codeResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } catch (err) {
+                console.error('Error saving discount code:', err);
+                alert('حدث خطأ أثناء حفظ الكود. يرجى المحاولة مرة أخرى.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        });
+    }
+
+    if (copyCodeBtn) {
+        copyCodeBtn.addEventListener('click', () => {
+            const codeText = generatedCode.textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                copyCodeBtn.classList.add('copied');
+                const icon = copyCodeBtn.querySelector('i');
+                icon.className = 'ph-fill ph-check-circle';
+                
+                setTimeout(() => {
+                    copyCodeBtn.classList.remove('copied');
+                    icon.className = 'ph-fill ph-copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+    }
+});
+
+

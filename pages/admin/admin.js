@@ -59,7 +59,7 @@ function showToast(msg, type = 'success') {
 // ── Auth Handling ─────────────────────────────
 const loginContainer = document.getElementById('loginContainer');
 const dashHeader     = document.getElementById('dashHeader');
-const dashContainer  = document.getElementById('dashContainer');
+const dashWrapper    = document.getElementById('dashWrapper');
 
 const loginForm      = document.getElementById('loginForm');
 const loginEmail     = document.getElementById('loginEmail');
@@ -68,18 +68,19 @@ const loginBtn       = document.getElementById('loginBtn');
 const loginSpinner   = document.getElementById('loginSpinner');
 const loginIcon      = document.getElementById('loginIcon');
 const loginLabel     = document.getElementById('loginLabel');
-const logoutBtn      = document.getElementById('logoutBtn');
+const logoutBtnSidebar = document.getElementById('logoutBtnSidebar');
 
 // Listen to auth state changes
 sb.auth.onAuthStateChange((event, session) => {
   if (session) {
     loginContainer.style.display = 'none';
     dashHeader.style.display = 'flex';
-    dashContainer.style.display = 'block';
+    dashWrapper.style.display = 'flex';
+    loadDiscountCodes(); // Load codes when admin logs in
   } else {
     loginContainer.style.display = 'block';
     dashHeader.style.display = 'none';
-    dashContainer.style.display = 'none';
+    dashWrapper.style.display = 'none';
   }
 });
 
@@ -88,13 +89,76 @@ sb.auth.getSession().then(({ data: { session } }) => {
   if (session) {
     loginContainer.style.display = 'none';
     dashHeader.style.display = 'flex';
-    dashContainer.style.display = 'block';
+    dashWrapper.style.display = 'flex';
+    loadDiscountCodes();
   } else {
     loginContainer.style.display = 'block';
     dashHeader.style.display = 'none';
-    dashContainer.style.display = 'none';
+    dashWrapper.style.display = 'none';
   }
 });
+
+// Sidebar Navigation
+const navItems = document.querySelectorAll('.nav-item');
+const sections = document.querySelectorAll('.admin-section');
+
+navItems.forEach(item => {
+  item.addEventListener('click', () => {
+    const targetSection = item.getAttribute('data-section');
+    
+    // Update active nav
+    navItems.forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    
+    // Update active section
+    sections.forEach(s => s.classList.remove('active'));
+    document.getElementById(`${targetSection}Section`).classList.add('active');
+
+    // If switching to discount codes, refresh them
+    if (targetSection === 'discountCodes') {
+      loadDiscountCodes();
+    }
+  });
+});
+
+// ── Discount Codes Handling ──────────────────
+async function loadDiscountCodes() {
+  const tableBody = document.getElementById('discountCodesTableBody');
+  const refreshBtn = document.getElementById('refreshCodes');
+  
+  if (refreshBtn) refreshBtn.classList.add('ph-spin');
+
+  try {
+    const { data, error } = await sb
+      .from('discount_codes')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 2rem;">لا توجد أكواد خصم حالياً</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = data.map(item => `
+      <tr>
+        <td>${new Date(item.created_at).toLocaleDateString('ar-EG', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
+        <td>${item.user_name}</td>
+        <td dir="ltr">${item.user_phone}</td>
+        <td><span class="code-pill">${item.discount_code}</span></td>
+      </tr>
+    `).join('');
+
+  } catch (err) {
+    console.error('Error fetching discount codes:', err);
+    tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 2rem; color: #e53935;">فشل تحميل البيانات: ${err.message}</td></tr>`;
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove('ph-spin');
+  }
+}
+
+document.getElementById('refreshCodes')?.addEventListener('click', loadDiscountCodes);
 
 // Login Form Submit
 if (loginForm) {
@@ -128,16 +192,14 @@ if (loginForm) {
 }
 
 // Logout Button
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', async () => {
-    const { error } = await sb.auth.signOut();
-    if (error) {
-      showToast(`فشل تسجيل الخروج: ${error.message}`, 'error');
-    } else {
-      showToast('تم تسجيل الخروج', 'success');
-    }
-  });
-}
+logoutBtnSidebar?.addEventListener('click', async () => {
+  const { error } = await sb.auth.signOut();
+  if (error) {
+    showToast(`فشل تسجيل الخروج: ${error.message}`, 'error');
+  } else {
+    showToast('تم تسجيل الخروج', 'success');
+  }
+});
 
 // ── Form submission ───────────────────────────
 const form       = document.getElementById('postForm');

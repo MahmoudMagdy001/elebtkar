@@ -339,35 +339,7 @@ nav.scrolled .logo-img { filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
   box-shadow: 0 0 0 3px rgba(0,69,97,0.1); background: var(--white);
 }
 
-/* ─── FOOTER ─── */
-footer { background: #00253a; padding: 60px 5% 0; }
-.footer-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
-  padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.footer-logo { margin-bottom: 1.5rem; }
-.footer-logo .logo-img { height: 50px; }
-.footer-brand p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.8; margin-bottom: 1.5rem; }
-.social-row { display: flex; gap: 0.8rem; }
-.social-btn {
-  width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--white); text-decoration: none; font-size: 1.2rem;
-  transition: background var(--transition), transform var(--transition), border-color var(--transition);
-}
-.social-btn:hover { background: var(--gradient-accent); color: #1a0a00; transform: translateY(-5px); border-color: transparent; }
-.footer-links h4, .footer-contact h4 { font-size: 1rem; font-weight: 800; color: #f0c060; margin-bottom: 1.2rem; }
-.footer-links a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; margin-bottom: 0.7rem; transition: color var(--transition); }
-.footer-links a:hover { color: var(--white); }
-.footer-contact p { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 0.7rem; line-height: 1.8; }
-.footer-bottom {
-  max-width: 1200px; margin: 0 auto;
-  padding: 1.5rem 0;
-  display: flex; justify-content: space-between; align-items: center;
-  color: rgba(255,255,255,0.4); font-size: 0.85rem; flex-wrap: wrap; gap: 0.5rem;
-}
+/* Footer CSS moved to shared.css */
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
@@ -385,11 +357,8 @@ footer { background: #00253a; padding: 60px 5% 0; }
   .stats-row { gap: 1rem; }
   .stat-divider { display: none; }
   .contact-grid { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
   .services-grid, .why-grid, .pillars-grid, .process-track { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; text-align: center; }
   .clients-grid { grid-template-columns: repeat(2, 1fr); }
 }

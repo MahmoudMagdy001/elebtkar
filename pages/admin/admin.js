@@ -56,6 +56,89 @@ function showToast(msg, type = 'success') {
   toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
 }
 
+// ── Auth Handling ─────────────────────────────
+const loginContainer = document.getElementById('loginContainer');
+const dashHeader     = document.getElementById('dashHeader');
+const dashContainer  = document.getElementById('dashContainer');
+
+const loginForm      = document.getElementById('loginForm');
+const loginEmail     = document.getElementById('loginEmail');
+const loginPassword  = document.getElementById('loginPassword');
+const loginBtn       = document.getElementById('loginBtn');
+const loginSpinner   = document.getElementById('loginSpinner');
+const loginIcon      = document.getElementById('loginIcon');
+const loginLabel     = document.getElementById('loginLabel');
+const logoutBtn      = document.getElementById('logoutBtn');
+
+// Listen to auth state changes
+sb.auth.onAuthStateChange((event, session) => {
+  if (session) {
+    loginContainer.style.display = 'none';
+    dashHeader.style.display = 'flex';
+    dashContainer.style.display = 'block';
+  } else {
+    loginContainer.style.display = 'block';
+    dashHeader.style.display = 'none';
+    dashContainer.style.display = 'none';
+  }
+});
+
+// Check initial session
+sb.auth.getSession().then(({ data: { session } }) => {
+  if (session) {
+    loginContainer.style.display = 'none';
+    dashHeader.style.display = 'flex';
+    dashContainer.style.display = 'block';
+  } else {
+    loginContainer.style.display = 'block';
+    dashHeader.style.display = 'none';
+    dashContainer.style.display = 'none';
+  }
+});
+
+// Login Form Submit
+if (loginForm) {
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value;
+    
+    if (!email || !password) return;
+    
+    loginBtn.disabled = true;
+    loginSpinner.style.display = 'block';
+    loginIcon.style.display = 'none';
+    loginLabel.textContent = 'جاري تسجيل الدخول…';
+    
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    
+    loginBtn.disabled = false;
+    loginSpinner.style.display = 'none';
+    loginIcon.style.display = 'inline-block';
+    loginLabel.textContent = 'دخول';
+    
+    if (error) {
+      showToast('خطأ في البريد الإلكتروني أو كلمة المرور', 'error');
+    } else {
+      showToast('تم تسجيل الدخول بنجاح!', 'success');
+      loginForm.reset();
+    }
+  });
+}
+
+// Logout Button
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', async () => {
+    const { error } = await sb.auth.signOut();
+    if (error) {
+      showToast(`فشل تسجيل الخروج: ${error.message}`, 'error');
+    } else {
+      showToast('تم تسجيل الخروج', 'success');
+    }
+  });
+}
+
 // ── Form submission ───────────────────────────
 const form       = document.getElementById('postForm');
 const submitBtn  = document.getElementById('submitBtn');

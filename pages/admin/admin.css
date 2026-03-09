@@ -129,3 +129,26 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
   .dash-card-body { padding: 1.2rem; }
   .slug-row { grid-template-columns: 1fr; }
 }
+
+/* ── Admin Auth & Login ── */
+.login-container {
+  max-width: 440px; margin: 6rem auto; padding: 0 1.5rem;
+}
+.login-card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow-xl); border: 1px solid var(--gray-200); padding: 2.5rem;
+  text-align: center;
+}
+.login-header { margin-bottom: 2rem; }
+.login-header .logo-img { height: 50px; margin-bottom: 1rem; }
+.login-header h2 { font-size: 1.5rem; color: var(--primary); font-weight: 800; margin: 0 0 0.5rem; }
+.login-header p { font-size: 0.95rem; color: var(--gray-600); margin: 0; }
+.login-card form { text-align: right; }
+
+.dash-actions { display: flex; align-items: center; gap: 1rem; }
+.btn-logout {
+  background: none; border: none; color: rgba(255,255,255,0.75);
+  font-size: 1.2rem; cursor: pointer; padding: 0; display: flex; align-items: center;
+  transition: color 0.2s;
+}
+.btn-logout:hover { color: #f44336; }

@@ -1,0 +1,21 @@
+{
+    "cleanUrls": true,
+    "rewrites": [
+        {
+            "source": "/admin",
+            "destination": "/pages/admin/admin.html"
+        },
+        {
+            "source": "/home",
+            "destination": "/pages/home/index.html"
+        },
+        {
+            "source": "/blog",
+            "destination": "/pages/blog/blog.html"
+        },
+        {
+            "source": "/post",
+            "destination": "/pages/post/post.html"
+        }
+    ]
+}

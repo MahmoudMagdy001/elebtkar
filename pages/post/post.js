@@ -24,7 +24,7 @@
   const pageUrl = window.location.href;
 
   // <title>
-  document.title = `${post.title} | الأبتكار`;
+  document.title = `${post.title} | الابتكار`;
 
   // Standard meta
   setMeta('name', 'description', post.meta_description);
@@ -53,7 +53,7 @@
     "datePublished": post.created_at,
     "publisher": {
       "@type": "Organization",
-      "name":  "الأبتكار",
+      "name":  "الابتكار",
       "url":   "https://ebtkar.sa"
     }
   };
@@ -86,7 +86,7 @@
 
       <!-- Meta row -->
       <div class="article-meta">
-        <span class="article-tag">مدونة الأبتكار</span>
+        <span class="article-tag">مدونة الابتكار</span>
         ${publishDate ? `<span class="article-date"><i class="ph ph-calendar-blank"></i> ${publishDate}</span>` : ''}
       </div>
 
@@ -122,7 +122,7 @@
     <!-- CTA Banner -->
     <div class="post-cta">
       <h2>هل تريد نتائج مثل هذه لنشاطك التجاري؟</h2>
-      <p>فريق الأبتكار جاهز لمساعدتك في بناء حضور رقمي قوي</p>
+      <p>فريق الابتكار جاهز لمساعدتك في بناء حضور رقمي قوي</p>
       <a href="https://wa.me/966579644123" target="_blank" class="btn-primary">تواصل معنا الآن ←</a>
     </div>
   `;
@@ -138,7 +138,7 @@
 function showError() {
   document.getElementById('skeletonState').style.display = 'none';
   document.getElementById('errorState').style.display    = 'block';
-  document.title = 'مقالة غير موجودة | الأبتكار';
+  document.title = 'مقالة غير موجودة | الابتكار';
 }
 
 function setMeta(attr, name, content) {

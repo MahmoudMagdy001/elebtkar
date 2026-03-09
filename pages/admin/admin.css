@@ -1,0 +1,131 @@
+/* ── Admin Dashboard page specific styles ── */
+body { background: var(--gray-50); min-height: 100vh; padding: 0; }
+
+/* ── Dashboard Header ── */
+.dash-header {
+  background: var(--gradient); padding: 1.2rem 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: var(--shadow-md); position: sticky; top: 0; z-index: 100;
+}
+.dash-header a { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+.dash-header .logo-img { height: 40px; }
+.dash-title { color: #f0c060; font-size: 1rem; font-weight: 800; letter-spacing: 0.3px; }
+.dash-back-link {
+  color: rgba(255,255,255,0.75); text-decoration: none;
+  font-size: 0.9rem; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s;
+}
+.dash-back-link:hover { color: #fff; }
+
+/* ── Main Layout ── */
+.dash-container { max-width: 860px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }
+
+/* ── Form Card ── */
+.dash-card {
+  background: var(--white); border-radius: var(--radius);
+  box-shadow: var(--shadow-md); border: 1px solid var(--gray-200); overflow: hidden;
+}
+.dash-card-header {
+  background: linear-gradient(135deg, rgba(0,69,97,0.05), rgba(0,69,97,0.02));
+  border-bottom: 1px solid var(--gray-200); padding: 1.5rem 2rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.dash-card-header i { font-size: 1.6rem; color: var(--primary); }
+.dash-card-header h1 { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin: 0; }
+.dash-card-body { padding: 2rem; }
+
+/* ── Form Elements ── */
+.field-group { margin-bottom: 1.5rem; }
+.field-group label { display: block; font-size: 0.9rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.5rem; }
+.field-group label span.required { color: #e53935; margin-right: 2px; }
+.field-group input,
+.field-group textarea,
+.field-group select {
+  width: 100%; padding: 0.9rem 1rem;
+  border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+  font-family: 'Almarai', sans-serif; font-size: 0.95rem;
+  background: var(--gray-50); color: var(--gray-800);
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  direction: rtl;
+}
+#slug { direction: ltr; text-align: left; font-family: 'Courier New', monospace; font-size: 0.9rem; letter-spacing: 0.5px; }
+.field-group input:focus,
+.field-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,69,97,0.1); background: var(--white); }
+.field-group input.ltr-field { direction: ltr; text-align: left; }
+.field-group textarea { resize: vertical; min-height: 200px; }
+
+/* ── Hint & Counter ── */
+.field-hint { font-size: 0.78rem; color: var(--gray-600); margin-top: 0.35rem; }
+.meta-counter { font-size: 0.78rem; font-weight: 700; margin-top: 0.35rem; transition: color 0.3s; }
+.meta-counter.ok   { color: #2e7d32; }
+.meta-counter.warn { color: #f57c00; }
+.meta-counter.over { color: #c62828; }
+
+/* ── Slug Row ── */
+.slug-row { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; align-items: flex-end; }
+.slug-row .field-group { margin-bottom: 0; flex: 1; }
+.btn-regen {
+  padding: 0.9rem 1rem;
+  background: var(--gray-100); border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm); cursor: pointer; color: var(--primary); font-size: 1.1rem;
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap; display: flex; align-items: center; gap: 0.4rem; height: fit-content;
+}
+.btn-regen:hover { background: var(--primary); color: var(--white); }
+
+/* ── Image Upload Zone ── */
+.upload-zone {
+  border: 2px dashed var(--gray-200); border-radius: var(--radius-sm);
+  padding: 2rem; text-align: center; cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  position: relative; overflow: hidden;
+}
+.upload-zone:hover,
+.upload-zone.drag-over { border-color: var(--primary); background: rgba(0,69,97,0.04); }
+.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; }
+.upload-zone p { font-size: 0.9rem; color: var(--gray-600); margin: 0; }
+.upload-zone .upload-hint { font-size: 0.78rem; color: rgba(0,0,0,0.35); margin-top: 0.3rem; }
+#imagePreview { max-width: 100%; max-height: 200px; border-radius: var(--radius-sm); margin-top: 1rem; display: none; object-fit: cover; }
+
+/* ── Submit Button ── */
+.submit-btn {
+  width: 100%; padding: 1rem; background: var(--gradient); color: var(--white);
+  font-family: 'Almarai', sans-serif; font-size: 1.05rem; font-weight: 800;
+  border: none; border-radius: var(--radius-sm); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+  margin-top: 0.5rem;
+}
+.submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--gray-800); color: #fff;
+  padding: 0.9rem 1.8rem; border-radius: 50px;
+  font-size: 0.95rem; font-weight: 700; box-shadow: var(--shadow-lg); z-index: 9999;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { background: #1b5e20; }
+.toast.error { background: #b71c1c; }
+
+/* ── Spinner ── */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff;
+  border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Divider ── */
+.form-divider { border: none; border-top: 1px solid var(--gray-200); margin: 1.5rem 0; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .dash-card-body { padding: 1.2rem; }
+  .slug-row { grid-template-columns: 1fr; }
+}

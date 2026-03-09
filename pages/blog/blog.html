@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المدونة | الأبتكار</title>
+  <meta name="description" content="مقالات واستراتيجيات في التسويق الرقمي، السيو، وبناء الحضور الرقمي من فريق الأبتكار." />
+  <meta property="og:title"       content="مدونة الأبتكار" />
+  <meta property="og:description" content="مقالات واستراتيجيات في التسويق الرقمي والتقنية." />
+  <meta property="og:type"        content="website" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="../../assets/css/shared.css" />
+  <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+
+<!-- ── Nav ── -->
+<nav class="blog-nav">
+  <a href="../home/index.html" class="nav-logo">
+    <img src="../../logo.png" alt="الأبتكار" class="logo-img" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="../home/index.html#who">من نحن</a></li>
+    <li><a href="../home/index.html#services">خدماتنا</a></li>
+    <li><a href="blog.html" class="active">المدونة</a></li>
+    <li><a href="../home/index.html#contact">تواصل معنا</a></li>
+    <li><a href="../home/index.html#results" class="nav-cta">ابدأ الآن</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<div class="blog-hero">
+  <span class="section-tag">مدونة الأبتكار</span>
+  <h1>مقالات في التسويق الرقمي والتقنية</h1>
+  <p>استراتيجيات ونصائح عملية لتنمية نشاطك التجاري رقمياً في السوق السعودي</p>
+</div>
+
+<!-- ── Blog Grid ── -->
+<main class="blog-container">
+  <div class="posts-grid" id="postsGrid">
+
+    <!-- Skeleton cards while loading -->
+    <div class="sk-card" id="sk1">
+      <div class="skeleton sk-card-img"></div>
+      <div class="sk-card-body">
+        <div class="skeleton sk-line sk-short"></div>
+        <div class="skeleton sk-title"></div>
+        <div class="skeleton sk-line"></div>
+        <div class="skeleton sk-line"></div>
+        <div class="skeleton sk-line sk-short"></div>
+      </div>
+    </div>
+    <div class="sk-card" id="sk2">
+      <div class="skeleton sk-card-img"></div>
+      <div class="sk-card-body">
+        <div class="skeleton sk-line sk-short"></div>
+        <div class="skeleton sk-title"></div>
+        <div class="skeleton sk-line"></div>
+        <div class="skeleton sk-line"></div>
+        <div class="skeleton sk-line sk-short"></div>
+      </div>
+    </div>
+    <div class="sk-card" id="sk3">
+      <div class="skeleton sk-card-img"></div>
+      <div class="sk-card-body">
+        <div class="skeleton sk-line sk-short"></div>
+        <div class="skeleton sk-title"></div>
+        <div class="skeleton sk-line"></div>
+        <div class="skeleton sk-line"></div>
+        <div class="skeleton sk-line sk-short"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Empty state (hidden by default) -->
+  <div id="emptyState" class="state-center" style="display:none;">
+    <div class="state-icon">📝</div>
+    <h2>لا توجد مقالات بعد</h2>
+    <p>سيتم نشر مقالات قريباً. تابعنا على منصات التواصل الاجتماعي.</p>
+    <a href="../home/index.html" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">العودة للرئيسية</a>
+  </div>
+
+  <!-- Error state (hidden by default) -->
+  <div id="errorState" class="state-center" style="display:none;">
+    <div class="state-icon">⚠️</div>
+    <h2>تعذّر تحميل المقالات</h2>
+    <p>تحقق من اتصالك بالإنترنت أو حاول مجدداً لاحقاً.</p>
+  </div>
+</main>
+
+<!-- Floating contact widget -->
+<div class="contact-menu" id="contactMenu">
+  <div class="contact-options">
+    <a href="https://wa.me/966579644123" target="_blank" class="contact-item whatsapp" aria-label="واتساب">
+      <span class="contact-tooltip">واتساب</span>
+      <span class="contact-icon"><i class="ph-fill ph-whatsapp-logo"></i></span>
+    </a>
+    <a href="tel:+966579644123" class="contact-item phone" aria-label="اتصال">
+      <span class="contact-tooltip">اتصال</span>
+      <span class="contact-icon"><i class="ph-fill ph-phone-call"></i></span>
+    </a>
+  </div>
+  <button class="contact-toggle" onclick="toggleContactMenu()" aria-label="تواصل معنا">
+    <span class="toggle-icon"><i class="ph-fill ph-chats-circle"></i></span>
+  </button>
+</div>
+
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="عودة للأعلى">↑</button>
+
+<!-- ── Scripts ── -->
+<script src="../../assets/js/blog-logic.js"></script>
+<script src="blog.js"></script>
+</body>
+</html>

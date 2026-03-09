@@ -1,22 +1,21 @@
-// Navbar scroll effect
+// ─── Navbar scroll effect ───────────────────
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 60);
   document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
 });
 
-// Mobile menu
+// ─── Mobile menu ────────────────────────────
 function toggleMenu() {
   document.getElementById('mobileMenu').classList.toggle('open');
 }
 
-// Intersection Observer for fade-in + counter trigger
+// ─── Intersection Observer: fade-in + counter trigger ───
 let countersStarted = false;
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      // Trigger counters when who-section or stats come into view
       if (!countersStarted && (entry.target.closest('#who') || entry.target.closest('#why'))) {
         countersStarted = true;
         animateCounters();
@@ -27,7 +26,7 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// Counter animation
+// ─── Counter animation ───────────────────────
 function animateCounters() {
   document.querySelectorAll('[data-count]').forEach(el => {
     const target = +el.dataset.count;
@@ -44,14 +43,14 @@ function animateCounters() {
   });
 }
 
-// Stagger service cards
+// ─── Stagger service cards ──────────────────
 document.querySelectorAll('.service-card').forEach((card, i) => {
   card.style.transitionDelay = (i * 0.07) + 's';
   card.classList.add('fade-in');
   observer.observe(card);
 });
 
-// Toggle contact menu
+// ─── Toggle contact menu ────────────────────
 function toggleContactMenu() {
   document.getElementById('contactMenu').classList.toggle('active');
   const toggleIcon = document.querySelector('.contact-toggle .toggle-icon');

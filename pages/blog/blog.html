@@ -19,22 +19,22 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Shared styles -->
-  <link rel="stylesheet" href="../../assets/css/shared.css" />
-  <link rel="stylesheet" href="blog.css" />
+  <link rel="stylesheet" href="/assets/css/shared.css" />
+  <link rel="stylesheet" href="/pages/blog/blog.css" />
 </head>
 <body>
 
 <!-- ── Nav ── -->
 <nav class="blog-nav">
-  <a href="../home/index.html" class="nav-logo">
-    <img src="../../logo.png" alt="الأبتكار" class="logo-img" />
+  <a href="/home" class="nav-logo">
+    <img src="/logo.png" alt="الأبتكار" class="logo-img" />
   </a>
   <ul class="nav-links">
-    <li><a href="../home/index.html#who">من نحن</a></li>
-    <li><a href="../home/index.html#services">خدماتنا</a></li>
-    <li><a href="blog.html" class="active">المدونة</a></li>
-    <li><a href="../home/index.html#contact">تواصل معنا</a></li>
-    <li><a href="../home/index.html#results" class="nav-cta">ابدأ الآن</a></li>
+    <li><a href="/home#who">من نحن</a></li>
+    <li><a href="/home#services">خدماتنا</a></li>
+    <li><a href="/blog" class="active">المدونة</a></li>
+    <li><a href="/home#contact">تواصل معنا</a></li>
+    <li><a href="/home#results" class="nav-cta">ابدأ الآن</a></li>
   </ul>
 </nav>
 
@@ -88,7 +88,7 @@
     <div class="state-icon">📝</div>
     <h2>لا توجد مقالات بعد</h2>
     <p>سيتم نشر مقالات قريباً. تابعنا على منصات التواصل الاجتماعي.</p>
-    <a href="../home/index.html" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">العودة للرئيسية</a>
+    <a href="/home" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">العودة للرئيسية</a>
   </div>
 
   <!-- Error state (hidden by default) -->
@@ -119,7 +119,7 @@
 <button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="عودة للأعلى">↑</button>
 
 <!-- ── Scripts ── -->
-<script src="../../assets/js/blog-logic.js"></script>
-<script src="blog.js"></script>
+<script src="/assets/js/blog-logic.js"></script>
+<script src="/pages/blog/blog.js"></script>
 </body>
 </html>

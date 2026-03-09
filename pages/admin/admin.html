@@ -17,8 +17,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="../../assets/css/shared.css" />
-  <link rel="stylesheet" href="admin.css" />
+  <link rel="stylesheet" href="/assets/css/shared.css" />
+  <link rel="stylesheet" href="/pages/admin/admin.css" />
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 <div class="login-container" id="loginContainer" style="display: none;">
   <div class="login-card">
     <div class="login-header">
-      <img src="../../logo.png" alt="الأبتكار" class="logo-img" />
+      <img src="/logo.png" alt="الأبتكار" class="logo-img" />
       <h2>تسجيل الدخول</h2>
       <p>الرجاء إدخال بيانات الاعتماد للوصول للوحة الإدارة</p>
     </div>
@@ -50,15 +50,15 @@
 
 <!-- ── Dashboard Header ── -->
 <header class="dash-header" id="dashHeader" style="display: none;">
-  <a href="../home/index.html">
-    <img src="../../logo.png" alt="الأبتكار" class="logo-img" />
+  <a href="/home">
+    <img src="/logo.png" alt="الأبتكار" class="logo-img" />
   </a>
   <div class="dash-title"><i class="ph-duotone ph-notebook-duotone"></i> لوحة إدارة المدونة</div>
   <div class="dash-actions">
     <button type="button" id="logoutBtn" class="btn-logout" title="تسجيل الخروج">
       <i class="ph ph-sign-out"></i>
     </button>
-    <a href="../home/index.html" class="dash-back-link">
+    <a href="/home" class="dash-back-link">
       <i class="ph ph-arrow-left"></i> العودة للموقع
     </a>
   </div>
@@ -195,7 +195,7 @@
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
 <!-- ── Scripts ── -->
-<script src="../../assets/js/blog-logic.js"></script>
-<script src="admin.js"></script>
+<script src="/assets/js/blog-logic.js"></script>
+<script src="/pages/admin/admin.js"></script>
 </body>
 </html>

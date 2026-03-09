@@ -25,7 +25,7 @@
 
     const card = document.createElement('a');
     card.className = 'post-card fade-in';
-    card.href = `../post/post.html?slug=${encodeURIComponent(post.slug)}`;
+    card.href = `/post?slug=${encodeURIComponent(post.slug)}`;
 
     card.innerHTML = `
       ${post.featured_image_url

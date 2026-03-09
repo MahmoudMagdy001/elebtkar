@@ -339,6 +339,58 @@ nav.scrolled .logo-img { filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
   box-shadow: 0 0 0 3px rgba(0,69,97,0.1); background: var(--white);
 }
 
+.services-selection {
+  margin-bottom: 0.5rem;
+}
+.selection-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+.services-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip-item {
+  cursor: pointer;
+}
+.chip-item input {
+  display: none;
+}
+.chip-item span {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  transition: all var(--transition);
+  user-select: none;
+}
+.chip-item:hover span {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.chip-item input:checked + span {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(0,69,97,0.25);
+}
+.chip-item.select-all span {
+  background: rgba(201,149,42,0.1);
+  border-color: rgba(201,149,42,0.3);
+  color: #c9952a;
+}
+.chip-item.select-all input:checked + span {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1a0a00;
+}
+
 /* Footer CSS moved to shared.css */
 
 /* ─── RESPONSIVE ─── */

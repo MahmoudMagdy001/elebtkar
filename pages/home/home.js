@@ -60,3 +60,25 @@ function toggleContactMenu() {
     toggleIcon.textContent = '💬';
   }
 }
+
+// ─── Contact form: Service selection logic ─────
+document.addEventListener('DOMContentLoaded', () => {
+    const selectAllCheckbox = document.getElementById('selectAllServices');
+    const serviceCheckboxes = document.querySelectorAll('input[name="service"]');
+
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', () => {
+            serviceCheckboxes.forEach(cb => {
+                cb.checked = selectAllCheckbox.checked;
+            });
+        });
+
+        // Update Select All state if individual checkboxes are changed
+        serviceCheckboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                const allChecked = Array.from(serviceCheckboxes).every(c => c.checked);
+                selectAllCheckbox.checked = allChecked;
+            });
+        });
+    }
+});

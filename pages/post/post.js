@@ -123,7 +123,7 @@
     <div class="post-cta">
       <h2>هل تريد نتائج مثل هذه لنشاطك التجاري؟</h2>
       <p>فريق الأبتكار جاهز لمساعدتك في بناء حضور رقمي قوي</p>
-      <a href="../home/index.html#contact" class="btn-primary">تواصل معنا الآن ←</a>
+      <a href="https://wa.me/966579644123" target="_blank" class="btn-primary">تواصل معنا الآن ←</a>
     </div>
   `;
 

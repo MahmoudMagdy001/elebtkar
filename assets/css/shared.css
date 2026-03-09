@@ -203,6 +203,40 @@ footer { background: #00253a; padding: 60px 5% 0; }
 }
 .footer-contact-item a:hover { color: var(--white); }
 
+.footer-docs {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.doc-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.75rem;
+  transition: color var(--transition);
+  text-align: center;
+}
+.doc-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.1);
+  transition: transform var(--transition), border-color var(--transition);
+}
+.doc-link:hover {
+  color: var(--white);
+}
+.doc-link:hover .doc-img {
+  transform: scale(1.1);
+  border-color: var(--accent);
+}
+
 .footer-bottom {
   max-width: 1200px; margin: 0 auto;
   padding: 1.5rem 0;

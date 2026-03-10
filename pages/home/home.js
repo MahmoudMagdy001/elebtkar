@@ -102,33 +102,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = discountForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
             
-            const nameField = document.getElementById('userName');
+            const companyField = document.getElementById('companyName');
             const phoneField = document.getElementById('userPhone');
-            const name = nameField.value.trim();
+            const companyName = companyField.value.trim();
             const phone = phoneField.value.trim();
             
-            // Basic validation for name (English only, no spaces)
-            const nameRegex = /^[A-Za-z]+$/;
-            if (!nameRegex.test(name)) {
-                alert('يرجى إدخال الاسم بالإنجليزية فقط وبدون مسافات');
+            // Validation: Allow Arabic, English and spaces
+            if (!companyName) {
+                alert('يرجى إدخال اسم الشركة');
                 return;
             }
+
+            // Normalize name for code generation: 
+            // - Remove spaces
+            // - Take first 4-8 chars if possible
+            // - If Arabic, it will still work as a string
+            const normalizedPart = companyName.replace(/\s+/g, '').slice(0, 8).toUpperCase();
 
             // Get last 4 digits of phone
             const lastFour = phone.slice(-4).padStart(4, '0');
             
-            // Generate code: Name + Last4
-            const code = (name + lastFour).toUpperCase();
+            // Generate code: Normalized Company Name + Last4
+            const code = (normalizedPart + lastFour);
             
             try {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'جاري التوليد...';
 
-                // Save to Supabase
+                // Save to Supabase (using company_name)
                 const { error } = await sb
                     .from('discount_codes')
                     .insert([
-                        { user_name: name, user_phone: phone, discount_code: code }
+                        { company_name: companyName, user_phone: phone, discount_code: code }
                     ]);
 
                 if (error) throw error;

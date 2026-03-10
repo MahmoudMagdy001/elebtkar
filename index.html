@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/logs.png" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="الابتكار - شريكك في حلول التسويق الرقمي والتقنية المتكاملة في المملكة العربية السعودية. نساعدك على التصدر في السوق مع رؤية 2030." />
   <meta property="og:title" content="الابتكار | حلول تقنية وتسويقية متكاملة" />
@@ -381,7 +382,7 @@
           <div class="contact-info-icon"><i class="ph-duotone ph-envelope-simple"></i></div>
           <div>
             <h3>البريد الإلكتروني</h3>
-            <p>elebtkar133@gmail.com</p>
+            <p>Info@elebtikar-sa.com</p>
           </div>
         </div>
         <div class="contact-info-item">
@@ -400,12 +401,15 @@
         </div>
       </div>
       <div class="contact-form-container">
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('تم إرسال رسالتك بنجاح!');">
+        <form class="contact-form" id="contactForm" onsubmit="sendWhatsApp(event)">
           <div class="form-group">
             <input type="text" id="name" placeholder="الاسم الكريم" required>
           </div>
           <div class="form-group">
             <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+          </div>
+          <div class="form-group">
+            <input type="tel" id="phone" placeholder="رقم الجوال" required dir="ltr" style="text-align:right;">
           </div>
           <div class="form-group">
             <input type="text" id="subject" placeholder="موضوع الرسالة" required>
@@ -448,9 +452,9 @@
             </div>
           </div>
           <div class="form-group">
-            <textarea id="message" rows="5" placeholder="رسالتك..." required></textarea>
+            <textarea id="message" rows="5" placeholder="مشكلتك..." required></textarea>
           </div>
-          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">إرسال الرسالة ←</button>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;"><i  style="font-size:1.2rem;"></i> حل لمشكلتك</button>
         </form>
       </div>
     </div>

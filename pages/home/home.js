@@ -168,4 +168,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ─── Contact Form: Send via WhatsApp ──────────
+function sendWhatsApp(e) {
+  e.preventDefault();
+
+  const name    = document.getElementById('name').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const phone   = document.getElementById('phone').value.trim();
+  const subject = document.getElementById('subject').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  const selectedServices = Array.from(
+    document.querySelectorAll('input[name="service"]:checked')
+  ).map(cb => cb.value);
+
+  const servicesText = selectedServices.length > 0
+    ? selectedServices.join('، ')
+    : 'لم يتم تحديد خدمة';
+
+  const text =
+    `🌟 *طلب تواصل جديد من موقع الابتكار*\n\n` +
+    `👤 *الاسم:* ${name}\n` +
+    `📧 *البريد الإلكتروني:* ${email}\n` +
+    `📱 *رقم الجوال:* ${phone}\n` +
+    `📌 *الموضوع:* ${subject}\n` +
+    `🛠️ *الخدمات المطلوبة:* ${servicesText}\n\n` +
+    `💬 *الرسالة:*\n${message}`;
+
+  const waNumber = '966579644123';
+  const waURL = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+  window.open(waURL, '_blank');
+}
 

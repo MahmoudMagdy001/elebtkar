@@ -60,7 +60,6 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
   border: none;
   background: transparent;
   color: var(--gray-600);
-  font-family: inherit;
   font-size: 0.95rem;
   font-weight: 700;
   border-radius: var(--radius-sm);
@@ -90,7 +89,6 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
   border: none;
   background: transparent;
   color: #e53935;
-  font-family: inherit;
   font-size: 0.95rem;
   font-weight: 700;
   border-radius: var(--radius-sm);
@@ -136,7 +134,7 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
 .field-group select {
   width: 100%; padding: 0.9rem 1rem;
   border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
-  font-family: 'Almarai', sans-serif; font-size: 0.95rem;
+  font-size: 0.95rem;
   background: var(--gray-50); color: var(--gray-800);
   transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
   direction: rtl;
@@ -184,7 +182,7 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
 /* ── Submit Button ── */
 .submit-btn {
   width: 100%; padding: 1rem; background: var(--gradient); color: var(--white);
-  font-family: 'Almarai', sans-serif; font-size: 1.05rem; font-weight: 800;
+  font-size: 1.05rem; font-weight: 800;
   border: none; border-radius: var(--radius-sm); cursor: pointer;
   display: flex; align-items: center; justify-content: center; gap: 0.6rem;
   transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);

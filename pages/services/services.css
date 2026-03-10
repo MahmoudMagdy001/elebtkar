@@ -2,7 +2,6 @@
 
 /* Use Almarai globally for this page */
 body {
-  font-family: 'Almarai', sans-serif;
   background-color: var(--gray-50);
   overflow-x: hidden;
   margin: 0;
@@ -18,10 +17,7 @@ body {
 }
 
 /* Base modifications for the nav & layout */
-nav#navbar {
-  /* Ensuring nav looks right on this page */
-  font-family: 'Almarai', sans-serif;
-}
+
 
 /* Progress Bar */
 .reading-progress {

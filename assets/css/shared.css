@@ -1,5 +1,6 @@
 /* ─── BASE STYLES ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Almarai', sans-serif; }
+button, input, select, textarea { font-family: inherit; }
 :root {
   --primary: #004561;
   --primary-light: #005f80;

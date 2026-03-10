@@ -15,6 +15,11 @@
         {
             "source": "/post",
             "destination": "/pages/post/post.html"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/pages/404/notfound.html"
         }
-    ]
+    ],
+    "cleanUrls": true
 }

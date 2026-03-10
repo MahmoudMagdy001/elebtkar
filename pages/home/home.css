@@ -509,6 +509,11 @@ nav.scrolled .logo-img { filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
+  #hero {
+    background-attachment: scroll;
+    background-position: center top;
+    min-height: 80vh;
+  }
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .hero-inner { grid-template-columns: 1fr; text-align: center; }

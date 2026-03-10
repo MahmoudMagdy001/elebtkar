@@ -1,14 +1,4 @@
-// ─── Navbar scroll effect ───────────────────
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-  document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
-});
 
-// ─── Mobile menu ────────────────────────────
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
 
 // ─── Intersection Observer: fade-in + counter trigger ───
 let countersStarted = false;

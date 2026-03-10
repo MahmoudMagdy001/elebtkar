@@ -1,21 +1,7 @@
 /* ── Post page specific styles ── */
 body { background: var(--gray-50); }
 
-/* ── Post Header Nav ── */
-.post-header-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(0,37,58,0.92); backdrop-filter: blur(16px);
-  padding: 0.9rem 5%;
-  display: flex; align-items: center; justify-content: space-between;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
-}
-.post-header-nav a {
-  display: flex; align-items: center; gap: 0.4rem;
-  color: rgba(255,255,255,0.8); text-decoration: none;
-  font-size: 0.9rem; transition: color 0.2s;
-}
-.post-header-nav a:hover { color: var(--white); }
-.post-header-nav .nav-home-logo { height: 36px; }
+
 
 /* ── Layout ── */
 .post-layout { max-width: 860px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }

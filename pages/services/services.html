@@ -58,7 +58,12 @@
 
   <!-- HERO SECTION -->
   <header class="services-hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg-shapes">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-grid"></div>
+    </div>
     <div class="hero-content">
       <h1 class="hero-title" id="typewriter"></h1>
       <p class="hero-subtitle fade-in-up">حلول رقمية متخصصة لتنمية نشاطك التجاري</p>
@@ -254,15 +259,9 @@
   <script src="/js/config.js"></script>
   <script src="/assets/js/footer-loader.js" defer></script>
   <!-- Main site JS for mobile menu logic -->
+  <script src="/assets/js/navbar.js"></script>
   <script src="/pages/home/home.js"></script>
   <!-- Services specific JS -->
   <script src="/pages/services/services.js"></script>
-  
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('mobileMenu');
-      if (menu) menu.classList.toggle('active');
-    }
-  </script>
 </body>
 </html>

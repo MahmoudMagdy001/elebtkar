@@ -1,24 +1,7 @@
 /* ── Blog page specific styles ── */
 body { background: var(--gray-50); }
 
-/* ── Sticky nav ── */
-.blog-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(0,37,58,0.92);
-  backdrop-filter: blur(16px);
-  padding: 0 5%; height: 70px;
-  display: flex; align-items: center; justify-content: space-between;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
-}
-.blog-nav a.nav-logo { display: flex; align-items: center; text-decoration: none; }
-.blog-nav .logo-img  { height: 42px; }
-.blog-nav .nav-links { display: flex; gap: 2rem; list-style: none; }
-.blog-nav .nav-links a {
-  color: rgba(255,255,255,0.8); text-decoration: none;
-  font-size: 0.95rem; font-weight: 400; transition: color 0.25s;
-}
-.blog-nav .nav-links a:hover,
-.blog-nav .nav-links a.active { color: #f0c060; }
+
 
 /* ── Hero Banner ── */
 .blog-hero {
@@ -86,5 +69,4 @@ body { background: var(--gray-50); }
 
 @media (max-width: 600px) {
   .posts-grid { grid-template-columns: 1fr; }
-  .blog-nav .nav-links { display: none; }
 }

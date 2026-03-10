@@ -24,19 +24,35 @@
 </head>
 <body>
 
-<!-- ── Nav ── -->
-<nav class="blog-nav">
+<!-- NAV -->
+<nav id="navbar">
   <a href="/" class="nav-logo">
-    <img src="/logo.png" alt="الابتكار" class="logo-img" />
+    <img src="/logo.png" alt="الابتكار logo" class="logo-img">
   </a>
   <ul class="nav-links">
+    <li><a href="/">الرئيسية</a></li>
     <li><a href="/#who">من نحن</a></li>
-    <li><a href="/#services">خدماتنا</a></li>
+    <li><a href="/services">خدماتنا</a></li>
+    <li><a href="/#why">لماذا الابتكار</a></li>
     <li><a href="/blog" class="active">المدونة</a></li>
     <li><a href="/#contact">تواصل معنا</a></li>
-    <li><a href="/#results" class="nav-cta">ابدأ الآن</a></li>
+    <li><a href="https://wa.me/966579644123" target="_blank" class="nav-cta">ابدأ الآن</a></li>
   </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="/" onclick="toggleMenu()">الرئيسية</a>
+  <a href="/#who" onclick="toggleMenu()">من نحن</a>
+  <a href="/services" onclick="toggleMenu()">خدماتنا</a>
+  <a href="/#why" onclick="toggleMenu()">لماذا الابتكار</a>
+  <a href="/blog" onclick="toggleMenu()" class="active">المدونة</a>
+  <a href="/#contact" onclick="toggleMenu()">تواصل معنا</a>
+</div>
 
 <!-- ── Hero ── -->
 <div class="blog-hero">
@@ -124,6 +140,7 @@
 
 <!-- ── Scripts ── -->
 <script src="/js/config.js"></script>
+<script src="/assets/js/navbar.js"></script>
 <script src="/assets/js/blog-logic.js"></script>
 <script src="/pages/blog/blog.js"></script>
 </body>

@@ -1,12 +1,17 @@
 {
+    "cleanUrls": true,
     "rewrites": [
         {
-            "source": "/admin",
-            "destination": "/pages/admin/admin.html"
+            "source": "/",
+            "destination": "/pages/home/index.html"
         },
         {
             "source": "/home",
             "destination": "/pages/home/index.html"
+        },
+        {
+            "source": "/admin",
+            "destination": "/pages/admin/admin.html"
         },
         {
             "source": "/blog",
@@ -15,11 +20,6 @@
         {
             "source": "/post",
             "destination": "/pages/post/post.html"
-        },
-        {
-            "source": "/(.*)",
-            "destination": "/pages/404/notfound.html"
         }
-    ],
-    "cleanUrls": true
+    ]
 }

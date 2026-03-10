@@ -5,12 +5,14 @@
 //  anon public key before going live.
 // ─────────────────────────────────────────────
 
-const SUPABASE_URL = 'https://fdevgkvjloezhyelciqb.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkZXZna3ZqbG9lemh5ZWxjaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTQ5MzgsImV4cCI6MjA4ODYzMDkzOH0.hahG-eXojQZulQPTRJ59rn3oaqGcuHWEHn6YVChAE_M';
+// Credentials are loaded from /js/config.js (must be included before this script)
+if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+  console.error('Supabase config missing! Make sure /js/config.js is loaded before blog-logic.js');
+}
 
 // Initialise the Supabase client using the CDN build
 const { createClient } = supabase;
-const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
 // ─── Image Upload ─────────────────────────────
 /**

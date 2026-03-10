@@ -85,11 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ─── Discount Code Generation ─────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // Supabase Initialization (using credentials from blog-logic.js)
-    const SUPABASE_URL = 'https://fdevgkvjloezhyelciqb.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkZXZna3ZqbG9lemh5ZWxjaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTQ5MzgsImV4cCI6MjA4ODYzMDkzOH0.hahG-eXojQZulQPTRJ59rn3oaqGcuHWEHn6YVChAE_M';
+    // ── Supabase client ──────────────────────────────────────────────────
+    // Uses credentials from /js/config.js loaded in the HTML <head>
     const { createClient } = supabase;
-    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
     const discountForm = document.getElementById('discountForm');
     const codeResult = document.getElementById('codeResult');

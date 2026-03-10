@@ -1,0 +1,59 @@
+# ──────────────────────────────────────────────────────────────────
+#  .htaccess — Hostinger Apache Configuration
+#  Project: الابتكار (Elebtkar)
+# ──────────────────────────────────────────────────────────────────
+
+Options -Indexes
+
+# ── URL Rewriting (mirrors Vercel rewrites) ────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Skip rewrites for real files and directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # /home  →  pages/home/index.html
+  RewriteRule ^home/?$  /pages/home/index.html  [L]
+
+  # /blog  →  pages/blog/blog.html
+  RewriteRule ^blog/?$  /pages/blog/blog.html   [L]
+
+  # /post  →  pages/post/post.html  (query string preserved automatically)
+  RewriteRule ^post/?$  /pages/post/post.html   [L]
+
+  # /admin →  pages/admin/admin.html
+  RewriteRule ^admin/?$ /pages/admin/admin.html [L]
+
+  # /404   →  404.html at root
+  RewriteRule ^404/?$   /404.html               [L]
+</IfModule>
+
+# ── Custom Error Pages ──────────────────────────────────────────────
+ErrorDocument 404 /404.html
+
+# ── GZIP Compression ───────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# ── Browser Caching ────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css             "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/png            "access plus 6 months"
+  ExpiresByType image/webp           "access plus 6 months"
+  ExpiresByType image/jpeg           "access plus 6 months"
+  ExpiresByType application/pdf      "access plus 1 month"
+  ExpiresByType text/html            "access plus 1 hour"
+</IfModule>
+
+# ── Security Headers ───────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options  "nosniff"
+  Header always set X-Frame-Options         "SAMEORIGIN"
+  Header always set X-XSS-Protection        "1; mode=block"
+  Header always set Referrer-Policy         "strict-origin-when-cross-origin"
+</IfModule>

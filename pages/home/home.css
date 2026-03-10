@@ -530,6 +530,9 @@ nav.scrolled .logo-img { filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
   .contact-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
+  #hero {
+    background-image: linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('../../header_mobile.png');
+  }
   .services-grid, .why-grid, .pillars-grid, .process-track { grid-template-columns: 1fr; }
   .clients-grid { grid-template-columns: repeat(2, 1fr); }
 }

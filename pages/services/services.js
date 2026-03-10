@@ -140,4 +140,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+    
+    // 8. Initialise generic fade-in observer for utility classes (e.g. pricing section)
+    if (typeof window.initFadeObserver === 'function') {
+      window.initFadeObserver();
+    }
   });

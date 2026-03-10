@@ -1,0 +1,158 @@
+/**
+ * components.css — Shared Component Styles
+ * ─────────────────────────────────────────
+ * Styles for reusable UI components used across multiple pages.
+ * Load this AFTER shared.css on any page that uses these components.
+ */
+
+/* ─── SKELETON LOADER ─── */
+.skeleton {
+  background: linear-gradient(90deg, #eef2f7 25%, #dde4ee 50%, #eef2f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.sk-img   { height: 420px; border-radius: var(--radius); margin-bottom: 1.5rem; }
+.sk-title { height: 2.5rem; border-radius: 6px; margin-bottom: 1rem; }
+.sk-line  { height: 1rem; border-radius: 4px; margin-bottom: 0.6rem; }
+.sk-short { width: 60%; }
+
+/* Blog skeleton card */
+.sk-card      { background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.sk-card-img  { height: 200px; }
+.sk-card-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+
+/* ─── STATE BOXES (empty / error) ─── */
+.state-box,
+.state-center {
+  text-align: center;
+  padding: 5rem 2rem;
+  color: var(--gray-600);
+}
+.state-icon {
+  font-size: 4rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  opacity: 0.4;
+}
+.state-box h2,
+.state-center h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 0.8rem;
+}
+.state-box p,
+.state-center p {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ─── PRICING SECTION (shared between home + services) ─── */
+#pricing {
+  background: #0f1225;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 120px;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}
+.pricing-card {
+  background: #151a2e;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: right;
+  direction: rtl;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  transition: transform var(--transition);
+}
+.pricing-card:hover { transform: translateY(-5px); }
+
+.pricing-card.popular {
+  border: 2px solid #e08b38;
+  padding-top: 3.5rem;
+  transform: scale(1.05);
+  z-index: 1;
+  background: #111a3a;
+}
+.pricing-card.popular:hover { transform: scale(1.05) translateY(-5px); }
+
+.popular-badge {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  background: #e08b38;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 0.6rem;
+  border-radius: 10px 10px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.plan-name  { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.8rem; color: #fff; }
+.plan-desc  { font-size: 0.95rem; color: #9ba4b5; margin-bottom: 1.5rem; min-height: 45px; line-height: 1.5; }
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 1.5rem;
+}
+.plan-price .amount { font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; }
+.plan-price .period { font-size: 1rem; color: #9ba4b5; }
+.plan-features { list-style: none; padding: 0; margin: 0 0 2rem; flex-grow: 1; }
+.plan-features li {
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.plan-features li.included { color: #e2e8f0; }
+.plan-features li.included i { color: #e08b38; font-size: 1.2rem; }
+.plan-features li.excluded { color: #4a5568; }
+.plan-features li.excluded i { color: #4a5568; font-size: 1.2rem; }
+
+.btn-pricing {
+  display: inline-block;
+  width: 100%;
+  padding: 1.1rem;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  background: #283046;
+  color: #fff;
+  transition: background 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-pricing:hover { background: #3b4766; }
+.btn-pricing-popular { background: #e08b38; }
+.btn-pricing-popular:hover { background: #ce7e32; }
+
+@media (max-width: 900px) {
+  .pricing-card.popular { transform: none; margin: 1rem 0; }
+  .pricing-card.popular:hover { transform: translateY(-5px); }
+  #pricing { margin-bottom: 60px; }
+}

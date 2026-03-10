@@ -65,27 +65,32 @@
 <div class="dash-wrapper" id="dashWrapper" style="display: none;">
   <!-- Sidebar -->
   <aside class="dash-sidebar">
-    <div class="sidebar-header">
-      <img src="/logo.png" alt="الابتكار" class="sidebar-logo">
-      <span>لوحة التحكم</span>
-    </div>
-    <nav class="sidebar-nav">
-      <button class="nav-item active" data-section="addPost">
-        <i class="ph-duotone ph-plus-circle"></i>
-        <span>إضافة مقالة</span>
-      </button>
-      <button class="nav-item" data-section="discountCodes">
-        <i class="ph-duotone ph-ticket"></i>
-        <span>أكواد الخصم</span>
-      </button>
-    </nav>
-    <div class="sidebar-footer">
-      <button id="logoutBtnSidebar" class="btn-logout-sidebar">
-        <i class="ph ph-sign-out"></i>
-        <span>تسجيل الخروج</span>
-      </button>
-    </div>
-  </aside>
+  <div class="sidebar-header">
+    <img src="/logo.png" alt="الابتكار" class="sidebar-logo">
+    <span>لوحة التحكم</span>
+  </div>
+  
+  <div class="sidebar-nav">
+    <!-- إضافة مدونة - الأولى -->
+    <button class="nav-item active" data-section="addPost">
+      <i class="ph-duotone ph-plus-circle"></i>
+      <span>إضافة مدونة</span>
+    </button>
+    
+    <!-- أكواد الخصم - التانية -->
+    <button class="nav-item" data-section="discountCodes">
+      <i class="ph-duotone ph-ticket"></i>
+      <span>عرض أكواد الخصم</span>
+    </button>
+  </div>
+  
+  <div class="sidebar-footer">
+    <button id="logoutBtnSidebar" class="btn-logout-sidebar">
+      <i class="ph ph-sign-out"></i>
+      <span>تسجيل الخروج</span>
+    </button>
+  </div>
+</aside>
 
   <!-- Main Content Area -->
   <main class="dash-main-content">
@@ -95,13 +100,13 @@
       <div class="dash-card">
         <div class="dash-card-header">
           <i class="ph-duotone ph-plus-circle"></i>
-          <h1>إضافة مقالة جديدة</h1>
+          <h1>إضافة مدونة جديدة</h1>
         </div>
         <div class="dash-card-body">
           <form id="postForm" novalidate>
             <!-- Arabic Title -->
             <div class="field-group">
-              <label for="title">عنوان المقالة (بالعربية) <span class="required">*</span></label>
+              <label for="title">عنوان المدونة (بالعربية) <span class="required">*</span></label>
               <input type="text" id="title" name="title" placeholder="مثال: كيف تحسّن ترتيب موقعك في جوجل" required />
             </div>
 
@@ -114,14 +119,14 @@
             <!-- Slug -->
             <hr class="form-divider" />
             <div class="field-group">
-              <label for="slug">رابط (Slug) المقالة <span class="required">*</span></label>
+              <label for="slug">رابط (Slug) المدونة <span class="required">*</span></label>
               <div class="slug-row">
                 <input type="text" id="slug" name="slug" placeholder="how-to-improve-your-google-ranking" required autocomplete="off" />
                 <button type="button" class="btn-regen" id="regenSlug" title="إعادة توليد">
                   <i class="ph ph-arrows-clockwise"></i>
                 </button>
               </div>
-              <p class="field-hint">رابط المقالة: <strong id="slugPreview">…</strong></p>
+              <p class="field-hint">رابط المدونة: <strong id="slugPreview">…</strong></p>
             </div>
 
             <!-- Meta Description -->
@@ -133,8 +138,8 @@
 
             <!-- Content -->
             <div class="field-group">
-              <label for="content">محتوى المقالة <span class="required">*</span></label>
-              <textarea id="content" name="content" placeholder="اكتب محتوى مقالتك هنا..." required></textarea>
+              <label for="content">محتوى المدونة <span class="required">*</span></label>
+              <textarea id="content" name="content" placeholder="اكتب محتوى مدونتك هنا..." required></textarea>
             </div>
 
             <!-- Image Upload -->
@@ -157,7 +162,7 @@
             <button type="submit" class="submit-btn" id="submitBtn">
               <div class="spinner" id="submitSpinner"></div>
               <i class="ph-duotone ph-cloud-arrow-up" id="submitIcon"></i>
-              <span id="submitLabel">نشر المقالة</span>
+              <span id="submitLabel">نشر المدونة</span>
             </button>
           </form>
         </div>

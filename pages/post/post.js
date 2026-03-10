@@ -147,11 +147,6 @@ function setMeta(attr, name, content) {
   el.setAttribute('content', content || '');
 }
 
-function escHtml(str) {
-  if (!str) return '';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
 function copyLink() {
   navigator.clipboard.writeText(window.location.href).then(() => {
     alert('✅ تم نسخ رابط المقالة!');
@@ -159,14 +154,3 @@ function copyLink() {
     prompt('انسخ الرابط يدوياً:', window.location.href);
   });
 }
-
-// Contact menu toggle
-function toggleContactMenu() {
-  document.getElementById('contactMenu').classList.toggle('active');
-}
-
-// Back-to-top button visibility
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('backTop');
-  if (btn) btn.classList.toggle('show', window.scrollY > 400);
-});

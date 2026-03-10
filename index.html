@@ -17,42 +17,17 @@
   {"@context":"https://schema.org","@type":"LocalBusiness","name":"الابتكار","description":"حلول تقنية وتسويقية متكاملة في المملكة العربية السعودية","url":"https://ebtkar.sa","address":{"@type":"PostalAddress","addressCountry":"SA"},"sameAs":[]}
   </script>
   <link rel="stylesheet" href="/assets/css/shared.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
   <link rel="stylesheet" href="/pages/home/home.css" />
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
 </head>
 <body>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMenu()">✕</button>
-  <a href="#hero" onclick="toggleMenu()">الرئيسية</a>
-  <a href="#who" onclick="toggleMenu()">من نحن</a>
-  <a href="/services" onclick="toggleMenu()">خدماتنا</a>
-  <a href="#why" onclick="toggleMenu()">لماذا الابتكار</a>
-  <a href="#process" onclick="toggleMenu()">طريقة العمل</a>
-  <a href="#results" onclick="toggleMenu()">النتائج</a>
-  <a href="/blog" onclick="toggleMenu()">المدونة</a>
-  <a href="#contact" onclick="toggleMenu()">تواصل معنا</a>
-</div>
-
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">
-    <img src="/logo.png" alt="الابتكار logo" class="logo-img">
-  </a>
-  <ul class="nav-links">
-    <li><a href="#who">من نحن</a></li>
-    <li><a href="/services">خدماتنا</a></li>
-    <li><a href="#why">لماذا الابتكار</a></li>
-    <li><a href="#process">طريقة العمل</a></li>
-    <li><a href="/blog">المدونة</a></li>
-    <li><a href="#contact">تواصل معنا</a></li>
-    <li><a href="https://wa.me/966579644123" target="_blank" class="nav-cta">ابدأ الآن</a></li>
-  </ul>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+<!-- NAV PLACEHOLDER -->
+<div id="navbar-placeholder"></div>
 
 <!-- HERO -->
 <section id="hero">
@@ -73,7 +48,7 @@
       </p>
       <p class="hero-support">استراتيجيات ذكية وحلول متكاملة</p>
       <div class="hero-btns">
-        <a href="https://wa.me/966579644123" target="_blank" class="btn-primary">ابدأ رحلة ابتكارك الآن ←</a>
+        <a href="https://wa.me/966579644123" target="_blank" class="btn-primary">ابدأ رحلة ابتكارك الآن <i class="ph ph-arrow-left"></i></a>
         <a href="#contact" class="btn-secondary">اطلب استشارة مجانية</a>
       </div>
     </div>
@@ -91,10 +66,10 @@
       <div class="who-text fade-in">
         <p>نؤمن أن المحتوى القوي والتقنية المتطورة هما المحرك الحقيقي للمبيعات، ولا نعتمد على الحلول المؤقتة أو الإعلانات الممولة فقط. بل نجعل جمهورك يبحث عنك ويصل إليك بفضل جودة ما تقدمه.</p>
         <div class="who-highlight">
-          🚀 فريقنا جاهز لمساعدتك في بناء حضور رقمي قوي تزامناً مع رؤية المملكة 2030
+          <i class="ph-fill ph-rocket-launch"></i> فريقنا جاهز لمساعدتك في بناء حضور رقمي قوي تزامناً مع رؤية المملكة 2030
         </div>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-          <a href="https://wa.me/966579644123" target="_blank" class="btn-primary" style="font-size:0.9rem;padding:0.7rem 1.5rem;">ابدأ رحلة ابتكارك الآن ←</a>
+        <div class="flex-wrap gap-1" style="display:flex;">
+          <a href="https://wa.me/966579644123" target="_blank" class="btn-primary" style="font-size:0.9rem;padding:0.7rem 1.5rem;">ابدأ رحلة ابتكارك الآن <i class="ph ph-arrow-left"></i></a>
           <a href="#contact" class="btn-secondary" style="font-size:0.9rem;padding:0.7rem 1.5rem;border-color:var(--primary);color:var(--primary);">تواصل معنا الآن</a>
         </div>
       </div>
@@ -161,44 +136,44 @@
 <!-- SERVICES -->
 <section id="services">
   <div class="section-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:3rem;">
+    <div class="fade-in text-center mb-3">
       <span class="section-tag">خدماتنا</span>
       <h2 class="section-title">خدمات متكاملة.. لنتائج استثنائية</h2>
-      <p class="section-subtitle" style="margin:0 auto;">سبع خدمات متخصصة تحت سقف واحد لتنمية نشاطك التجاري رقمياً</p>
+      <p class="section-subtitle mx-auto">سبع خدمات متخصصة تحت سقف واحد لتنمية نشاطك التجاري رقمياً</p>
     </div>
     <div class="services-grid fade-in">
       <div class="service-card">
-        <div class="service-icon"><i class="ph-duotone ph-magnifying-glass"></i></div>
+        <div class="service-icon"><i class="ph ph-duotone ph-magnifying-glass"></i></div>
         <h3>SEO &amp; GEO</h3>
         <p>نهيّئ موقعك ليتصدر نتائج البحث ويجذب الزوار بشكل طبيعي ودائم دون الاعتماد على الإعلانات</p>
       </div>
       <div class="service-card">
-        <div class="service-icon"><i class="ph-duotone ph-shopping-bag"></i></div>
+        <div class="service-icon"><i class="ph ph-duotone ph-shopping-bag"></i></div>
         <h3>المتاجر والمواقع الإلكترونية</h3>
         <p>نصمم ونبرمج منصات بيع ذكية واحترافية لعرض منتجاتك وخدماتك بأفضل صورة</p>
       </div>
       <div class="service-card">
-        <div class="service-icon"><i class="ph-duotone ph-pen-nib"></i></div>
+        <div class="service-icon"><i class="ph ph-duotone ph-pen-nib"></i></div>
         <h3>تطوير المحتوى</h3>
         <p>نكتب محتوى احترافياً يعبّر عن نشاطك التجاري ويجذب العملاء ويبني الثقة مع جمهورك</p>
       </div>
       <div class="service-card">
-        <div class="service-icon"><i class="ph-duotone ph-share-network"></i></div>
+        <div class="service-icon"><i class="ph ph-duotone ph-share-network"></i></div>
         <h3>إدارة منصات التواصل الاجتماعي</h3>
         <p>إدارة كاملة لمنصاتك الاجتماعية بتفاعل حقيقي ومستمر يبني مجتمع حول علامتك</p>
       </div>
       <div class="service-card">
-        <div class="service-icon"><i class="ph-duotone ph-megaphone"></i></div>
+        <div class="service-icon"><i class="ph ph-duotone ph-megaphone"></i></div>
         <h3>إدارة الإعلانات</h3>
         <p>ندير الحملات الإعلانية باحترافية تستهدف العميل القادر على الشراء وتحقق أعلى عائد</p>
       </div>
       <div class="service-card">
-        <div class="service-icon"><i class="ph-duotone ph-device-mobile"></i></div>
+        <div class="service-icon"><i class="ph ph-duotone ph-device-mobile"></i></div>
         <h3>تطبيقات الهواتف الذكية</h3>
         <p>نبتكر تطبيقات مبتكرة تضع عالمك التجاري في جيب عملائك على مدار الساعة</p>
       </div>
       <div class="service-card service-card-accent">
-        <div class="service-icon"><i class="ph-duotone ph-robot"></i></div>
+        <div class="service-icon"><i class="ph ph-duotone ph-robot"></i></div>
         <h3>الذكاء الاصطناعي المؤسسي</h3>
         <p>ندمج تقنيات الذكاء الاصطناعي في عملك لتوفير العبء الخاص فيك ولخدمة عملاءك علي مدار 24 ساعة</p>
         <span class="service-badge">جديد</span>
@@ -208,75 +183,61 @@
 </section>
 
 <!-- PRICING PLANS -->
-<section id="pricing" style="background:#0f1225; position:relative; z-index:1;">
+<section id="pricing">
   <div class="section-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:4rem;">
-      <span class="section-tag" style="background:rgba(255,255,255,0.1);color:#e08b38;border-color:rgba(224,139,56,0.3);">باقات الأسعار</span>
-      <h2 class="section-title" style="color:var(--white);">خطط تناسب جميع احتياجاتك</h2>
-      <p class="section-subtitle" style="margin:0 auto;color:rgba(255,255,255,0.75);">اختر الباقة الأنسب لنمو نشاطك التجاري</p>
+    <div class="fade-in text-center mb-4">
+      <span class="section-tag section-tag--dark">باقات الأسعار</span>
+      <h2 class="section-title section-title--white">خطط تناسب جميع احتياجاتك</h2>
+      <p class="section-subtitle section-subtitle--white mx-auto">اختر الباقة الأنسب لنمو نشاطك التجاري</p>
     </div>
     <div class="pricing-grid fade-in">
       
       <!-- Starter Plan -->
       <div class="pricing-card">
-        <h3 class="plan-name">الباقة الأساسية</h3>
-        <p class="plan-desc">مثالية للمشاريع الصغيرة والمتوسطة في بداية رحلتهم الرقمية.</p>
+        <h3 class="plan-name">الحل الاساسي</h3>
+        <p class="plan-desc">مثالية للحصول علي ابتكار واحد</p>
         <div class="plan-price">
-          <span class="currency">جنية</span>
-          <span class="amount">5,000</span>
+          <img src="/currency.png" alt="ريال" class="currency-img">
+          <span class="amount">2,000</span>
           <span class="period">/ شهرياً</span>
         </div>
         <ul class="plan-features">
-          <li class="included"><i class="ph-bold ph-check"></i> إدارة إعلانات ميتا (فيسبوك وإنستجرام)</li>
-          <li class="included"><i class="ph-bold ph-check"></i> استهداف الجمهور الأساسي</li>
-          <li class="included"><i class="ph-bold ph-check"></i> تقارير أداء شهرية</li>
-          <li class="included"><i class="ph-bold ph-check"></i> كتابة المحتوى الإعلاني</li>
-          <li class="excluded"><i class="ph-bold ph-x"></i> تصاميم جرافيك مخصصة</li>
-          <li class="excluded"><i class="ph-bold ph-x"></i> استراتيجية المسار التسويقي (Funnel)</li>
-          <li class="excluded"><i class="ph-bold ph-x"></i> مكالمات استراتيجية أسبوعية</li>
+          <li class="included"><i class="ph ph-bold ph-check"></i> تحسين جميع محركات البحث ( SEO / GEO )</li>
+          <li class="included"><i class="ph ph-bold ph-check"></i> تطوير المحتوي</li>
+          <li class="included"><i class="ph ph-bold ph-check"></i> ادارة الترويج الإعلاني</li>
         </ul>
         <a href="#contact" class="btn-pricing">ابدأ الآن</a>
       </div>
 
       <!-- Growth Plan -->
       <div class="pricing-card popular">
-        <div class="popular-badge">باقة النمو - الأكثر طلباً</div>
-        <h3 class="plan-name">باقة النمو</h3>
-        <p class="plan-desc">وسّع نطاق عملك باستراتيجيات متقدمة وتصاميم إبداعية.</p>
+        <div class="popular-badge">الحل الامثل - الأكثر طلباً</div>
+        <h3 class="plan-name">الحل الامثل</h3>
+        <p class="plan-desc">مثالية للحصول علي ابتكارين</p>
         <div class="plan-price">
-          <span class="currency">جنية</span>
-          <span class="amount">12,000</span>
+          <img src="/currency.png" alt="ريال" class="currency-img">
+          <span class="amount">3,000</span>
           <span class="period">/ شهرياً</span>
         </div>
         <ul class="plan-features">
-          <li class="included"><i class="ph-bold ph-check"></i> إدارة إعلانات ميتا (فيسبوك وإنستجرام)</li>
-          <li class="included"><i class="ph-bold ph-check"></i> استهداف جمهور متقدم</li>
-          <li class="included"><i class="ph-bold ph-check"></i> تقارير أداء كل أسبوعين</li>
-          <li class="included"><i class="ph-bold ph-check"></i> كتابة المحتوى الإعلاني</li>
-          <li class="included"><i class="ph-bold ph-check"></i> تصاميم جرافيك (10 شهرياً)</li>
-          <li class="included"><i class="ph-bold ph-check"></i> استراتيجية مسار تسويق أساسية</li>
-          <li class="excluded"><i class="ph-bold ph-x"></i> مكالمات استراتيجية أسبوعية</li>
+          <li class="included"><i class="ph ph-bold ph-check"></i> تحسين جميع محركات البحث ( SEO / GEO ) + تطوير المحتوي</li>
+          <li class="included"><i class="ph ph-bold ph-check"></i> تطوير المحتوي + ادارة الترويج الإعلاني</li>
+          <li class="included"><i class="ph ph-bold ph-check"></i> ادارة الترويج الإعلاني + تحسين جميع محركات البحث ( SEO / GEO )</li>
         </ul>
         <a href="#contact" class="btn-pricing btn-pricing-popular">ابدأ الآن</a>
       </div>
 
       <!-- Enterprise Plan -->
       <div class="pricing-card">
-        <h3 class="plan-name">باقة الشركات</h3>
-        <p class="plan-desc">حلول متكاملة للسيطرة على السوق وتحقيق أقصى قدر من التأثير.</p>
+        <h3 class="plan-name">الحل المتكامل</h3>
+        <p class="plan-desc">مثالية للحصول علي ثلاث ابتكارات او اكثر</p>
         <div class="plan-price">
-          <span class="currency">جنية</span>
-          <span class="amount">25,000</span>
+          <img src="/currency.png" alt="ريال" class="currency-img">
+          <span class="amount">3,500</span>
           <span class="period">/ شهرياً</span>
         </div>
         <ul class="plan-features">
-          <li class="included"><i class="ph-bold ph-check"></i> إدارة الإعلانات عبر منصات متعددة</li>
-          <li class="included"><i class="ph-bold ph-check"></i> استهداف جمهور متقدم</li>
-          <li class="included"><i class="ph-bold ph-check"></i> وصول فوري للوحة بيانات النتائج</li>
-          <li class="included"><i class="ph-bold ph-check"></i> كتابة واختبار المحتوى الإعلاني</li>
-          <li class="included"><i class="ph-bold ph-check"></i> تصاميم جرافيك غير محدودة</li>
-          <li class="included"><i class="ph-bold ph-check"></i> استراتيجية مسار تسويق متقدمة</li>
-          <li class="included"><i class="ph-bold ph-check"></i> مكالمات استراتيجية أسبوعية</li>
+          <li class="included"><i class="ph ph-bold ph-check"></i> تحسين جميع محركات البحث ( SEO / GEO ) + تطوير المحتوي + ادارة الترويج الإعلاني</li>
         </ul>
         <a href="#contact" class="btn-pricing">ابدأ الآن</a>
       </div>
@@ -289,10 +250,10 @@
 <section id="different" style="background:var(--gradient);color:var(--white);overflow:hidden;position:relative;">
   <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;"></div>
   <div class="section-inner" style="position:relative;z-index:2;">
-    <div class="fade-in" style="text-align:center;margin-bottom:3rem;">
-      <span class="section-tag" style="background:rgba(255,255,255,0.1);color:#f0c060;border-color:rgba(240,192,96,0.3);">فلسفتنا</span>
-      <h2 class="section-title" style="color:var(--white);">التسويق بدون إعلانات</h2>
-      <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);max-width:600px;margin:0 auto;line-height:1.8;">كثير من الشركات تعتمد على الإعلانات فقط.. لكن الإعلانات تتوقف فور توقف الميزانية. في الابتكار نعمل بطريقة مختلفة.</p>
+    <div class="fade-in text-center mb-3">
+      <span class="section-tag section-tag--dark">فلسفتنا</span>
+      <h2 class="section-title section-title--white">التسويق بدون إعلانات</h2>
+      <p style="font-size:1.1rem; line-height:1.8; max-width:600px;" class="section-subtitle--white mx-auto">كثير من الشركات تعتمد على الإعلانات فقط.. لكن الإعلانات تتوقف فور توقف الميزانية. في الابتكار نعمل بطريقة مختلفة.</p>
     </div>
     <div class="pillars-grid fade-in">
       <div class="pillar-card">
@@ -316,8 +277,8 @@
         <p>تُميّزك عن المنافسين</p>
       </div>
     </div>
-    <div style="text-align:center;margin-top:3rem;" class="fade-in">
-      <a href="/services" class="btn-primary">اعرف المزيد عن خدماتنا ←</a>
+    <div class="text-center mt-3 fade-in">
+      <a href="/services" class="btn-primary">اعرف المزيد عن خدماتنا <i class="ph ph-arrow-left"></i></a>
     </div>
   </div>
 </section>
@@ -325,7 +286,7 @@
 <!-- WHY CHOOSE US -->
 <section id="why" style="background:var(--gray-50);">
   <div class="section-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:3rem;">
+    <div class="fade-in text-center mb-3">
       <span class="section-tag">لماذا الابتكار</span>
       <h2 class="section-title">لماذا تختار الابتكار للتطوير الرقمي؟</h2>
     </div>
@@ -374,7 +335,7 @@
 <!-- WORK PROCESS -->
 <section id="process">
   <div class="section-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:4rem;">
+    <div class="fade-in text-center mb-4">
       <span class="section-tag">طريقة العمل</span>
       <h2 class="section-title">رحلة العمل معنا</h2>
     </div>
@@ -415,10 +376,10 @@
 <!-- RESULTS & CTA -->
 <section id="results" style="background:var(--gray-50);">
   <div class="section-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:3rem;">
+    <div class="fade-in text-center mb-3">
       <span class="section-tag">نتائجنا</span>
       <h2 class="section-title">نتائج حقيقية لعملائنا</h2>
-      <p class="section-subtitle" style="margin:0 auto;">نتفاخر بنتائجنا الحقيقية التي نحققها لعملائنا في كل مجال من مجالات خدماتنا</p>
+      <p class="section-subtitle mx-auto">نتفاخر بنتائجنا الحقيقية التي نحققها لعملائنا في كل مجال من مجالات خدماتنا</p>
     </div>
     <div class="clients-grid fade-in">
       <div class="client-card">مؤسسة النهضة</div>
@@ -442,10 +403,10 @@
 <!-- CONTACT US -->
 <section id="contact" style="background:var(--white);">
   <div class="section-inner">
-    <div class="fade-in" style="text-align:center;margin-bottom:3rem;">
+    <div class="fade-in text-center mb-3">
       <span class="section-tag">تواصل معنا</span>
       <h2 class="section-title">دعنا نناقش مشروعك القادم</h2>
-      <p class="section-subtitle" style="margin:0 auto;">فريقنا مستعد للرد على استفساراتك وتقديم أفضل الحلول التقنية والتسويقية لنشاطك التجاري</p>
+      <p class="section-subtitle mx-auto">فريقنا مستعد للرد على استفساراتك وتقديم أفضل الحلول التقنية والتسويقية لنشاطك التجاري</p>
     </div>
     <div class="contact-grid fade-in">
       <div class="contact-info">
@@ -467,7 +428,7 @@
           <div class="contact-info-icon"><i class="ph-duotone ph-phone"></i></div>
           <div>
             <h3>رقم الهاتف</h3>
-            <p dir="ltr" style="text-align: right;">+966 57 964 4123</p>
+            <p dir="ltr" class="text-right">+966 57 964 4123</p>
           </div>
         </div>
         <div class="contact-info-item">
@@ -487,7 +448,7 @@
             <input type="email" id="email" placeholder="البريد الإلكتروني" required>
           </div>
           <div class="form-group">
-            <input type="tel" id="phone" placeholder="رقم الجوال" required dir="ltr" style="text-align:right;">
+            <input type="tel" id="phone" placeholder="رقم الجوال" required dir="ltr" class="text-right">
           </div>
           <div class="form-group">
             <input type="text" id="subject" placeholder="موضوع الرسالة" required>
@@ -532,7 +493,7 @@
           <div class="form-group">
             <textarea id="message" rows="5" placeholder="مشكلتك..." required></textarea>
           </div>
-          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;"><i  style="font-size:1.2rem;"></i> حل لمشكلتك</button>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">حل لمشكلتك</button>
         </form>
       </div>
     </div>
@@ -543,29 +504,13 @@
 <div id="footer-placeholder"></div>
 <script src="/assets/js/footer-loader.js" defer></script>
 
-<!-- CONTACT MENU -->
-<div class="contact-menu" id="contactMenu">
-  <div class="contact-options">
-        <a href="https://wa.me/966579644123" target="_blank" class="contact-item whatsapp" aria-label="واتساب">
-          <span class="contact-tooltip">واتساب</span>
-          <span class="contact-icon"><i class="ph-fill ph-whatsapp-logo"></i></span>
-        </a>
-        <a href="tel:+966579644123" class="contact-item phone" aria-label="اتصال">
-          <span class="contact-tooltip">اتصال</span>
-          <span class="contact-icon"><i class="ph-fill ph-phone-call"></i></span>
-        </a>
-      </div>
-      <button class="contact-toggle" onclick="toggleContactMenu()" aria-label="تواصل معنا">
-        <span class="toggle-icon"><i class="ph-fill ph-chats-circle"></i></span>
-      </button>
-</div>
-
-<!-- BACK TO TOP -->
-<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="عودة للأعلى">↑</button>
+<!-- CONTACT WIDGET PLACEHOLDER -->
+<div id="contact-widget-placeholder"></div>
 
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="/js/config.js"></script>
-  <script src="/assets/js/navbar.js"></script>
+  <script src="/assets/js/helpers.js"></script>
+  <script src="/assets/js/component-loader.js"></script>
   <script src="/pages/home/home.js"></script>
 </body>
 </html>

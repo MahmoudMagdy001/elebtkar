@@ -1,55 +1,16 @@
 
-
-// ─── Intersection Observer: fade-in + counter trigger ───
-let countersStarted = false;
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      if (!countersStarted && (entry.target.closest('#who') || entry.target.closest('#why'))) {
-        countersStarted = true;
-        animateCounters();
-      }
-    }
+// ─── Intersection Observer & Stagger ───
+// Use shared fade observer with counters enabled
+document.addEventListener('DOMContentLoaded', () => {
+  const observer = initFadeObserver(true);
+  
+  // Stagger service cards
+  document.querySelectorAll('.service-card').forEach((card, i) => {
+    card.style.transitionDelay = (i * 0.07) + 's';
+    card.classList.add('fade-in');
+    observer.observe(card);
   });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-// ─── Counter animation ───────────────────────
-function animateCounters() {
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = +el.dataset.count;
-    const prefix = el.dataset.prefix || '';
-    const suffix = el.dataset.suffix || '';
-    const duration = 1800;
-    const step = target / (duration / 16);
-    let current = 0;
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.textContent = prefix + Math.floor(current) + suffix;
-      if (current >= target) clearInterval(timer);
-    }, 16);
-  });
-}
-
-// ─── Stagger service cards ──────────────────
-document.querySelectorAll('.service-card').forEach((card, i) => {
-  card.style.transitionDelay = (i * 0.07) + 's';
-  card.classList.add('fade-in');
-  observer.observe(card);
 });
-
-// ─── Toggle contact menu ────────────────────
-function toggleContactMenu() {
-  document.getElementById('contactMenu').classList.toggle('active');
-  const toggleIcon = document.querySelector('.contact-toggle .toggle-icon');
-  if (document.getElementById('contactMenu').classList.contains('active')) {
-    toggleIcon.textContent = '✕';
-  } else {
-    toggleIcon.textContent = '💬';
-  }
-}
 
 // ─── Contact form: Service selection logic ─────
 document.addEventListener('DOMContentLoaded', () => {

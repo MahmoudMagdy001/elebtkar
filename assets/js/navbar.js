@@ -1,19 +1,14 @@
-// assets/js/navbar.js
+/**
+ * navbar.js — Navbar Scroll Handler
+ * ────────────────────────────────────
+ * This file now only initialises the navbar scroll effect and
+ * back-to-top button if component-loader.js is NOT used on the page.
+ * All other shared logic lives in helpers.js.
+ */
 document.addEventListener('DOMContentLoaded', () => {
-  const navbar = document.getElementById('navbar');
-  if (navbar) {
-    // Initial check
-    if (window.scrollY > 60) navbar.classList.add('scrolled');
-    
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-      const backTop = document.getElementById('backTop');
-      if (backTop) backTop.classList.toggle('show', window.scrollY > 400);
-    });
-  }
+  // initNavScrolled and initBackTop are defined in helpers.js
+  // component-loader.js calls them automatically after injecting components.
+  // This guard ensures they still work on pages that inline the nav directly.
+  if (typeof initNavScrolled === 'function') initNavScrolled();
+  if (typeof initBackTop === 'function') initBackTop();
 });
-
-function toggleMenu() {
-  const menu = document.getElementById('mobileMenu');
-  if (menu) menu.classList.toggle('open');
-}

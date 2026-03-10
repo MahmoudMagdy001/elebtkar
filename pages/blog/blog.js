@@ -29,13 +29,13 @@
 
     card.innerHTML = `
       ${post.featured_image_url
-        ? `<img class="post-card-img" src="${esc(post.featured_image_url)}" alt="${esc(post.alt_text)}" loading="lazy" />`
+        ? `<img class="post-card-img" src="${window.escHtml(post.featured_image_url)}" alt="${window.escHtml(post.alt_text)}" loading="lazy" />`
         : `<div class="post-card-img no-img"><i class="ph-duotone ph-article"></i></div>`
       }
       <div class="post-card-body">
         ${date ? `<div class="post-card-date"><i class="ph ph-calendar-blank"></i> ${date}</div>` : ''}
-        <div class="post-card-title">${esc(post.title)}</div>
-        <div class="post-card-desc">${esc(post.meta_description || '')}</div>
+        <div class="post-card-title">${window.escHtml(post.title)}</div>
+        <div class="post-card-desc">${window.escHtml(post.meta_description || '')}</div>
         <div class="post-card-footer">
           اقرأ المقالة <i class="ph ph-arrow-left"></i>
         </div>
@@ -57,17 +57,3 @@ function clearSkeletons() {
     if (el) el.remove();
   });
 }
-
-function esc(str) {
-  if (!str) return '';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function toggleContactMenu() {
-  document.getElementById('contactMenu').classList.toggle('active');
-}
-
-window.addEventListener('scroll', () => {
-  const btn = document.getElementById('backTop');
-  if (btn) btn.classList.toggle('show', window.scrollY > 300);
-});

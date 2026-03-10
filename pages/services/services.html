@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/logs.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="خدمات الابتكار المتكاملة لتنمية نشاطك التجاري بأحدث التقنيات الرقمية المبتكرة." />
+  <title>خدماتنا المتكاملة | الابتكار</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Global Shared CSS -->
+  <link rel="stylesheet" href="/assets/css/shared.css" />
+  <!-- Services CSS -->
+  <link rel="stylesheet" href="/pages/services/services.css" />
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div class="reading-progress" id="progress-bar"></div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="/" class="nav-logo">
+      <img src="/logo.png" alt="الابتكار logo" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">الرئيسية</a></li>
+      <li><a href="/#who">من نحن</a></li>
+      <li><a href="/services" class="active">خدماتنا</a></li>
+      <li><a href="/#why">لماذا الابتكار</a></li>
+      <li><a href="/blog">المدونة</a></li>
+      <li><a href="/#contact">تواصل معنا</a></li>
+      <li><a href="https://wa.me/966579644123" target="_blank" class="nav-cta">ابدأ الآن</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMenu()">✕</button>
+    <a href="/" onclick="toggleMenu()">الرئيسية</a>
+    <a href="/#who" onclick="toggleMenu()">من نحن</a>
+    <a href="/services" onclick="toggleMenu()" class="active">خدماتنا</a>
+    <a href="/#why" onclick="toggleMenu()">لماذا الابتكار</a>
+    <a href="/blog" onclick="toggleMenu()">المدونة</a>
+    <a href="/#contact" onclick="toggleMenu()">تواصل معنا</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <header class="services-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="hero-title" id="typewriter"></h1>
+      <p class="hero-subtitle fade-in-up">حلول رقمية متخصصة لتنمية نشاطك التجاري</p>
+    </div>
+    <div class="scroll-indicator">
+      <i class="ph ph-caret-double-down"></i>
+    </div>
+  </header>
+
+  <!-- SERVICES MAIN -->
+  <main class="services-container">
+    
+    <!-- 1. SEO & GEO -->
+    <section class="service-row" id="service-seo">
+      <div class="srv-content">
+        <div class="srv-icon"><i class="ph-duotone ph-magnifying-glass"></i></div>
+        <h2 class="srv-title">SEO &amp; GEO</h2>
+        <p class="srv-short">"نهيّئ موقعك ليتصدر نتائج البحث"</p>
+        <ul class="srv-list">
+          <li><i class="ph-fill ph-check-circle"></i> تحليل الكلمات المفتاحية المتخصصة</li>
+          <li><i class="ph-fill ph-check-circle"></i> تحسين الهيكل التقني للموقع</li>
+          <li><i class="ph-fill ph-check-circle"></i> بناء الروابط الخلفية القوية</li>
+          <li><i class="ph-fill ph-check-circle"></i> تحسين محركات البحث المحلية (GEO)</li>
+          <li><i class="ph-fill ph-check-circle"></i> تقارير أداء شهرية مفصلة</li>
+        </ul>
+        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+      </div>
+      <div class="srv-image">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="SEO & GEO" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 2. Web & Stores -->
+    <section class="service-row reverse" id="service-web">
+      <div class="srv-content">
+        <div class="srv-icon"><i class="ph-duotone ph-shopping-bag"></i></div>
+        <h2 class="srv-title">المتاجر والمواقع الإلكترونية</h2>
+        <p class="srv-short">"منصات بيع ذكية واحترافية"</p>
+        <ul class="srv-list">
+          <li><i class="ph-fill ph-check-circle"></i> تصميم واجهات مستخدم جذابة (UI/UX)</li>
+          <li><i class="ph-fill ph-check-circle"></i> برمجة متاجر WooCommerce / Shopify المخصصة</li>
+          <li><i class="ph-fill ph-check-circle"></i> تكامل مع بوابات الدفع المحلية والعالمية</li>
+          <li><i class="ph-fill ph-check-circle"></i> نظام إدارة مخزون متكامل</li>
+          <li><i class="ph-fill ph-check-circle"></i> تحسين سرعة الأداء والأمان</li>
+        </ul>
+        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+      </div>
+      <div class="srv-image">
+        <img src="https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?auto=format&fit=crop&q=80&w=800" alt="المتاجر والمواقع الإلكترونية" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 3. Content Development -->
+    <section class="service-row" id="service-content">
+      <div class="srv-content">
+        <div class="srv-icon"><i class="ph-duotone ph-pen-nib"></i></div>
+        <h2 class="srv-title">تطوير المحتوى</h2>
+        <p class="srv-short">"محتوى احترافي يبني الثقة"</p>
+        <ul class="srv-list">
+          <li><i class="ph-fill ph-check-circle"></i> استراتيجية محتوى متكاملة</li>
+          <li><i class="ph-fill ph-check-circle"></i> كتابة مقالات SEO متخصصة</li>
+          <li><i class="ph-fill ph-check-circle"></i> إنتاج فيديوهات تسويقية قصيرة</li>
+          <li><i class="ph-fill ph-check-circle"></i> تصميم جرافيكي احترافي</li>
+          <li><i class="ph-fill ph-check-circle"></i> إدارة المدونات والنشر الدوري</li>
+        </ul>
+        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+      </div>
+      <div class="srv-image">
+        <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=800" alt="تطوير المحتوى" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 4. Social Media Management -->
+    <section class="service-row reverse" id="service-social">
+      <div class="srv-content">
+        <div class="srv-icon"><i class="ph-duotone ph-share-network"></i></div>
+        <h2 class="srv-title">إدارة منصات التواصل الاجتماعي</h2>
+        <p class="srv-short">"تفاعل حقيقي يبني مجتمع"</p>
+        <ul class="srv-list">
+          <li><i class="ph-fill ph-check-circle"></i> إدارة حسابات (فيسبوك، إنستغرام، تويتر، لينكدإن)</li>
+          <li><i class="ph-fill ph-check-circle"></i> جدولة منشورات يومية متنوعة</li>
+          <li><i class="ph-fill ph-check-circle"></i> تصميم هوية بصرية موحدة</li>
+          <li><i class="ph-fill ph-check-circle"></i> ردود فورية على التعليقات والرسائل</li>
+          <li><i class="ph-fill ph-check-circle"></i> تقارير تحليلية للأداء والنمو</li>
+        </ul>
+        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+      </div>
+      <div class="srv-image">
+        <img src="https://images.unsplash.com/photo-1618005192384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="إدارة منصات التواصل الاجتماعي" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 5. Ads Management -->
+    <section class="service-row" id="service-ads">
+      <div class="srv-content">
+        <div class="srv-icon"><i class="ph-duotone ph-megaphone"></i></div>
+        <h2 class="srv-title">إدارة الإعلانات</h2>
+        <p class="srv-short">"حملات مستهدفة بأعلى عائد"</p>
+        <ul class="srv-list">
+          <li><i class="ph-fill ph-check-circle"></i> إعلانات Google Ads (بحث، شبكة، يوتيوب)</li>
+          <li><i class="ph-fill ph-check-circle"></i> إعلانات Meta (فيسبوك وإنستغرام)</li>
+          <li><i class="ph-fill ph-check-circle"></i> استهداف دقيق للجمهور المهتم</li>
+          <li><i class="ph-fill ph-check-circle"></i> A/B testing للإعلانات</li>
+          <li><i class="ph-fill ph-check-circle"></i> تحسين مستمر لمعدل التحويل (CRO)</li>
+        </ul>
+        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+      </div>
+      <div class="srv-image">
+        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=800" alt="إدارة الإعلانات" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 6. Mobile Apps -->
+    <section class="service-row reverse" id="service-apps">
+      <div class="srv-content">
+        <div class="srv-icon"><i class="ph-duotone ph-device-mobile"></i></div>
+        <h2 class="srv-title">تطبيقات الهواتف الذكية</h2>
+        <p class="srv-short">"عالمك التجاري في جيب العميل"</p>
+        <ul class="srv-list">
+          <li><i class="ph-fill ph-check-circle"></i> تطوير تطبيقات iOS و Android</li>
+          <li><i class="ph-fill ph-check-circle"></i> تصميم واجهات سهلة الاستخدام</li>
+          <li><i class="ph-fill ph-check-circle"></i> تكامل مع APIs الخارجية</li>
+          <li><i class="ph-fill ph-check-circle"></i> إشعارات push notifications</li>
+          <li><i class="ph-fill ph-check-circle"></i> دعم فني وتحديثات مستمرة</li>
+        </ul>
+        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+      </div>
+      <div class="srv-image">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="تطبيقات الهواتف الذكية" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 7. Corporate AI (Featured) -->
+    <section class="service-row featured-ai" id="service-ai">
+      <div class="srv-content ai-content">
+        <div class="ai-badge">جديد</div>
+        <div class="srv-icon ai-icon"><i class="ph-duotone ph-robot"></i></div>
+        <h2 class="srv-title ai-title">الذكاء الاصطناعي المؤسسي</h2>
+        <p class="srv-short" style="color: var(--secondary);">"تقنيات AI لتوفير العبء وزيادة الكفاءة"</p>
+        <ul class="srv-list ai-list">
+          <li><i class="ph-fill ph-check-circle"></i> روبوتات محادثة ذكية (Chatbots) 24/7</li>
+          <li><i class="ph-fill ph-check-circle"></i> أتمتة المهام الإدارية المتكررة</li>
+          <li><i class="ph-fill ph-check-circle"></i> تحليل البيانات والتنبؤ بالاتجاهات</li>
+          <li><i class="ph-fill ph-check-circle"></i> تخصيص تجربة العملاء بالذكاء الاصطناعي</li>
+          <li><i class="ph-fill ph-check-circle"></i> تكامل ChatGPT ونماذج اللغة الكبيرة</li>
+        </ul>
+        <a href="/#contact" class="btn-primary srv-btn ai-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+      </div>
+      <div class="srv-image ai-image-wrap">
+        <div class="ai-glow"></div>
+        <img src="https://images.unsplash.com/photo-1620712948343-0056ce66a147?auto=format&fit=crop&q=80&w=800" alt="الذكاء الاصطناعي المؤسسي" loading="lazy" class="ai-img">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CTA Section at Bottom -->
+  <section class="final-cta services-cta">
+    <div class="cta-content">
+      <h2>هل أنت جاهز لتنمية نشاطك الرقمي؟</h2>
+      <p style="font-size: 1.15rem; color: rgba(255,255,255,0.7); margin-bottom: 2.5rem;">فريقنا من الخبراء جاهز لمساعدتك في كل خطوة</p>
+      <div class="cta-actions" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; flex-direction: row-reverse;">
+        <a href="https://wa.me/966579644123" target="_blank" class="btn-primary btn-pulse">ابدأ مشروعك الآن</a>
+        <a href="/#contact" class="btn-secondary">تواصل معنا</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+  
+  <!-- CONTACT MENU -->
+  <div class="contact-menu" id="contactMenu">
+    <div class="contact-options">
+      <a href="https://wa.me/966579644123" target="_blank" class="contact-item whatsapp" aria-label="واتساب">
+        <span class="contact-tooltip">واتساب</span>
+        <span class="contact-icon"><i class="ph-fill ph-whatsapp-logo"></i></span>
+      </a>
+      <a href="tel:+966579644123" class="contact-item phone" aria-label="اتصال">
+        <span class="contact-tooltip">اتصال</span>
+        <span class="contact-icon"><i class="ph-fill ph-phone-call"></i></span>
+      </a>
+    </div>
+    <button class="contact-toggle" onclick="toggleContactMenu()" aria-label="تواصل معنا">
+      <span class="toggle-icon"><i class="ph-fill ph-chats-circle"></i></span>
+    </button>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="عودة للأعلى">↑</button>
+
+  <!-- SCRIPTS -->
+  <script src="/js/config.js"></script>
+  <script src="/assets/js/footer-loader.js" defer></script>
+  <!-- Main site JS for mobile menu logic -->
+  <script src="/pages/home/home.js"></script>
+  <!-- Services specific JS -->
+  <script src="/pages/services/services.js"></script>
+  
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu) menu.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>

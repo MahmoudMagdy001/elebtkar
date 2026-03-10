@@ -14,8 +14,8 @@ Options -Indexes
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
 
-  # /home  →  pages/home/index.html
-  RewriteRule ^home/?$  /pages/home/index.html  [L]
+  # /home  →  /index.html
+  RewriteRule ^home/?$  /index.html               [L]
 
   # /blog  →  pages/blog/blog.html
   RewriteRule ^blog/?$  /pages/blog/blog.html   [L]

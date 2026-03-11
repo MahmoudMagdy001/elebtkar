@@ -26,6 +26,11 @@
   <link rel="stylesheet" href="/pages/services/services.css" />
   <!-- Supabase -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  
+  <!-- Moyasar Form -->
+  <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.14.0/moyasar.css" />
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+  <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
 </head>
 <body>
   <!-- Progress Bar -->
@@ -90,12 +95,25 @@
   <!-- CONTACT WIDGET PLACEHOLDER -->
   <div id="contact-widget-placeholder"></div>
 
+  <!-- PAYMENT MODAL -->
+  <div id="paymentModal" class="payment-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="closePaymentModal">&times;</button>
+      <div class="modal-header">
+        <h3 id="paymentPlanTitle">إتمام الطلب</h3>
+        <p id="paymentPlanPrice"></p>
+      </div>
+      <div class="mysr-form"></div>
+    </div>
+  </div>
+
   <!-- SCRIPTS -->
   <script src="/assets/js/config.js"></script>
   <script src="/assets/js/helpers.js"></script>
   <script src="/assets/js/component-loader.js"></script>
   
   <!-- Services specific JS -->
+  <script src="/assets/js/payment-logic.js"></script>
   <script src="/pages/services/services.js"></script>
 </body>
 </html>

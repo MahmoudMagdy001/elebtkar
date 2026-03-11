@@ -112,6 +112,12 @@
       <i class="ph-duotone ph-wallet"></i>
       <span>إدارة حلول الابتكار</span>
     </button>
+
+    <!-- إدارة عمليات الدفع -->
+    <button class="nav-item" data-section="managePayments">
+      <i class="ph-duotone ph-credit-card"></i>
+      <span>عمليات الدفع</span>
+    </button>
   </div>
   
   <div class="sidebar-footer">
@@ -424,11 +430,16 @@
 
     <!-- Section: Manage Pricing Plans -->
     <section id="managePricingPlansSection" class="admin-section">
+      <!-- ... existing content ... -->
+    </section>
+
+    <!-- Section: Manage Payments -->
+    <section id="managePaymentsSection" class="admin-section">
       <div class="dash-card">
         <div class="dash-card-header">
-          <i class="ph-duotone ph-wallet"></i>
-          <h1>إدارة حلول الابتكار</h1>
-          <button id="refreshPricingPlans" class="btn-refresh" title="تحديث البيانات">
+          <i class="ph-duotone ph-credit-card"></i>
+          <h1>عمليات الدفع (Moyasar)</h1>
+          <button id="refreshPayments" class="btn-refresh" title="تحديث البيانات">
             <i class="ph ph-arrows-clockwise"></i>
           </button>
         </div>
@@ -437,16 +448,17 @@
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>اسم الباقة</th>
-                  <th>السعر</th>
-                  <th>الترتيب</th>
-                  <th>مميزة؟</th>
-                  <th>الإجراءات</th>
+                  <th>التاريخ</th>
+                  <th>العميل</th>
+                  <th>باقة الاشتراك</th>
+                  <th>المبلغ</th>
+                  <th>الحالة</th>
+                  <th>رقم العملية</th>
                 </tr>
               </thead>
-              <tbody id="pricingPlansTableBody">
+              <tbody id="paymentsTableBody">
                 <tr>
-                  <td colspan="5" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
+                  <td colspan="6" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
                 </tr>
               </tbody>
             </table>

@@ -183,6 +183,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    // 9. Payment Modal Close logic
+    const closeBtn = document.getElementById('closePaymentModal');
+    const paymentModal = document.getElementById('paymentModal');
+    if (closeBtn && paymentModal) {
+        closeBtn.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+        });
+        
+        // Close on outside click
+        paymentModal.addEventListener('click', (e) => {
+            if (e.target === paymentModal) {
+                paymentModal.classList.remove('active');
+            }
+        });
+    }
+
     // Call fetch on load
     await fetchAndRenderServices();
     

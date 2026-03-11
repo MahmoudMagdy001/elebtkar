@@ -123,6 +123,8 @@ navItems.forEach(item => {
       loadServices();
     } else if (targetSection === 'managePricingPlans') {
       loadPricingPlans();
+    } else if (targetSection === 'managePayments') {
+      loadPayments();
     }
   });
 });
@@ -384,6 +386,47 @@ async function handleEditPricingPlan(id) {
 document.getElementById('refreshPricingPlans')?.addEventListener('click', loadPricingPlans);
 window.handleDeletePricingPlan = handleDeletePricingPlan;
 window.handleEditPricingPlan = handleEditPricingPlan;
+
+// ── Payments Management ──────────────────────
+async function loadPayments() {
+  const tableBody = document.getElementById('paymentsTableBody');
+  const refreshBtn = document.getElementById('refreshPayments');
+  
+  if (refreshBtn) refreshBtn.classList.add('ph-spin');
+
+  try {
+    const { data: payments, error } = await sb
+      .from('payments')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    if (!payments || payments.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem;">لا توجد عمليات دفع حالياً</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = payments.map(p => `
+      <tr>
+        <td>${new Date(p.created_at).toLocaleString('ar-EG')}</td>
+        <td>${p.user_name || 'عميل'} ${p.user_email ? `<br><small>${p.user_email}</small>` : ''}</td>
+        <td><span class="code-pill">${p.plan_name}</span></td>
+        <td><strong>${p.amount} ريال</strong></td>
+        <td><span class="status-badge ${p.status === 'paid' ? 'success' : 'failed'}">${p.status === 'paid' ? 'مدفوع' : p.status}</span></td>
+        <td dir="ltr" style="font-family: monospace;">${p.moyasar_id}</td>
+      </tr>
+    `).join('');
+
+  } catch (err) {
+    console.error('Error fetching payments:', err);
+    tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: #e53935;">فشل تحميل البيانات: ${err.message}</td></tr>`;
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove('ph-spin');
+  }
+}
+
+document.getElementById('refreshPayments')?.addEventListener('click', loadPayments);
 
 // ── Discount Codes Handling ──────────────────
 async function loadDiscountCodes() {

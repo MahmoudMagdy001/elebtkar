@@ -195,7 +195,7 @@ const fetchAndRenderPricing = async () => {
             <li class="included"><i class="ph ph-bold ph-check"></i> ${feature}</li>
           `).join('')}
         </ul>
-        <a href="/#contact" class="btn-pricing ${plan.is_popular ? 'btn-pricing-popular' : ''}">ابدأ الآن</a>
+        <button class="btn-pricing ${plan.is_popular ? 'btn-pricing-popular' : ''}" onclick="PaymentHandler.initPayment(${JSON.stringify({title: plan.title, price: plan.price, id: plan.id}).replace(/"/g, '&quot;')})">ابدأ الآن</button>
       </div>
     `}).join('');
   } catch (err) {

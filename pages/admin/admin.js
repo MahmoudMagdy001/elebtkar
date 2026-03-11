@@ -297,6 +297,8 @@ window.handleDeleteArticle = handleDeleteArticle;
 window.handleEditArticle = handleEditArticle;
 window.handleDeleteService = handleDeleteService;
 window.handleEditService = handleEditService;
+window.handleDeletePricingPlan = handleDeletePricingPlan;
+window.handleEditPricingPlan = handleEditPricingPlan;
 
 // ── Pricing Plans Management ─────────────────
 async function loadPricingPlans() {
@@ -571,10 +573,15 @@ form.addEventListener('submit', async (e) => {
     if (imageUrl) postData.featured_image_url = imageUrl;
 
     if (editingPostId) {
-      await updatePost(editingPostId, postData);
+      const { data, error } = await sb.from('posts').update(postData).eq('id', editingPostId).select();
+      if (error) throw error;
+      if (!data || data.length === 0) {
+        throw new Error('لم يتم تحديث المقالة. تأكد من صلاحيات الجداول (RLS) في Supabase.');
+      }
       showToast('✅ تم تحديث المقالة بنجاح!', 'success');
     } else {
-      await createPost({ ...postData, featured_image_url: imageUrl });
+      const { data, error } = await sb.from('posts').insert([{ ...postData, featured_image_url: imageUrl }]).select();
+      if (error) throw error;
       showToast('✅ تم نشر المقالة بنجاح!', 'success');
     }
     
@@ -663,14 +670,18 @@ if (srvForm) {
       if (icon) srvData.icon = icon;
       if (bg_icon) srvData.bg_icon = bg_icon;
 
-      let error;
+      let result;
       if (editingServiceId) {
-        ({ error } = await sb.from('services').update(srvData).eq('id', editingServiceId));
+        result = await sb.from('services').update(srvData).eq('id', editingServiceId).select();
       } else {
-        ({ error } = await sb.from('services').insert([srvData]));
+        result = await sb.from('services').insert([srvData]).select();
       }
 
+      const { data, error } = result;
       if (error) throw error;
+      if (editingServiceId && (!data || data.length === 0)) {
+        throw new Error('لم يتم تحديث أي بيانات. تأكد من صلاحيات الجداول (RLS) في Supabase.');
+      }
 
       showToast(`✅ تم ${editingServiceId ? 'تحديث' : 'إضافة'} الخدمة بنجاح!`, 'success');
       
@@ -733,14 +744,18 @@ if (planForm) {
         is_popular
       };
 
-      let error;
+      let result;
       if (editingPricingPlanId) {
-        ({ error } = await sb.from('pricing_plans').update(planData).eq('id', editingPricingPlanId));
+        result = await sb.from('pricing_plans').update(planData).eq('id', editingPricingPlanId).select();
       } else {
-        ({ error } = await sb.from('pricing_plans').insert([planData]));
+        result = await sb.from('pricing_plans').insert([planData]).select();
       }
 
+      const { data, error } = result;
       if (error) throw error;
+      if (editingPricingPlanId && (!data || data.length === 0)) {
+        throw new Error('لم يتم تحديث الباقة. تأكد من تفعيل صلاحيات التعديل (UPDATE) في Supabase.');
+      }
 
       showToast(`✅ تم ${editingPricingPlanId ? 'تحديث' : 'إضافة'} الباقة بنجاح!`, 'success');
       

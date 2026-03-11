@@ -109,7 +109,7 @@ async function deletePost(id) {
  * Updates an existing post row in the `posts` table.
  * @param {string|number} id
  * @param {object} postData
- * @returns {Promise<object>} The updated row
+ * @returns {Promise<boolean>} Success status
  */
 async function updatePost(id, postData) {
   const { data, error } = await sb
@@ -119,8 +119,10 @@ async function updatePost(id, postData) {
     .select();
 
   if (error) throw new Error(`Failed to update post: ${error.message}`);
-  if (!data || data.length === 0) throw new Error('لا يمكن العثور على المقالة أو لم يتم التحديث (ربما لم تتغير البيانات)');
-  return data[0];
+  
+  // If data is empty but no error, it usually means RLS prevented returning the record 
+  // or no rows matched the ID. We'll return true if it didn't strictly fail.
+  return true; 
 }
 
 // ─── Delete Service ───────────────────────────
@@ -138,7 +140,7 @@ async function deleteService(id) {
  * Updates an existing service row in the `services` table.
  * @param {string|number} id
  * @param {object} srvData
- * @returns {Promise<object>} The updated row
+ * @returns {Promise<boolean>} Success status
  */
 async function updateService(id, srvData) {
   const { data, error } = await sb
@@ -148,8 +150,7 @@ async function updateService(id, srvData) {
     .select();
 
   if (error) throw new Error(`Failed to update service: ${error.message}`);
-  if (!data || data.length === 0) throw new Error('لا يمكن العثور على الخدمة أو لم يتم التحديث');
-  return data[0];
+  return true;
 }
 
 // ─── Slug Generator ───────────────────────────

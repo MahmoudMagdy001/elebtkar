@@ -82,6 +82,36 @@
       <i class="ph-duotone ph-ticket"></i>
       <span>عرض أكواد الخصم</span>
     </button>
+
+    <!-- إضافة خدمة - الجديدة -->
+    <button class="nav-item" data-section="addService">
+      <i class="ph-duotone ph-briefcase"></i>
+      <span>إضافة خدمة</span>
+    </button>
+
+    <!-- إضافة باقة أسعار -->
+    <button class="nav-item" data-section="addPricingPlan">
+      <i class="ph-duotone ph-currency-circle-dollar"></i>
+      <span>إضافة حل ابتكار</span>
+    </button>
+
+    <!-- إدارة المقالات - الجديدة -->
+    <button class="nav-item" data-section="managePosts">
+      <i class="ph-duotone ph-article-ny-times"></i>
+      <span>إدارة المقالات</span>
+    </button>
+
+    <!-- إدارة الخدمات - الجديدة -->
+    <button class="nav-item" data-section="manageServices">
+      <i class="ph-duotone ph-squares-four"></i>
+      <span>إدارة الخدمات</span>
+    </button>
+
+    <!-- إدارة باقات الأسعار -->
+    <button class="nav-item" data-section="managePricingPlans">
+      <i class="ph-duotone ph-wallet"></i>
+      <span>إدارة حلول الابتكار</span>
+    </button>
   </div>
   
   <div class="sidebar-footer">
@@ -194,6 +224,229 @@
                 <!-- Data will be loaded here -->
                 <tr>
                   <td colspan="4" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Add Service -->
+    <section id="addServiceSection" class="admin-section">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-briefcase"></i>
+          <h1>إضافة خدمة جديدة</h1>
+        </div>
+        <div class="dash-card-body">
+          <form id="serviceForm" novalidate>
+            <div class="field-group">
+              <label for="srvTitle">اسم الخدمة <span class="required">*</span></label>
+              <input type="text" id="srvTitle" name="srvTitle" placeholder="مثال: تحسين محركات البحث SEO" required />
+            </div>
+
+            <div class="field-group">
+              <label for="srvSubtitle">العنوان الفرعي</label>
+              <input type="text" id="srvSubtitle" name="srvSubtitle" placeholder="مثال: نهيّئ موقعك ليتصدر نتائج البحث" />
+            </div>
+
+            <div class="field-group">
+              <label for="srvDescription">الوصف <span class="required">*</span></label>
+              <textarea id="srvDescription" name="srvDescription" placeholder="وصف الخدمة الذي سيظهر للمستخدم..." required></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="srvFeatures">المميزات (ميزة في كل سطر) <span class="required">*</span></label>
+              <textarea id="srvFeatures" name="srvFeatures" placeholder="ميزة 1&#10;ميزة 2&#10;ميزة 3" required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label for="srvIcon">الأيقونة الرئيسية (صورة) <span class="required">*</span></label>
+                <input type="file" id="srvIcon" name="srvIcon" accept="image/*" required />
+              </div>
+              <div class="field-group">
+                <label for="srvBgIcon">أيقونة الخلفية (صورة)</label>
+                <input type="file" id="srvBgIcon" name="srvBgIcon" accept="image/*" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label for="srvOrder">رقم الترتيب</label>
+                <input type="number" id="srvOrder" name="srvOrder" value="1" min="1" required />
+              </div>
+            </div>
+
+            <div class="form-row" style="gap: 2rem; margin-top: 1rem;">
+              <div class="checkbox-group">
+                <input type="checkbox" id="srvReverse" name="srvReverse" />
+                <label for="srvReverse">عكس اتجاه التصميم (Reverse)</label>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="srvSubmitBtn">
+              <div class="spinner" id="srvSubmitSpinner"></div>
+              <i class="ph-duotone ph-cloud-arrow-up" id="srvSubmitIcon"></i>
+              <span id="srvSubmitLabel">حفظ الخدمة</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Manage Posts -->
+    <section id="managePostsSection" class="admin-section">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-article-ny-times"></i>
+          <h1>إدارة المقالات</h1>
+          <button id="refreshPosts" class="btn-refresh" title="تحديث البيانات">
+            <i class="ph ph-arrows-clockwise"></i>
+          </button>
+        </div>
+        <div class="dash-card-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>العنوان</th>
+                  <th>الرابط (Slug)</th>
+                  <th>التاريخ</th>
+                  <th>الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="postsTableBody">
+                <tr>
+                  <td colspan="4" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Manage Services -->
+    <section id="manageServicesSection" class="admin-section">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-squares-four"></i>
+          <h1>إدارة الخدمات</h1>
+          <button id="refreshServices" class="btn-refresh" title="تحديث البيانات">
+            <i class="ph ph-arrows-clockwise"></i>
+          </button>
+        </div>
+        <div class="dash-card-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>اسم الخدمة</th>
+                  <th>الترتيب</th>
+                  <th>الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="servicesTableBody">
+                <tr>
+                  <td colspan="3" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Add Pricing Plan -->
+    <section id="addPricingPlanSection" class="admin-section">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-currency-circle-dollar"></i>
+          <h1>إضافة حل ابتكار (باقة)</h1>
+        </div>
+        <div class="dash-card-body">
+          <form id="pricingPlanForm" novalidate>
+            <div class="field-group">
+              <label for="planTitle">اسم الباقة <span class="required">*</span></label>
+              <input type="text" id="planTitle" name="planTitle" placeholder="مثال: الحل الاساسي" required />
+            </div>
+
+            <div class="field-group">
+              <label for="planSubtitle">العنوان الفرعي</label>
+              <input type="text" id="planSubtitle" name="planSubtitle" placeholder="مثال: مثالية للحصول علي ابتكار واحد" />
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label for="planPrice">السعر <span class="required">*</span></label>
+                <input type="number" id="planPrice" name="planPrice" placeholder="مثال: 2000" min="0" required />
+              </div>
+              <div class="field-group">
+                <label for="planCurrency">العملة</label>
+                <input type="text" id="planCurrency" name="planCurrency" value="﷼" />
+              </div>
+              <div class="field-group">
+                <label for="planCycle">دورة الدفع</label>
+                <input type="text" id="planCycle" name="planCycle" value="شهرياً" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="planFeatures">الخدمات المشمولة (ميزة في كل سطر) <span class="required">*</span></label>
+              <textarea id="planFeatures" name="planFeatures" placeholder="ميزة 1&#10;ميزة 2&#10;ميزة 3" required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label for="planOrder">رقم الترتيب</label>
+                <input type="number" id="planOrder" name="planOrder" value="1" min="1" required />
+              </div>
+            </div>
+
+            <div class="form-row" style="gap: 2rem; margin-top: 1rem;">
+              <div class="checkbox-group">
+                <input type="checkbox" id="planPopular" name="planPopular" />
+                <label for="planPopular">باقة مميزة (الأكثر طلباً)</label>
+              </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="planSubmitBtn">
+              <div class="spinner" id="planSubmitSpinner"></div>
+              <i class="ph-duotone ph-cloud-arrow-up" id="planSubmitIcon"></i>
+              <span id="planSubmitLabel">حفظ الباقة</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Manage Pricing Plans -->
+    <section id="managePricingPlansSection" class="admin-section">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-wallet"></i>
+          <h1>إدارة حلول الابتكار</h1>
+          <button id="refreshPricingPlans" class="btn-refresh" title="تحديث البيانات">
+            <i class="ph ph-arrows-clockwise"></i>
+          </button>
+        </div>
+        <div class="dash-card-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>اسم الباقة</th>
+                  <th>السعر</th>
+                  <th>الترتيب</th>
+                  <th>مميزة؟</th>
+                  <th>الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="pricingPlansTableBody">
+                <tr>
+                  <td colspan="5" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
                 </tr>
               </tbody>
             </table>

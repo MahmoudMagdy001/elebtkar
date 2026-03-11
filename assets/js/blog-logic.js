@@ -104,6 +104,54 @@ async function deletePost(id) {
   if (error) throw new Error(`Failed to delete post: ${error.message}`);
 }
 
+// ─── Update Post ──────────────────────────────
+/**
+ * Updates an existing post row in the `posts` table.
+ * @param {string|number} id
+ * @param {object} postData
+ * @returns {Promise<object>} The updated row
+ */
+async function updatePost(id, postData) {
+  const { data, error } = await sb
+    .from('posts')
+    .update(postData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw new Error(`Failed to update post: ${error.message}`);
+  return data;
+}
+
+// ─── Delete Service ───────────────────────────
+/**
+ * Deletes a service by its id.
+ * @param {string|number} id
+ */
+async function deleteService(id) {
+  const { error } = await sb.from('services').delete().eq('id', id);
+  if (error) throw new Error(`Failed to delete service: ${error.message}`);
+}
+
+// ─── Update Service ──────────────────────────
+/**
+ * Updates an existing service row in the `services` table.
+ * @param {string|number} id
+ * @param {object} srvData
+ * @returns {Promise<object>} The updated row
+ */
+async function updateService(id, srvData) {
+  const { data, error } = await sb
+    .from('services')
+    .update(srvData)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw new Error(`Failed to update service: ${error.message}`);
+  return data;
+}
+
 // ─── Slug Generator ───────────────────────────
 /**
  * Converts any English string into a URL-safe slug.

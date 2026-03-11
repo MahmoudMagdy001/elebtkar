@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="/assets/css/components.css" />
   <!-- Services CSS -->
   <link rel="stylesheet" href="/pages/services/services.css" />
+  <!-- Supabase -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <!-- Progress Bar -->
@@ -50,150 +52,10 @@
   </header>
 
   <!-- SERVICES MAIN -->
-  <main class="services-container">
-    
-    <!-- 1. SEO & GEO -->
-    <section class="service-row" id="service-seo">
-      <div class="srv-content">
-        <div class="srv-icon"><i class="ph ph-duotone ph-magnifying-glass"></i></div>
-        <h2 class="srv-title">SEO &amp; GEO</h2>
-        <p class="srv-short">"نهيّئ موقعك ليتصدر نتائج البحث"</p>
-        <ul class="srv-list">
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تحليل الكلمات المفتاحية المتخصصة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تحسين الهيكل التقني للموقع</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> بناء الروابط الخلفية القوية</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تحسين محركات البحث المحلية (GEO)</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تقارير أداء شهرية مفصلة</li>
-        </ul>
-        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
-      </div>
-      <div class="srv-image icon-showcase theme-gradient-1">
-        <i class="ph ph-duotone ph-chart-line-up"></i>
-      </div>
-    </section>
-
-    <!-- 2. Web & Stores -->
-    <section class="service-row reverse" id="service-web">
-      <div class="srv-content">
-        <div class="srv-icon"><i class="ph ph-duotone ph-shopping-bag"></i></div>
-        <h2 class="srv-title">المتاجر والمواقع الإلكترونية</h2>
-        <p class="srv-short">"منصات بيع ذكية واحترافية"</p>
-        <ul class="srv-list">
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تصميم واجهات مستخدم جذابة (UI/UX)</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> برمجة متاجر WooCommerce / Shopify المخصصة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تكامل مع بوابات الدفع المحلية والعالمية</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> نظام إدارة مخزون متكامل</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تحسين سرعة الأداء والأمان</li>
-        </ul>
-        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph ph-bold ph-arrow-left"></i></a>
-      </div>
-      <div class="srv-image icon-showcase theme-gradient-2">
-        <i class="ph ph-duotone ph-storefront"></i>
-      </div>
-    </section>
-
-    <!-- 3. Content Development -->
-    <section class="service-row" id="service-content">
-      <div class="srv-content">
-        <div class="srv-icon"><i class="ph ph-duotone ph-pen-nib"></i></div>
-        <h2 class="srv-title">تطوير المحتوى</h2>
-        <p class="srv-short">"محتوى احترافي يبني الثقة"</p>
-        <ul class="srv-list">
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> استراتيجية محتوى متكاملة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> كتابة مقالات SEO متخصصة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> إنتاج فيديوهات تسويقية قصيرة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تصميم جرافيكي احترافي</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> إدارة المدونات والنشر الدوري</li>
-        </ul>
-        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph ph-bold ph-arrow-left"></i></a>
-      </div>
-      <div class="srv-image icon-showcase theme-gradient-3">
-        <i class="ph ph-duotone ph-article"></i>
-      </div>
-    </section>
-
-    <!-- 4. Social Media Management -->
-    <section class="service-row reverse" id="service-social">
-      <div class="srv-content">
-        <div class="srv-icon"><i class="ph ph-duotone ph-share-network"></i></div>
-        <h2 class="srv-title">إدارة منصات التواصل الاجتماعي</h2>
-        <p class="srv-short">"تفاعل حقيقي يبني مجتمع"</p>
-        <ul class="srv-list">
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> إدارة حسابات (فيسبوك، إنستغرام، تويتر، لينكدإن)</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> جدولة منشورات يومية متنوعة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تصميم هوية بصرية موحدة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> ردود فورية على التعليقات والرسائل</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تقارير تحليلية للأداء والنمو</li>
-        </ul>
-        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph ph-bold ph-arrow-left"></i></a>
-      </div>
-      <div class="srv-image icon-showcase theme-gradient-4">
-        <i class="ph ph-duotone ph-users-three"></i>
-      </div>
-    </section>
-
-    <!-- 5. Ads Management -->
-    <section class="service-row" id="service-ads">
-      <div class="srv-content">
-        <div class="srv-icon"><i class="ph ph-duotone ph-megaphone"></i></div>
-        <h2 class="srv-title">إدارة الإعلانات</h2>
-        <p class="srv-short">"حملات مستهدفة بأعلى عائد"</p>
-        <ul class="srv-list">
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> إعلانات Google Ads (بحث، شبكة، يوتيوب)</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> إعلانات Meta (فيسبوك وإنستغرام)</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> استهداف دقيق للجمهور المهتم</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> A/B testing للإعلانات</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تحسين مستمر لمعدل التحويل (CRO)</li>
-        </ul>
-        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph ph-bold ph-arrow-left"></i></a>
-      </div>
-      <div class="srv-image icon-showcase theme-gradient-5">
-        <i class="ph ph-duotone ph-target"></i>
-      </div>
-    </section>
-
-    <!-- 6. Mobile Apps -->
-    <section class="service-row reverse" id="service-apps">
-      <div class="srv-content">
-        <div class="srv-icon"><i class="ph ph-duotone ph-device-mobile"></i></div>
-        <h2 class="srv-title">تطبيقات الهواتف الذكية</h2>
-        <p class="srv-short">"عالمك التجاري في جيب العميل"</p>
-        <ul class="srv-list">
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تطوير تطبيقات iOS و Android</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تصميم واجهات سهلة الاستخدام</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تكامل مع APIs الخارجية</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> إشعارات push notifications</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> دعم فني وتحديثات مستمرة</li>
-        </ul>
-        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph ph-bold ph-arrow-left"></i></a>
-      </div>
-      <div class="srv-image icon-showcase theme-gradient-6">
-        <i class="ph ph-duotone ph-devices"></i>
-      </div>
-    </section>
-
-    <!-- 7. Corporate AI (Featured) -->
-    <section class="service-row featured-ai" id="service-ai">
-      <div class="srv-content ai-content">
-        <div class="ai-badge">جديد</div>
-        <div class="srv-icon ai-icon"><i class="ph ph-duotone ph-robot"></i></div>
-        <h2 class="srv-title ai-title">الذكاء الاصطناعي المؤسسي</h2>
-        <p class="srv-short" style="color: var(--secondary);">"تقنيات AI لتوفير العبء وزيادة الكفاءة"</p>
-        <ul class="srv-list ai-list">
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> روبوتات محادثة ذكية (Chatbots) 24/7</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> أتمتة المهام الإدارية المتكررة</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تحليل البيانات والتنبؤ بالاتجاهات</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تخصيص تجربة العملاء بالذكاء الاصطناعي</li>
-          <li class="included"><i class="ph ph-fill ph-check-circle"></i> تكامل ChatGPT ونماذج اللغة الكبيرة</li>
-        </ul>
-        <a href="/#contact" class="btn-primary srv-btn ai-btn">اطلب الخدمة <i class="ph ph-bold ph-arrow-left"></i></a>
-      </div>
-      <div class="srv-image ai-image-wrap icon-showcase">
-        <div class="ai-glow"></div>
-        <i class="ph ph-duotone ph-brain"></i>
-      </div>
-    </section>
-
+  <main class="services-container" id="services-list-container">
+    <div class="flex-center py-5" id="services-loader">
+      <p style="color:var(--white); opacity:0.7;">جاري تحميل الخدمات...</p>
+    </div>
   </main>
 
   <!-- PRICING PLANS -->
@@ -204,58 +66,8 @@
         <h2 class="section-title section-title--white">حلول تناسب جميع احتياجاتك</h2>
         <p class="section-subtitle section-subtitle--white mx-auto">اختر الابتكار الأنسب لنمو نشاطك التجاري</p>
       </div>
-      <div class="pricing-grid fade-in">
-        
-        <!-- Starter Plan -->
-        <div class="pricing-card">
-          <h3 class="plan-name">الحل الاساسي</h3>
-          <p class="plan-desc">مثالية للحصول علي ابتكار واحد</p>
-          <div class="plan-price">
-            <img src="/currency.png" alt="ريال" class="currency-img">
-            <span class="amount">2,000</span>
-            <span class="period">/ شهرياً</span>
-          </div>
-          <ul class="plan-features">
-            <li class="included"><i class="ph ph-bold ph-check"></i> تحسين جميع محركات البحث ( SEO / GEO )</li>
-            <li class="included"><i class="ph ph-bold ph-check"></i> تطوير المحتوي</li>
-            <li class="included"><i class="ph ph-bold ph-check"></i> ادارة الترويج الإعلاني</li>
-          </ul>
-          <a href="/#contact" class="btn-pricing">ابدأ الآن</a>
-        </div>
-
-        <!-- Growth Plan -->
-        <div class="pricing-card popular">
-          <div class="popular-badge">الحل الامثل - الأكثر طلباً</div>
-          <h3 class="plan-name">الحل الامثل</h3>
-          <p class="plan-desc">مثالية للحصول علي ابتكارين</p>
-          <div class="plan-price">
-            <img src="/currency.png" alt="ريال" class="currency-img">
-            <span class="amount">3,000</span>
-            <span class="period">/ شهرياً</span>
-          </div>
-          <ul class="plan-features">
-            <li class="included"><i class="ph ph-bold ph-check"></i> تحسين جميع محركات البحث ( SEO / GEO ) + تطوير المحتوي</li>
-            <li class="included"><i class="ph ph-bold ph-check"></i> تطوير المحتوي + ادارة الترويج الإعلاني</li>
-            <li class="included"><i class="ph ph-bold ph-check"></i> ادارة الترويج الإعلاني + تحسين جميع محركات البحث ( SEO / GEO )</li>
-          </ul>
-          <a href="/#contact" class="btn-pricing btn-pricing-popular">ابدأ الآن</a>
-        </div>
-
-        <!-- Enterprise Plan -->
-        <div class="pricing-card">
-          <h3 class="plan-name">الحل المتكامل</h3>
-          <p class="plan-desc">مثالية للحصول علي ثلاث ابتكارات او اكثر</p>
-          <div class="plan-price">
-            <img src="/currency.png" alt="ريال" class="currency-img">
-            <span class="amount">3,500</span>
-            <span class="period">/ شهرياً</span>
-          </div>
-          <ul class="plan-features">
-            <li class="included"><i class="ph ph-bold ph-check"></i> تحسين جميع محركات البحث ( SEO / GEO ) + تطوير المحتوي + ادارة الترويج الإعلاني</li>
-          </ul>
-          <a href="/#contact" class="btn-pricing">ابدأ الآن</a>
-        </div>
-
+      <div class="pricing-grid fade-in" id="pricingContainer">
+        <!-- Pricing cards will be rendered dynamically by JS -->
       </div>
     </div>
   </section>

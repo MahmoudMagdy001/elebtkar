@@ -1,7 +1,13 @@
 /* ── Post page specific styles ── */
 body { background: var(--gray-50); }
 
-
+/* Force navbar solid background on article page */
+nav {
+  background: rgba(0,37,58,0.85);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  /* Make it sticky so it doesn't overlap the layout initially if not fixed */
+}
 
 /* ── Layout ── */
 .post-layout { max-width: 860px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }

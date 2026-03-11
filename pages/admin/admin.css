@@ -282,6 +282,28 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
 .data-table tr:last-child td { border-bottom: none; }
 .data-table tr:hover { background: rgba(0,69,97,0.02); }
 
+.data-table .actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+.data-table .actions button {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all var(--transition);
+}
+.btn-edit { background: #e3f2fd; color: #1976d2; }
+.btn-edit:hover { background: #1976d2; color: #fff; }
+.btn-delete { background: #ffebee; color: #e53935; }
+.btn-delete:hover { background: #e53935; color: #fff; }
+
 .btn-refresh {
   background: var(--gray-100);
   border: none;

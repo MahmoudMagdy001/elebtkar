@@ -117,9 +117,273 @@ navItems.forEach(item => {
     // If switching to discount codes, refresh them
     if (targetSection === 'discountCodes') {
       loadDiscountCodes();
+    } else if (targetSection === 'managePosts') {
+      loadArticles();
+    } else if (targetSection === 'manageServices') {
+      loadServices();
+    } else if (targetSection === 'managePricingPlans') {
+      loadPricingPlans();
     }
   });
 });
+
+// ── Variables for Editing ────────────────────
+let editingPostId = null;
+let editingServiceId = null;
+let editingPricingPlanId = null;
+
+// ── Articles Management ──────────────────────
+async function loadArticles() {
+  const tableBody = document.getElementById('postsTableBody');
+  const refreshBtn = document.getElementById('refreshPosts');
+  if (refreshBtn) refreshBtn.classList.add('ph-spin');
+
+  try {
+    const { data, error } = await sb
+      .from('posts')
+      .select('id, title, slug, created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 2rem;">لا توجد مقالات حالياً</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = data.map(item => `
+      <tr>
+        <td>${item.title}</td>
+        <td dir="ltr">${item.slug}</td>
+        <td>${new Date(item.created_at).toLocaleDateString('ar-EG')}</td>
+        <td class="actions">
+          <button class="btn-edit" onclick="handleEditArticle(${JSON.stringify(item).replace(/"/g, '&quot;')})" title="تعديل"><i class="ph ph-pencil-simple"></i></button>
+          <button class="btn-delete" onclick="handleDeleteArticle(${item.id})" title="حذف"><i class="ph ph-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Error fetching articles:', err);
+    tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 2rem; color: #e53935;">فشل تحميل البيانات</td></tr>`;
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove('ph-spin');
+  }
+}
+
+async function handleDeleteArticle(id) {
+  if (!confirm('هل أنت متأكد من حذف هذه المقالة؟')) return;
+  try {
+    await deletePost(id);
+    showToast('تم حذف المقالة بنجاح', 'success');
+    loadArticles();
+  } catch (err) {
+    showToast(`فشل الحذف: ${err.message}`, 'error');
+  }
+}
+
+async function handleEditArticle(post) {
+  try {
+    const { data: fullPost, error } = await sb.from('posts').select('*').eq('id', post.id).single();
+    if (error) throw error;
+
+    editingPostId = fullPost.id;
+    document.getElementById('title').value = fullPost.title;
+    document.getElementById('titleEn').value = ''; // We don't necessarily have global titleEn
+    document.getElementById('slug').value = fullPost.slug;
+    document.getElementById('metaDescription').value = fullPost.meta_description;
+    document.getElementById('content').value = fullPost.content;
+    document.getElementById('altText').value = fullPost.alt_text;
+    
+    imagePreview.src = fullPost.featured_image_url;
+    imagePreview.style.display = 'block';
+    
+    document.getElementById('submitLabel').textContent = 'تحديث المقالة';
+    document.getElementById('addPostSection').classList.add('active');
+    document.getElementById('managePostsSection').classList.remove('active');
+    
+    // Update active nav
+    navItems.forEach(i => i.classList.remove('active'));
+    document.querySelector('[data-section="addPost"]').classList.add('active');
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    showToast('فشل تحميل بيانات المقالة للتعديل', 'error');
+  }
+}
+
+document.getElementById('refreshPosts')?.addEventListener('click', loadArticles);
+
+// ── Services Management ──────────────────────
+async function loadServices() {
+  const tableBody = document.getElementById('servicesTableBody');
+  const refreshBtn = document.getElementById('refreshServices');
+  if (refreshBtn) refreshBtn.classList.add('ph-spin');
+
+  try {
+    const { data, error } = await sb
+      .from('services')
+      .select('id, title, order_num')
+      .order('order_num', { ascending: true });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 2rem;">لا توجد خدمات حالياً</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = data.map(item => `
+      <tr>
+        <td>${item.title}</td>
+        <td>${item.order_num}</td>
+        <td class="actions">
+          <button class="btn-edit" onclick="handleEditService(${JSON.stringify(item).replace(/"/g, '&quot;')})" title="تعديل"><i class="ph ph-pencil-simple"></i></button>
+          <button class="btn-delete" onclick="handleDeleteService(${item.id})" title="حذف"><i class="ph ph-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Error fetching services:', err);
+    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; padding: 2rem; color: #e53935;">فشل تحميل البيانات</td></tr>`;
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove('ph-spin');
+  }
+}
+
+async function handleDeleteService(id) {
+  if (!confirm('هل أنت متأكد من حذف هذه الخدمة؟')) return;
+  try {
+    await deleteService(id);
+    showToast('تم حذف الخدمة بنجاح', 'success');
+    loadServices();
+  } catch (err) {
+    showToast(`فشل الحذف: ${err.message}`, 'error');
+  }
+}
+
+async function handleEditService(srvSummary) {
+  try {
+    const { data: srv, error } = await sb.from('services').select('*').eq('id', srvSummary.id).single();
+    if (error) throw error;
+
+    editingServiceId = srv.id;
+    document.getElementById('srvTitle').value = srv.title;
+    document.getElementById('srvSubtitle').value = srv.subtitle || '';
+    document.getElementById('srvDescription').value = srv.description;
+    document.getElementById( 'srvFeatures').value = (srv.features || []).join('\n');
+    document.getElementById('srvOrder').value = srv.order_num;
+    document.getElementById('srvReverse').checked = srv.is_reverse;
+    
+    document.getElementById('srvSubmitLabel').textContent = 'تحديث الخدمة';
+    document.getElementById('addServiceSection').classList.add('active');
+    document.getElementById('manageServicesSection').classList.remove('active');
+    
+    // Update active nav
+    navItems.forEach(i => i.classList.remove('active'));
+    document.querySelector('[data-section="addService"]').classList.add('active');
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    showToast('فشل تحميل بيانات الخدمة للتعديل', 'error');
+  }
+}
+
+document.getElementById('refreshServices')?.addEventListener('click', loadServices);
+
+// Expose handlers to window for onclick
+window.handleDeleteArticle = handleDeleteArticle;
+window.handleEditArticle = handleEditArticle;
+window.handleDeleteService = handleDeleteService;
+window.handleEditService = handleEditService;
+
+// ── Pricing Plans Management ─────────────────
+async function loadPricingPlans() {
+  const tableBody = document.getElementById('pricingPlansTableBody');
+  const refreshBtn = document.getElementById('refreshPricingPlans');
+  if (refreshBtn) refreshBtn.classList.add('ph-spin');
+
+  try {
+    const { data, error } = await sb
+      .from('pricing_plans')
+      .select('id, title, price, order_num, is_popular')
+      .order('order_num', { ascending: true });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem;">لا توجد باقات حالياً</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = data.map(item => `
+      <tr>
+        <td>${item.title}</td>
+        <td>${item.price.toLocaleString()}</td>
+        <td>${item.order_num}</td>
+        <td>${item.is_popular ? '<span class="code-pill">نعم</span>' : 'لا'}</td>
+        <td class="actions">
+          <button class="btn-edit" onclick="handleEditPricingPlan(${item.id})" title="تعديل"><i class="ph ph-pencil-simple"></i></button>
+          <button class="btn-delete" onclick="handleDeletePricingPlan(${item.id})" title="حذف"><i class="ph ph-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Error fetching pricing plans:', err);
+    tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 2rem; color: #e53935;">فشل تحميل البيانات</td></tr>`;
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove('ph-spin');
+  }
+}
+
+async function handleDeletePricingPlan(id) {
+  if (!confirm('هل أنت متأكد من حذف هذه الباقة؟')) return;
+  try {
+    const { error } = await sb.from('pricing_plans').delete().eq('id', id);
+    if (error) throw error;
+    showToast('تم حذف الباقة بنجاح', 'success');
+    loadPricingPlans();
+  } catch (err) {
+    showToast(`فشل الحذف: ${err.message}`, 'error');
+  }
+}
+
+async function handleEditPricingPlan(id) {
+  try {
+    const { data: plan, error } = await sb.from('pricing_plans').select('*').eq('id', id).single();
+    if (error) throw error;
+
+    editingPricingPlanId = plan.id;
+    document.getElementById('planTitle').value = plan.title;
+    document.getElementById('planSubtitle').value = plan.subtitle || '';
+    document.getElementById('planPrice').value = plan.price;
+    document.getElementById('planCurrency').value = plan.currency || '﷼';
+    document.getElementById('planCycle').value = plan.billing_cycle || 'شهرياً';
+    document.getElementById('planOrder').value = plan.order_num || 1;
+    document.getElementById('planPopular').checked = plan.is_popular;
+    
+    let featuresArray = [];
+    try {
+      featuresArray = typeof plan.features === 'string' ? JSON.parse(plan.features) : plan.features;
+    } catch(e) {}
+    document.getElementById('planFeatures').value = (featuresArray || []).join('\n');
+    
+    document.getElementById('planSubmitLabel').textContent = 'تحديث الباقة';
+    document.getElementById('addPricingPlanSection').classList.add('active');
+    document.getElementById('managePricingPlansSection').classList.remove('active');
+    
+    // Update active nav
+    navItems.forEach(i => i.classList.remove('active'));
+    document.querySelector('[data-section="addPricingPlan"]').classList.add('active');
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    showToast('فشل تحميل بيانات الباقة للتعديل', 'error');
+  }
+}
+
+document.getElementById('refreshPricingPlans')?.addEventListener('click', loadPricingPlans);
+window.handleDeletePricingPlan = handleDeletePricingPlan;
+window.handleEditPricingPlan = handleEditPricingPlan;
 
 // ── Discount Codes Handling ──────────────────
 async function loadDiscountCodes() {
@@ -212,7 +476,7 @@ function setLoading(on) {
   submitBtn.disabled = on;
   spinner.style.display    = on ? 'block' : 'none';
   submitIcon.style.display = on ? 'none'  : 'inline-block';
-  submitLbl.textContent    = on ? 'جاري النشر…' : 'نشر المقالة';
+  submitLbl.textContent    = on ? 'جاري النشر…' : (editingPostId ? 'تحديث المقالة' : 'نشر المقالة');
 }
 
 form.addEventListener('submit', async (e) => {
@@ -226,37 +490,47 @@ form.addEventListener('submit', async (e) => {
   const file       = fileInput.files[0];
 
   // Basic client-side validation
-  if (!titleVal || !slugVal || !metaVal || !contentVal || !altVal || !file) {
-    showToast('يرجى ملء جميع الحقول المطلوبة واختيار صورة.', 'error');
+  if (!titleVal || !slugVal || !metaVal || !contentVal || !altVal || (!file && !editingPostId)) {
+    showToast('يرجى ملء جميع الحقول المطلوبة.', 'error');
     return;
   }
   if (!/^[a-z0-9-]+$/.test(slugVal)) {
     showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.', 'error');
     return;
   }
-  if (file.size > 5 * 1024 * 1024) {
+  if (file && file.size > 5 * 1024 * 1024) {
     showToast('حجم الصورة يتجاوز 5 MB. يرجى اختيار صورة أصغر.', 'error');
     return;
   }
 
   setLoading(true);
   try {
-    // 1. Upload image → get public URL
-    const imageUrl = await uploadFeaturedImage(file);
+    let imageUrl = null;
+    if (file) {
+      imageUrl = await uploadFeaturedImage(file);
+    }
 
-    // 2. Insert post row
-    await createPost({
+    const postData = {
       title: titleVal,
       slug: slugVal,
       meta_description: metaVal,
       content: contentVal,
-      featured_image_url: imageUrl,
       alt_text: altVal,
       published: true,
-    });
+    };
+    if (imageUrl) postData.featured_image_url = imageUrl;
 
-    showToast('✅ تم نشر المقالة بنجاح!', 'success');
+    if (editingPostId) {
+      await updatePost(editingPostId, postData);
+      showToast('✅ تم تحديث المقالة بنجاح!', 'success');
+    } else {
+      await createPost({ ...postData, featured_image_url: imageUrl });
+      showToast('✅ تم نشر المقالة بنجاح!', 'success');
+    }
+    
     form.reset();
+    editingPostId = null;
+    submitLbl.textContent = 'نشر المقالة';
     imagePreview.style.display = 'none';
     slugPreview.textContent = '…';
     metaCounter.textContent = `0 / ${IDEAL_MAX} حرف`;
@@ -268,3 +542,146 @@ form.addEventListener('submit', async (e) => {
     setLoading(false);
   }
 });
+// ── Form submission helpers ──────────────────
+function setBtnLoading(btnId, spinnerId, iconId, labelId, isLoading, loadingText, originalText) {
+  const btn = document.getElementById(btnId);
+  const spinner = document.getElementById(spinnerId);
+  const icon = document.getElementById(iconId);
+  const label = document.getElementById(labelId);
+  if (!btn) return;
+  btn.disabled = isLoading;
+  if (spinner) spinner.style.display = isLoading ? 'block' : 'none';
+  if (icon) icon.style.display = isLoading ? 'none' : 'inline-block';
+  if (label) label.textContent = isLoading ? loadingText : originalText;
+}
+
+// ── Service Form Submission ───────────────────
+const srvForm = document.getElementById('serviceForm');
+if (srvForm) {
+  srvForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Extract values
+    const title = document.getElementById('srvTitle').value.trim();
+    const subtitle = document.getElementById('srvSubtitle').value.trim();
+    const description = document.getElementById('srvDescription').value.trim();
+    const featuresStr = document.getElementById('srvFeatures').value.trim();
+    const iconFile = document.getElementById('srvIcon').files[0];
+    const bgIconFile = document.getElementById('srvBgIcon').files[0];
+    const order_num = parseInt(document.getElementById('srvOrder').value) || 1;
+    const is_reverse = document.getElementById('srvReverse').checked;
+
+    if (!title || !description || !featuresStr || (!iconFile && !editingServiceId)) {
+      showToast('يرجى ملء كافة الحقول الأساسية.', 'error');
+      return;
+    }
+
+    // Convert features text to array (split by lines and filter empty)
+    const features = featuresStr.split('\n').map(f => f.trim()).filter(f => f);
+
+    setBtnLoading('srvSubmitBtn', 'srvSubmitSpinner', 'srvSubmitIcon', 'srvSubmitLabel', true, 'جاري الحفظ…', 'حفظ الخدمة');
+    
+    try {
+      // 1. Upload icons
+      let icon = '';
+      if (iconFile) {
+        icon = await uploadFeaturedImage(iconFile);
+      }
+      let bg_icon = '';
+      if (bgIconFile) {
+        bg_icon = await uploadFeaturedImage(bgIconFile);
+      }
+
+      // 2. Insert or Update Supabase
+      const srvData = {
+        title,
+        subtitle,
+        description,
+        features,
+        order_num,
+        is_reverse
+      };
+      if (icon) srvData.icon = icon;
+      if (bg_icon) srvData.bg_icon = bg_icon;
+
+      let error;
+      if (editingServiceId) {
+        ({ error } = await sb.from('services').update(srvData).eq('id', editingServiceId));
+      } else {
+        ({ error } = await sb.from('services').insert([srvData]));
+      }
+
+      if (error) throw error;
+
+      showToast(`✅ تم ${editingServiceId ? 'تحديث' : 'إضافة'} الخدمة بنجاح!`, 'success');
+      srvForm.reset();
+      editingServiceId = null;
+      document.getElementById('srvSubmitLabel').textContent = 'حفظ الخدمة';
+    } catch (err) {
+      console.error('Error creating service:', err);
+      showToast(`حدث خطأ: ${err.message}`, 'error');
+    } finally {
+      setBtnLoading('srvSubmitBtn', 'srvSubmitSpinner', 'srvSubmitIcon', 'srvSubmitLabel', false, 'جاري الحفظ…', 'حفظ الخدمة');
+    }
+  });
+}
+
+// ── Pricing Plan Form Submission ──────────────
+const planForm = document.getElementById('pricingPlanForm');
+if (planForm) {
+  planForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Extract values
+    const title = document.getElementById('planTitle').value.trim();
+    const subtitle = document.getElementById('planSubtitle').value.trim();
+    const price = parseFloat(document.getElementById('planPrice').value);
+    const currency = document.getElementById('planCurrency').value.trim() || '﷼';
+    const billing_cycle = document.getElementById('planCycle').value.trim() || 'شهرياً';
+    const featuresStr = document.getElementById('planFeatures').value.trim();
+    const order_num = parseInt(document.getElementById('planOrder').value) || 1;
+    const is_popular = document.getElementById('planPopular').checked;
+
+    if (!title || isNaN(price) || !featuresStr) {
+      showToast('يرجى ملء كافة الحقول الأساسية (الاسم، السعر، المميزات).', 'error');
+      return;
+    }
+
+    // Convert features text to array (split by lines and filter empty)
+    const features = featuresStr.split('\n').map(f => f.trim()).filter(f => f);
+
+    setBtnLoading('planSubmitBtn', 'planSubmitSpinner', 'planSubmitIcon', 'planSubmitLabel', true, 'جاري الحفظ…', 'حفظ الباقة');
+    
+    try {
+      const planData = {
+        title,
+        subtitle,
+        price,
+        currency,
+        billing_cycle,
+        features: JSON.stringify(features),
+        order_num,
+        is_popular
+      };
+
+      let error;
+      if (editingPricingPlanId) {
+        ({ error } = await sb.from('pricing_plans').update(planData).eq('id', editingPricingPlanId));
+      } else {
+        ({ error } = await sb.from('pricing_plans').insert([planData]));
+      }
+
+      if (error) throw error;
+
+      showToast(`✅ تم ${editingPricingPlanId ? 'تحديث' : 'إضافة'} الباقة بنجاح!`, 'success');
+      planForm.reset();
+      editingPricingPlanId = null;
+      document.getElementById('planSubmitLabel').textContent = 'حفظ الباقة';
+    } catch (err) {
+      console.error('Error saving pricing plan:', err);
+      showToast(`حدث خطأ: ${err.message}`, 'error');
+    } finally {
+      setBtnLoading('planSubmitBtn', 'planSubmitSpinner', 'planSubmitIcon', 'planSubmitLabel', false, 'جاري الحفظ…', 'حفظ الباقة');
+    }
+  });
+}

@@ -2,15 +2,20 @@
 // ─── Intersection Observer & Stagger ───
 // Use shared fade observer with counters enabled
 document.addEventListener('DOMContentLoaded', () => {
-  const observer = initFadeObserver(true);
-  
-  // Stagger service cards
-  document.querySelectorAll('.service-card').forEach((card, i) => {
-    card.style.transitionDelay = (i * 0.07) + 's';
-    card.classList.add('fade-in');
-    observer.observe(card);
-  });
+    // This will be called again after services are loaded
+    initHomeAnimations();
 });
+
+function initHomeAnimations() {
+    const observer = typeof initFadeObserver === 'function' ? initFadeObserver(true) : null;
+    
+    // Stagger service cards
+    document.querySelectorAll('.service-card').forEach((card, i) => {
+        card.style.transitionDelay = (i * 0.07) + 's';
+        card.classList.add('fade-in');
+        if (observer) observer.observe(card);
+    });
+}
 
 // ─── Contact form: Service selection logic ─────
 document.addEventListener('DOMContentLoaded', () => {
@@ -34,13 +39,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// ─── Discount Code Generation ─────────────────
-document.addEventListener('DOMContentLoaded', () => {
+// ─── Supabase Logic (Discount & Dynamic Services) ───
+document.addEventListener('DOMContentLoaded', async () => {
     // ── Supabase client ──────────────────────────────────────────────────
-    // Uses credentials from /js/config.js loaded in the HTML <head>
     const { createClient } = supabase;
     const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
+    // 1. Dynamic Services Fetching for Home Page
+    const servicesGrid = document.querySelector('.services-grid');
+    if (servicesGrid) {
+        try {
+            const { data: services, error } = await sb
+                .from('services')
+                .select('*')
+                .order('order_num', { ascending: true });
+
+            if (error) throw error;
+
+            if (services && services.length > 0) {
+                servicesGrid.innerHTML = '';
+                services.forEach(srv => {
+                    const card = document.createElement('div');
+                    card.className = `service-card ${srv.is_featured ? 'service-card-accent' : ''}`;
+                    
+                    const iconHtml = srv.icon && srv.icon.startsWith('http') ? `<img src="${srv.icon}" class="srv-icon-img" alt="${srv.title}">` : `<i class="${srv.icon || 'ph ph-duotone ph-gear'}"></i>`;
+
+                    card.innerHTML = `
+                        <div class="service-icon">${iconHtml}</div>
+                        <h3>${srv.title}</h3>
+                        <p>${srv.description || srv.subtitle || ''}</p>
+                    `;
+                    servicesGrid.appendChild(card);
+                });
+                // Re-run animations for new elements
+                initHomeAnimations();
+            }
+        } catch (err) {
+            console.error('Error fetching services for home:', err);
+        }
+    }
+
+    // 2. Discount Code Generation
     const discountForm = document.getElementById('discountForm');
     const codeResult = document.getElementById('codeResult');
     const generatedCode = document.getElementById('generatedCode');
@@ -58,29 +97,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const companyName = companyField.value.trim();
             const phone = phoneField.value.trim();
             
-            // Validation: Allow Arabic, English and spaces
             if (!companyName) {
                 alert('يرجى إدخال اسم الشركة');
                 return;
             }
 
-            // Normalize name for code generation: 
-            // - Remove spaces
-            // - Take first 4-8 chars if possible
-            // - If Arabic, it will still work as a string
             const normalizedPart = companyName.replace(/\s+/g, '').slice(0, 8).toUpperCase();
-
-            // Get last 4 digits of phone
             const lastFour = phone.slice(-4).padStart(4, '0');
-            
-            // Generate code: Normalized Company Name + Last4
             const code = (normalizedPart + lastFour);
             
             try {
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'جاري التوليد...';
 
-                // Save to Supabase (using company_name)
                 const { error } = await sb
                     .from('discount_codes')
                     .insert([
@@ -89,11 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (error) throw error;
 
-                // Display result
                 generatedCode.textContent = code;
                 codeResult.style.display = 'block';
-                
-                // Scroll to result
                 codeResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             } catch (err) {
                 console.error('Error saving discount code:', err);
@@ -155,4 +181,3 @@ function sendWhatsApp(e) {
   const waURL = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
   window.open(waURL, '_blank');
 }
-

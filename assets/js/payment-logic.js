@@ -5,29 +5,79 @@
  */
 
 window.PaymentHandler = {
+    tempCustomerData: null,
+    tempPlanData: null,
+
     /**
-     * Initialize Moyasar Form inside a modal
-     * @param {Object} planData - { title, price, id }
+     * Start the payment process - show user info form first
      */
-    async initPayment(planData) {
+    initPayment(planData) {
+        this.tempPlanData = planData;
+        
+        // Update header
+        const titleEl = document.getElementById('paymentPlanTitle');
+        const priceEl = document.getElementById('paymentPlanPrice');
+        if (titleEl) titleEl.textContent = planData.title;
+        if (priceEl) priceEl.textContent = `${planData.price.toLocaleString()} ريال سعودي`;
+
+        // Form & Moyasar containers
+        const custForm = document.getElementById('paymentCustomerForm');
+        const mysrContainer = document.querySelector('.mysr-form');
+        const modal = document.getElementById('paymentModal');
+
+        if (!modal) return;
+
+        // Reset view
+        custForm.style.display = 'block';
+        mysrContainer.style.display = 'none';
+        modal.classList.add('active');
+
+        // Setup "Proceed" button once
+        const proceedBtn = document.getElementById('proceedToPay');
+        if (proceedBtn) {
+            proceedBtn.onclick = () => this.handleProceedToPay();
+        }
+    },
+
+    /**
+     * Validate user info and show Moyasar form
+     */
+    handleProceedToPay() {
+        const name = document.getElementById('custName').value.trim();
+        const email = document.getElementById('custEmail').value.trim();
+        const phone = document.getElementById('custPhone').value.trim();
+
+        if (!name || !email || !phone) {
+            alert('يرجى تعبئة كافة البيانات للتواصل معك.');
+            return;
+        }
+
+        this.tempCustomerData = { name, email, phone };
+
+        // Hide customer form, show Moyasar
+        document.getElementById('paymentCustomerForm').style.display = 'none';
+        const mysrContainer = document.querySelector('.mysr-form');
+        mysrContainer.style.display = 'block';
+
+        this.startMoyasar();
+    },
+
+    /**
+     * Initialize Moyasar Form
+     */
+    startMoyasar() {
         if (!window.MOYASAR_PUBLISHABLE_KEY || window.MOYASAR_PUBLISHABLE_KEY === 'pk_test_...') {
-            console.error('Moyasar Publishable Key is missing or default.');
             alert('خطأ في إعدادات الدفع. يرجى مراجعة المسؤول.');
             return;
         }
 
-        const amountInHalalas = Math.round(planData.price * 100);
+        const amountInHalalas = Math.round(this.tempPlanData.price * 100);
 
-        // Show Modal
-        const modal = document.getElementById('paymentModal');
-        if (modal) modal.classList.add('active');
-
-        // Note: Moyasar Form requires a container with class "mysr-form"
         Moyasar.init({
             element: '.mysr-form',
             amount: amountInHalalas,
             currency: 'SAR',
-            description: `الاشتراك في باقة: ${planData.title}`,
+            description: `باقة: ${this.tempPlanData.title} | للعميل: ${this.tempCustomerData.name}`,
             publishable_api_key: window.MOYASAR_PUBLISHABLE_KEY,
             callback_url: window.location.origin + '/pages/services/payment-callback.html',
             methods: ['creditcard', 'applepay', 'stcpay'],
@@ -37,7 +87,7 @@ window.PaymentHandler = {
                 country: 'SA'
             },
             on_completed: async (payment) => {
-                await this.recordPayment(payment, planData);
+                await this.recordPayment(payment);
             },
             on_failure: (error) => {
                 console.error('Payment failed:', error);
@@ -47,9 +97,9 @@ window.PaymentHandler = {
     },
 
     /**
-     * Record payment details in Supabase
+     * Final step: Save everything to Supabase
      */
-    async recordPayment(payment, planData) {
+    async recordPayment(payment) {
         const { createClient } = supabase;
         const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
@@ -58,21 +108,22 @@ window.PaymentHandler = {
                 .from('payments')
                 .insert([{
                     moyasar_id: payment.id,
-                    amount: payment.amount / 100, // Halalas to SAR
+                    amount: payment.amount / 100,
                     status: payment.status,
-                    plan_name: planData.title,
-                    user_name: 'عميل', // Ideally captured from a pre-payment form
-                    user_email: '',
+                    plan_name: this.tempPlanData.title,
+                    user_name: this.tempCustomerData.name,
+                    user_email: this.tempCustomerData.email,
+                    user_phone: this.tempCustomerData.phone, // Ensure this column exists!
                     created_at: new Date().toISOString()
                 }]);
 
             if (error) throw error;
 
-            alert('تمت عملية الدفع بنجاح! شكراً لثقتكم.');
+            alert('تمت عملية الدفع بنجاح! سيتم التواصل معك قريباً.');
             window.location.reload();
         } catch (err) {
-            console.error('Error recording payment in Supabase:', err);
-            alert('تم الدفع ولكن فشل تسجيل البيانات. يرجى التواصل مع الدعم.');
+            console.error('Record failed:', err);
+            alert('تم الدفع ولكن فشل الربط بالقاعدة. شكراً لك، طلبك محفوظ في مويسر.');
         }
     }
 };

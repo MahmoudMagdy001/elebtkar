@@ -558,3 +558,33 @@ body {
   font-family: 'Almarai', sans-serif !important;
   font-weight: 700 !important;
 }
+
+.payment-customer-form {
+  padding: 1rem 0;
+}
+
+.payment-customer-form .field-group {
+  margin-bottom: 1.5rem;
+}
+
+.payment-customer-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.payment-customer-form input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.payment-customer-form input:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 69, 97, 0.1);
+}

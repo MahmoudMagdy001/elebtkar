@@ -181,3 +181,21 @@ function sendWhatsApp(e) {
   const waURL = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
   window.open(waURL, '_blank');
 }
+
+// ─── Payment Modal Close logic ────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('closePaymentModal');
+    const paymentModal = document.getElementById('paymentModal');
+    if (closeBtn && paymentModal) {
+        closeBtn.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+        });
+        
+        // Close on outside click
+        paymentModal.addEventListener('click', (e) => {
+            if (e.target === paymentModal) {
+                paymentModal.classList.remove('active');
+            }
+        });
+    }
+});

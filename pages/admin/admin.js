@@ -410,7 +410,11 @@ async function loadPayments() {
     tableBody.innerHTML = payments.map(p => `
       <tr>
         <td>${new Date(p.created_at).toLocaleString('ar-EG')}</td>
-        <td>${p.user_name || 'عميل'} ${p.user_email ? `<br><small>${p.user_email}</small>` : ''}</td>
+        <td>
+            <strong>${p.user_name || 'عميل'}</strong><br>
+            <small>${p.user_email || '-'}</small><br>
+            <small dir="ltr">${p.user_phone || '-'}</small>
+        </td>
         <td><span class="code-pill">${p.plan_name}</span></td>
         <td><strong>${p.amount} ريال</strong></td>
         <td><span class="status-badge ${p.status === 'paid' ? 'success' : 'failed'}">${p.status === 'paid' ? 'مدفوع' : p.status}</span></td>

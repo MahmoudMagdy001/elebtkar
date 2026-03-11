@@ -430,7 +430,35 @@
 
     <!-- Section: Manage Pricing Plans -->
     <section id="managePricingPlansSection" class="admin-section">
-      <!-- ... existing content ... -->
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-currency-circle-dollar"></i>
+          <h1>إدارة حلول ابتكار (الباقات)</h1>
+          <button id="refreshPricingPlans" class="btn-refresh" title="تحديث البيانات">
+            <i class="ph ph-arrows-clockwise"></i>
+          </button>
+        </div>
+        <div class="dash-card-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>اسم الباقة</th>
+                  <th>السعر</th>
+                  <th>الترتيب</th>
+                  <th>مميزة</th>
+                  <th>الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="pricingPlansTableBody">
+                <tr>
+                  <td colspan="5" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Section: Manage Payments -->

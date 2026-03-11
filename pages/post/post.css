@@ -10,7 +10,11 @@ nav {
 }
 
 /* ── Layout ── */
-.post-layout { max-width: 860px; margin: 2.5rem auto; padding: 0 1.5rem 4rem; }
+.post-layout { 
+  max-width: 860px; 
+  margin: calc(var(--nav-height) + 2rem) auto 2.5rem; 
+  padding: 0 1.5rem 4rem; 
+}
 
 /* ── Featured Image ── */
 .post-featured-img-wrap {

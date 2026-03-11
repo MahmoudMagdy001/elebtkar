@@ -6,7 +6,7 @@ body { background: var(--gray-50); }
 /* ── Hero Banner ── */
 .blog-hero {
   background: var(--gradient);
-  padding: 5rem 5% 4rem; text-align: center;
+  padding: calc(var(--nav-height) + 3rem) 5% 4rem; text-align: center;
   position: relative; overflow: hidden;
 }
 .blog-hero::before {

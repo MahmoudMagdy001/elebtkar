@@ -116,11 +116,11 @@ async function updatePost(id, postData) {
     .from('posts')
     .update(postData)
     .eq('id', id)
-    .select()
-    .single();
+    .select();
 
   if (error) throw new Error(`Failed to update post: ${error.message}`);
-  return data;
+  if (!data || data.length === 0) throw new Error('لا يمكن العثور على المقالة أو لم يتم التحديث (ربما لم تتغير البيانات)');
+  return data[0];
 }
 
 // ─── Delete Service ───────────────────────────
@@ -145,11 +145,11 @@ async function updateService(id, srvData) {
     .from('services')
     .update(srvData)
     .eq('id', id)
-    .select()
-    .single();
+    .select();
 
   if (error) throw new Error(`Failed to update service: ${error.message}`);
-  return data;
+  if (!data || data.length === 0) throw new Error('لا يمكن العثور على الخدمة أو لم يتم التحديث');
+  return data[0];
 }
 
 // ─── Slug Generator ───────────────────────────

@@ -578,6 +578,15 @@ form.addEventListener('submit', async (e) => {
       showToast('✅ تم نشر المقالة بنجاح!', 'success');
     }
     
+    // Refresh table and switch back to manage section
+    if (typeof loadArticles === 'function') loadArticles();
+    document.getElementById('managePostsSection').classList.add('active');
+    document.getElementById('addPostSection').classList.remove('active');
+    navItems.forEach(i => {
+        i.classList.remove('active');
+        if(i.getAttribute('data-section') === 'managePosts') i.classList.add('active');
+    });
+
     form.reset();
     editingPostId = null;
     submitLbl.textContent = 'نشر المقالة';
@@ -664,6 +673,16 @@ if (srvForm) {
       if (error) throw error;
 
       showToast(`✅ تم ${editingServiceId ? 'تحديث' : 'إضافة'} الخدمة بنجاح!`, 'success');
+      
+      // Refresh table and switch back to manage section
+      if (typeof loadServices === 'function') loadServices();
+      document.getElementById('manageServicesSection').classList.add('active');
+      document.getElementById('addServiceSection').classList.remove('active');
+      navItems.forEach(i => {
+          i.classList.remove('active');
+          if(i.getAttribute('data-section') === 'manageServices') i.classList.add('active');
+      });
+
       srvForm.reset();
       editingServiceId = null;
       document.getElementById('srvSubmitLabel').textContent = 'حفظ الخدمة';
@@ -709,7 +728,7 @@ if (planForm) {
         price,
         currency,
         billing_cycle,
-        features: JSON.stringify(features),
+        features,
         order_num,
         is_popular
       };
@@ -724,6 +743,16 @@ if (planForm) {
       if (error) throw error;
 
       showToast(`✅ تم ${editingPricingPlanId ? 'تحديث' : 'إضافة'} الباقة بنجاح!`, 'success');
+      
+      // Refresh table and switch back to manage section
+      if (typeof loadPricingPlans === 'function') loadPricingPlans();
+      document.getElementById('managePricingPlansSection').classList.add('active');
+      document.getElementById('addPricingPlanSection').classList.remove('active');
+      navItems.forEach(i => {
+          i.classList.remove('active');
+          if(i.getAttribute('data-section') === 'managePricingPlans') i.classList.add('active');
+      });
+
       planForm.reset();
       editingPricingPlanId = null;
       document.getElementById('planSubmitLabel').textContent = 'حفظ الباقة';

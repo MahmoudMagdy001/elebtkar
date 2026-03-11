@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./logo.png" alt="الابتكار Logo" width="200"/>
+  <img src="./assets/images/logo.png" alt="الابتكار Logo" width="200"/>
   <h1>الابتكار | Elebtikar</h1>
   <p><strong>شريكك في حلول التسويق الرقمي والتقنية المتكاملة في المملكة العربية السعودية</strong></p>
   <p><em>Your Partner in Integrated Digital Marketing and Tech Solutions in Saudi Arabia</em></p>
@@ -40,9 +40,8 @@ At **Elebtikar**, we are committed to empowering businesses in KSA by providing 
 
 ```text
 elebtkar/
-├── assets/          # Shared CSS, images, and fonts
+├── assets/          # Shared CSS, images, docs, and scripts
 ├── components/      # Reusable HTML/JS components
-├── js/              # Global configurations (Supabase, etc.)
 ├── pages/           # Feature-specific pages (Admin, Blog, Home, Post)
 ├── index.html       # Main landing page
 ├── vercel.json      # Vercel routing configuration
@@ -55,7 +54,7 @@ elebtkar/
 
 ### المتطلبات | Prerequisites
 - متصفح ويب حديث (Modern Web Browser).
-- مفاتيح Supabase (توجد في `js/config.js`).
+- مفاتيح Supabase (توجد في `assets/js/config.js`).
 
 ### التشغيل المحلي | Local Setup
 1. قم بتحميل المستودع (Clone the repository).

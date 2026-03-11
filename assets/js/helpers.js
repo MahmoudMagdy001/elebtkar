@@ -186,7 +186,7 @@ const fetchAndRenderPricing = async () => {
         <h3 class="plan-name">${plan.title}</h3>
         <p class="plan-desc">${plan.subtitle || ''}</p>
         <div class="plan-price">
-          <img src="/currency.png" alt="${plan.currency || 'ريال'}" class="currency-img">
+          <img src="/assets/images/currency.png" alt="${plan.currency || 'ريال'}" class="currency-img">
           <span class="amount">${typeof plan.price === 'number' ? plan.price.toLocaleString() : plan.price}</span>
           <span class="period">/ ${plan.billing_cycle || 'شهرياً'}</span>
         </div>

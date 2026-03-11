@@ -5,9 +5,9 @@
 //  anon public key before going live.
 // ─────────────────────────────────────────────
 
-// Credentials are loaded from /js/config.js (must be included before this script)
+// Credentials are loaded from /assets/js/config.js (must be included before this script)
 if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
-  console.error('Supabase config missing! Make sure /js/config.js is loaded before blog-logic.js');
+  console.error('Supabase config missing! Make sure /assets/js/config.js is loaded before blog-logic.js');
 }
 
 // Initialise the Supabase client using the CDN build

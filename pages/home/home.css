@@ -3,7 +3,7 @@
 /* ─── HERO ─── */
 #hero {
   min-height: 100vh;
-  background: linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('../../header.png');
+  background: linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('../../assets/images/header.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -442,7 +442,7 @@
 }
 @media (max-width: 600px) {
   #hero {
-    background-image: linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('../../header_mobile.png');
+    background-image: linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('../../assets/images/header_mobile.png');
   }
   .services-grid, .why-grid, .pillars-grid, .process-track { grid-template-columns: 1fr; }
   .clients-grid { grid-template-columns: repeat(2, 1fr); }

@@ -105,16 +105,17 @@ window.PaymentHandler = {
 
         try {
             const { error } = await sb
-                .from('payments')
+                .from('purchases')
                 .insert([{
-                    moyasar_id: payment.id,
+                    moyasar_payment_id: payment.id,
                     amount: payment.amount / 100,
                     status: payment.status,
-                    plan_name: this.tempPlanData.title,
+                    plan_id: this.tempPlanData.id,
                     user_name: this.tempCustomerData.name,
                     user_email: this.tempCustomerData.email,
-                    user_phone: this.tempCustomerData.phone, // Ensure this column exists!
-                    created_at: new Date().toISOString()
+                    user_phone: this.tempCustomerData.phone,
+                    currency: payment.currency || 'SAR',
+                    metadata: { plan_name: this.tempPlanData.title }
                 }]);
 
             if (error) throw error;

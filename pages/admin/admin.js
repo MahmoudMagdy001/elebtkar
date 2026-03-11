@@ -395,19 +395,22 @@ async function loadPayments() {
   if (refreshBtn) refreshBtn.classList.add('ph-spin');
 
   try {
-    const { data: payments, error } = await sb
-      .from('payments')
-      .select('*')
+    const { data: purchases, error } = await sb
+      .from('purchases')
+      .select(`
+        *,
+        pricing_plans ( title )
+      `)
       .order('created_at', { ascending: false });
 
     if (error) throw error;
 
-    if (!payments || payments.length === 0) {
+    if (!purchases || purchases.length === 0) {
       tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem;">لا توجد عمليات دفع حالياً</td></tr>';
       return;
     }
 
-    tableBody.innerHTML = payments.map(p => `
+    tableBody.innerHTML = purchases.map(p => `
       <tr>
         <td>${new Date(p.created_at).toLocaleString('ar-EG')}</td>
         <td>
@@ -415,10 +418,10 @@ async function loadPayments() {
             <small>${p.user_email || '-'}</small><br>
             <small dir="ltr">${p.user_phone || '-'}</small>
         </td>
-        <td><span class="code-pill">${p.plan_name}</span></td>
-        <td><strong>${p.amount} ريال</strong></td>
+        <td><span class="code-pill">${p.pricing_plans?.title || p.metadata?.plan_name || 'باقة'}</span></td>
+        <td><strong>${p.amount} ${p.currency || 'SAR'}</strong></td>
         <td><span class="status-badge ${p.status === 'paid' ? 'success' : 'failed'}">${p.status === 'paid' ? 'مدفوع' : p.status}</span></td>
-        <td dir="ltr" style="font-family: monospace;">${p.moyasar_id}</td>
+        <td dir="ltr" style="font-family: monospace; font-size: 0.7rem;">${p.moyasar_payment_id}</td>
       </tr>
     `).join('');
 

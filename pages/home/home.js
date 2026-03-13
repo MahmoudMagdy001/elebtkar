@@ -150,8 +150,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// ─── Contact Form: Send via WhatsApp ──────────
-function sendWhatsApp(e) {
+// ─── Contact Form: Submit handler ──────────
+async function submitContactForm(e) {
   e.preventDefault();
 
   const name    = document.getElementById('name').value.trim();
@@ -168,18 +168,41 @@ function sendWhatsApp(e) {
     ? selectedServices.join('، ')
     : 'لم يتم تحديد خدمة';
 
-  const text =
-    `🌟 *طلب تواصل جديد من موقع الابتكار*\n\n` +
-    `👤 *الاسم:* ${name}\n` +
-    `📧 *البريد الإلكتروني:* ${email}\n` +
-    `📱 *رقم الجوال:* ${phone}\n` +
-    `📌 *الموضوع:* ${subject}\n` +
-    `🛠️ *الخدمات المطلوبة:* ${servicesText}\n\n` +
-    `💬 *الرسالة:*\n${message}`;
+  // حفظ البيانات في قاعدة البيانات (سوبابيز)
+  try {
+    const { createClient } = supabase;
+    const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
-  const waNumber = '966579644123';
-  const waURL = `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
-  window.open(waURL, '_blank');
+    // Disable button to prevent double submission
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'جاري الإرسال...';
+
+    const { error } = await sb.from('contact_messages').insert([{
+      name: name,
+      email: email,
+      phone: phone,
+      subject: subject,
+      services: servicesText,
+      message: message
+    }]);
+
+    if (error) {
+      console.error('Error saving message to Supabase:', error);
+      alert('حدث خطأ أثناء إرسال الرسالة، يرجى المحاولة لاحقاً.');
+    } else {
+      alert('تم إرسال رسالتك بنجاح. سنتواصل معك في أقرب وقت!');
+      e.target.reset(); // clear the form
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalBtnText;
+
+  } catch (err) {
+    console.error('Exception saving message to Supabase:', err);
+    alert('حدث خطأ غير متوقع، يرجى المحاولة لاحقاً.');
+  }
 }
 
 // ─── Payment Modal Close logic ────────────────

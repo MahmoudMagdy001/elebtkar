@@ -76,7 +76,7 @@ sb.auth.onAuthStateChange((event, session) => {
     loginContainer.style.display = 'none';
     dashHeader.style.display = 'flex';
     dashWrapper.style.display = 'flex';
-    loadDiscountCodes(); // Load codes when admin logs in
+    if(typeof loadContactMessages === 'function') loadContactMessages();
   } else {
     loginContainer.style.display = 'block';
     dashHeader.style.display = 'none';
@@ -90,7 +90,7 @@ sb.auth.getSession().then(({ data: { session } }) => {
     loginContainer.style.display = 'none';
     dashHeader.style.display = 'flex';
     dashWrapper.style.display = 'flex';
-    loadDiscountCodes();
+    if(typeof loadContactMessages === 'function') loadContactMessages();
   } else {
     loginContainer.style.display = 'block';
     dashHeader.style.display = 'none';
@@ -117,6 +117,8 @@ navItems.forEach(item => {
     // If switching to discount codes, refresh them
     if (targetSection === 'discountCodes') {
       loadDiscountCodes();
+    } else if (targetSection === 'contactMessages') {
+      loadContactMessages();
     } else if (targetSection === 'managePosts') {
       loadArticles();
     } else if (targetSection === 'manageServices') {
@@ -475,6 +477,53 @@ async function loadDiscountCodes() {
 }
 
 document.getElementById('refreshCodes')?.addEventListener('click', loadDiscountCodes);
+
+// ── Contact Messages Handling ──────────────────
+async function loadContactMessages() {
+  const tableBody = document.getElementById('contactMessagesTableBody');
+  const refreshBtn = document.getElementById('refreshContactMessages');
+  
+  if (refreshBtn) refreshBtn.classList.add('ph-spin');
+
+  try {
+    const { data, error } = await sb
+      .from('contact_messages')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem;">لا توجد رسائل حالياً</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = data.map(item => `
+      <tr>
+        <td>${new Date(item.created_at).toLocaleDateString('ar-EG', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
+        <td>
+            <strong>${item.name}</strong><br>
+            <small>${item.email}</small>
+        </td>
+        <td dir="ltr">${item.phone}</td>
+        <td><span class="code-pill">${item.services || '-'}</span></td>
+        <td>
+            <button class="btn-read-message" onclick="alert('الموضوع:\\n${item.subject}\\n\\nالرسالة:\\n${item.message}')" title="عرض التفاصيل">
+               <i class="ph-duotone ph-eye"></i> قراءة
+            </button>
+        </td>
+      </tr>
+    `).join('');
+
+  } catch (err) {
+    console.error('Error fetching contact messages:', err);
+    tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 2rem; color: #e53935;">فشل تحميل البيانات: ${err.message}</td></tr>`;
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove('ph-spin');
+  }
+}
+
+document.getElementById('refreshContactMessages')?.addEventListener('click', loadContactMessages);
 
 // Login Form Submit
 if (loginForm) {

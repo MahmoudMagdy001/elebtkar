@@ -65,58 +65,68 @@
 <div class="dash-wrapper" id="dashWrapper" style="display: none;">
   <!-- Sidebar -->
   <aside class="dash-sidebar">
-  <div class="sidebar-header">
-    <img src="/assets/images/logo.png" alt="الابتكار" class="sidebar-logo">
-    <span>لوحة التحكم</span>
-  </div>
-  
   <div class="sidebar-nav">
-    <!-- إضافة مدونة - الأولى -->
-    <button class="nav-item active" data-section="addPost">
-      <i class="ph-duotone ph-plus-circle"></i>
-      <span>إضافة مدونة</span>
-    </button>
-    
-    <!-- أكواد الخصم - التانية -->
-    <button class="nav-item" data-section="discountCodes">
-      <i class="ph-duotone ph-ticket"></i>
-      <span>عرض أكواد الخصم</span>
+    <!-- التفاعلات مجمعة -->
+    <span class="nav-section-title">التفاعلات</span>
+    <button class="nav-item active" data-section="contactMessages">
+      <i class="ph-duotone ph-envelope-open"></i>
+      <span>رسائل التواصل</span>
     </button>
 
-    <!-- إضافة خدمة - الجديدة -->
-    <button class="nav-item" data-section="addService">
-      <i class="ph-duotone ph-briefcase"></i>
-      <span>إضافة خدمة</span>
+    <button class="nav-item" data-section="managePayments">
+      <i class="ph-duotone ph-credit-card"></i>
+      <span>عمليات الدفع</span>
     </button>
 
-    <!-- إضافة باقة أسعار -->
-    <button class="nav-item" data-section="addPricingPlan">
-      <i class="ph-duotone ph-currency-circle-dollar"></i>
-      <span>إضافة حل ابتكار</span>
-    </button>
+    <div class="nav-divider"></div>
 
-    <!-- إدارة المقالات - الجديدة -->
-    <button class="nav-item" data-section="managePosts">
-      <i class="ph-duotone ph-article-ny-times"></i>
-      <span>إدارة المقالات</span>
-    </button>
-
-    <!-- إدارة الخدمات - الجديدة -->
+    <!-- الخدمات مجمعة -->
+    <span class="nav-section-title">الخدمات</span>
     <button class="nav-item" data-section="manageServices">
       <i class="ph-duotone ph-squares-four"></i>
       <span>إدارة الخدمات</span>
     </button>
 
-    <!-- إدارة باقات الأسعار -->
+    <button class="nav-item" data-section="addService">
+      <i class="ph-duotone ph-plus-circle"></i>
+      <span>إضافة خدمة</span>
+    </button>
+
+    <div class="nav-divider"></div>
+
+    <!-- باقات الأسعار مجمعة -->
+    <span class="nav-section-title">باقات الأسعار</span>
     <button class="nav-item" data-section="managePricingPlans">
       <i class="ph-duotone ph-wallet"></i>
       <span>إدارة حلول الابتكار</span>
     </button>
 
-    <!-- إدارة عمليات الدفع -->
-    <button class="nav-item" data-section="managePayments">
-      <i class="ph-duotone ph-credit-card"></i>
-      <span>عمليات الدفع</span>
+    <button class="nav-item" data-section="addPricingPlan">
+      <i class="ph-duotone ph-plus-circle"></i>
+      <span>إضافة حل ابتكار</span>
+    </button>
+
+    <div class="nav-divider"></div>
+
+    <!-- المقالات مجمعة -->
+    <span class="nav-section-title">المقالات</span>
+    <button class="nav-item" data-section="managePosts">
+      <i class="ph-duotone ph-article-ny-times"></i>
+      <span>إدارة المقالات</span>
+    </button>
+
+    <button class="nav-item" data-section="addPost">
+      <i class="ph-duotone ph-plus-circle"></i>
+      <span>إضافة مدونة</span>
+    </button>
+
+    <div class="nav-divider"></div>
+
+    <!-- التسويق مجمع -->
+    <span class="nav-section-title">التسويق</span>
+    <button class="nav-item" data-section="discountCodes">
+      <i class="ph-duotone ph-ticket"></i>
+      <span>أكواد الخصم</span>
     </button>
   </div>
   
@@ -132,7 +142,7 @@
   <main class="dash-main-content">
     
     <!-- Section: Add Post -->
-    <section id="addPostSection" class="admin-section active">
+    <section id="addPostSection" class="admin-section">
       <div class="dash-card">
         <div class="dash-card-header">
           <i class="ph-duotone ph-plus-circle"></i>
@@ -230,6 +240,40 @@
                 <!-- Data will be loaded here -->
                 <tr>
                   <td colspan="4" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Contact Messages -->
+    <section id="contactMessagesSection" class="admin-section active">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-envelope-open"></i>
+          <h1>رسائل التواصل (طلبات الخدمات)</h1>
+          <button id="refreshContactMessages" class="btn-refresh" title="تحديث البيانات">
+            <i class="ph ph-arrows-clockwise"></i>
+          </button>
+        </div>
+        <div class="dash-card-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>التاريخ</th>
+                  <th>الاسم</th>
+                  <th>رقم الجوال</th>
+                  <th>الخدمات المطلوبة</th>
+                  <th>الرسالة</th>
+                </tr>
+              </thead>
+              <tbody id="contactMessagesTableBody">
+                <!-- Data will be loaded here -->
+                <tr>
+                  <td colspan="5" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
                 </tr>
               </tbody>
             </table>

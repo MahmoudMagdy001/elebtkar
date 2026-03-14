@@ -20,6 +20,9 @@ Options -Indexes
   # /blog  →  pages/blog/blog.html
   RewriteRule ^blog/?$  /pages/blog/blog.html   [L]
 
+  # /services/slug-name  →  /pages/services/services.html?slug=slug-name
+  RewriteRule ^services/([a-z0-9-]+)/?$ /pages/services/services.html?slug=$1 [L,QSA]
+
   # /post  →  pages/post/post.html  (query string preserved automatically)
   RewriteRule ^post/?$  /pages/post/post.html   [L]
 
@@ -28,6 +31,9 @@ Options -Indexes
 
   # /404   →  404.html at root
   RewriteRule ^404/?$   /404.html               [L]
+
+  # Redirect static sitemap.xml to dynamic PHP script
+  RewriteRule ^sitemap\.xml$ /generate-sitemap.php [L]
 </IfModule>
 
 # ── Custom Error Pages ──────────────────────────────────────────────

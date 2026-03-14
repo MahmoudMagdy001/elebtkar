@@ -92,23 +92,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (serviceSlug && data) {
                     // Update SEO Tags for individual service
-                    document.title = `${data.title} | الابتكار`;
-                    updateMetaTag('name', 'description', data.meta_description || data.subtitle || '');
-                    updateMetaTag('property', 'og:title', `${data.title} | الابتكار`);
-                    updateMetaTag('property', 'og:description', data.meta_description || data.subtitle || '');
+                    const serviceTitle = `${data.title} | الابتكار`;
+                    const serviceDesc = data.meta_description || data.subtitle || '';
+                    const serviceUrl = `https://elebtikar-sa.com/services/${data.slug}`;
+
+                    document.title = serviceTitle;
+                    updateMetaTag('name', 'description', serviceDesc);
+                    updateMetaTag('property', 'og:title', serviceTitle);
+                    updateMetaTag('property', 'og:description', serviceDesc);
+                    updateMetaTag('property', 'og:url', serviceUrl);
                     if (data.icon) updateMetaTag('property', 'og:image', data.icon);
+
+                    // Update Canonical Link
+                    const canonical = document.getElementById('canonical-link');
+                    if (canonical) {
+                        canonical.setAttribute('href', serviceUrl);
+                    }
 
                     // Structured Data (Service Schema)
                     const serviceSchema = {
                       "@context": "https://schema.org",
                       "@type": "Service",
                       "name": data.title,
-                      "description": data.meta_description || data.subtitle || '',
+                      "description": serviceDesc,
                       "provider": {
                         "@type": "Organization",
                         "name": "الابتكار",
                         "url": "https://elebtikar-sa.com"
                       },
+                      "url": serviceUrl,
                       "areaServed": "SA",
                       "hasOfferCatalog": {
                         "@type": "OfferCatalog",

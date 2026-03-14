@@ -54,13 +54,39 @@
     "publisher": {
       "@type": "Organization",
       "name":  "الابتكار",
-      "url":   "https://ebtkar.sa"
+      "url":   "https://elebtikar-sa.com"
     }
   };
   const ldScript = document.createElement('script');
   ldScript.type = 'application/ld+json';
   ldScript.textContent = JSON.stringify(ld);
   document.head.appendChild(ldScript);
+
+  // Structured data (BreadcrumbList schema)
+  const bld = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "الرئيسية",
+      "item": "https://elebtikar-sa.com/"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "المدونة",
+      "item": "https://elebtikar-sa.com/blog"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": post.title,
+      "item": pageUrl
+    }]
+  };
+  const bldScript = document.createElement('script');
+  bldScript.type = 'application/ld+json';
+  bldScript.textContent = JSON.stringify(bld);
+  document.head.appendChild(bldScript);
 
   // ── 4. Render article HTML ──────────────────
   const publishDate = post.created_at

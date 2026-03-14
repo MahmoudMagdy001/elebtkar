@@ -292,12 +292,38 @@
         <div class="dash-card-body">
           <form id="serviceForm" novalidate>
             <div class="field-group">
-              <label for="srvTitle">اسم الخدمة <span class="required">*</span></label>
+              <label for="srvTitle">اسم الخدمة (بالعربية) <span class="required">*</span></label>
               <input type="text" id="srvTitle" name="srvTitle" placeholder="مثال: تحسين محركات البحث SEO" required />
             </div>
 
+            <!-- English Title → Slug -->
             <div class="field-group">
-              <label for="srvSubtitle">العنوان الفرعي</label>
+              <label for="srvTitleEn">الاسم بالإنجليزية (لإنشاء الرابط) <span class="required">*</span></label>
+              <input type="text" id="srvTitleEn" name="srvTitleEn" placeholder="SEO Optimization" class="ltr-field" dir="ltr" style="text-align:left" required />
+            </div>
+
+            <!-- Slug -->
+            <hr class="form-divider" />
+            <div class="field-group">
+              <label for="srvSlug">رابط (Slug) الخدمة <span class="required">*</span></label>
+              <div class="slug-row">
+                <input type="text" id="srvSlug" name="srvSlug" placeholder="seo-optimization" required autocomplete="off" />
+                <button type="button" class="btn-regen" id="regenSrvSlug" title="إعادة توليد">
+                  <i class="ph ph-arrows-clockwise"></i>
+                </button>
+              </div>
+              <p class="field-hint">رابط الخدمة: <strong id="srvSlugPreview">…</strong></p>
+            </div>
+
+            <!-- Meta Description -->
+            <div class="field-group">
+              <label for="srvMetaDescription">وصف ميتا (Meta Description) <span class="required">*</span></label>
+              <input type="text" id="srvMetaDescription" name="srvMetaDescription" placeholder="وصف مختصر يظهر في نتائج البحث" maxlength="155" required />
+              <div class="meta-counter ok" id="srvMetaCounter">0 / 155 حرف</div>
+            </div>
+
+            <div class="field-group">
+              <label for="srvSubtitle">العنوان الفرعي (يظهر كعنوان قصير داخل الصفحة)</label>
               <input type="text" id="srvSubtitle" name="srvSubtitle" placeholder="مثال: نهيّئ موقعك ليتصدر نتائج البحث" />
             </div>
 

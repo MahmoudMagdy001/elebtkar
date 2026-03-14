@@ -28,6 +28,38 @@ metaInput.addEventListener('input', () => {
     (len <= IDEAL_MAX ? (len >= 100 ? 'ok' : 'warn') : 'over');
 });
 
+// ── Service SEO Helpers ──────────────────
+const srvTitleEnInput = document.getElementById('srvTitleEn');
+const srvSlugInput    = document.getElementById('srvSlug');
+const srvSlugPreview  = document.getElementById('srvSlugPreview');
+const regenSrvBtn     = document.getElementById('regenSrvSlug');
+
+function updateSrvSlugFromTitle() {
+  const s = typeof generateSlug === 'function' ? generateSlug(srvTitleEnInput.value) : srvTitleEnInput.value.toLowerCase().replace(/\s+/g, '-');
+  srvSlugInput.value = s;
+  srvSlugPreview.textContent = s || '…';
+}
+
+if (srvTitleEnInput) {
+  srvTitleEnInput.addEventListener('input', updateSrvSlugFromTitle);
+  srvSlugInput.addEventListener('input', () => {
+    srvSlugPreview.textContent = srvSlugInput.value || '…';
+  });
+  regenSrvBtn.addEventListener('click', updateSrvSlugFromTitle);
+}
+
+const srvMetaInput   = document.getElementById('srvMetaDescription');
+const srvMetaCounter = document.getElementById('srvMetaCounter');
+
+if (srvMetaInput) {
+  srvMetaInput.addEventListener('input', () => {
+    const len = srvMetaInput.value.length;
+    srvMetaCounter.textContent = `${len} / ${IDEAL_MAX} حرف`;
+    srvMetaCounter.className = 'meta-counter ' +
+      (len <= IDEAL_MAX ? (len >= 100 ? 'ok' : 'warn') : 'over');
+  });
+}
+
 // ── Image preview ─────────────────────────────
 const fileInput    = document.getElementById('featuredImage');
 const imagePreview = document.getElementById('imagePreview');
@@ -272,6 +304,15 @@ async function handleEditService(srvSummary) {
 
     editingServiceId = srv.id;
     document.getElementById('srvTitle').value = srv.title;
+    document.getElementById('srvTitleEn').value = ''; // Not stored, used for generation
+    document.getElementById('srvSlug').value = srv.slug || '';
+    document.getElementById('srvSlugPreview').textContent = srv.slug || '…';
+    document.getElementById('srvMetaDescription').value = srv.meta_description || '';
+    if (srvMetaCounter) {
+        const len = (srv.meta_description || '').length;
+        srvMetaCounter.textContent = `${len} / ${IDEAL_MAX} حرف`;
+        srvMetaCounter.className = 'meta-counter ' + (len <= IDEAL_MAX ? (len >= 100 ? 'ok' : 'warn') : 'over');
+    }
     document.getElementById('srvSubtitle').value = srv.subtitle || '';
     document.getElementById('srvDescription').value = srv.description;
     document.getElementById( 'srvFeatures').value = (srv.features || []).join('\n');
@@ -678,16 +719,22 @@ if (srvForm) {
     
     // Extract values
     const title = document.getElementById('srvTitle').value.trim();
+    const slug = document.getElementById('srvSlug').value.trim().toLowerCase();
+    const meta_description = document.getElementById('srvMetaDescription').value.trim();
     const subtitle = document.getElementById('srvSubtitle').value.trim();
-    const description = document.getElementById('srvDescription').value.trim();
     const featuresStr = document.getElementById('srvFeatures').value.trim();
     const iconFile = document.getElementById('srvIcon').files[0];
     const bgIconFile = document.getElementById('srvBgIcon').files[0];
     const order_num = parseInt(document.getElementById('srvOrder').value) || 1;
     const is_reverse = document.getElementById('srvReverse').checked;
 
-    if (!title || !description || !featuresStr || (!iconFile && !editingServiceId)) {
+    if (!title || !slug || !meta_description || !description || !featuresStr || (!iconFile && !editingServiceId)) {
       showToast('يرجى ملء كافة الحقول الأساسية.', 'error');
+      return;
+    }
+
+    if (!/^[a-z0-9-]+$/.test(slug)) {
+      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.', 'error');
       return;
     }
 
@@ -710,6 +757,8 @@ if (srvForm) {
       // 2. Insert or Update Supabase
       const srvData = {
         title,
+        slug,
+        meta_description,
         subtitle,
         description,
         features,
@@ -746,6 +795,11 @@ if (srvForm) {
       srvForm.reset();
       editingServiceId = null;
       document.getElementById('srvSubmitLabel').textContent = 'حفظ الخدمة';
+      document.getElementById('srvSlugPreview').textContent = '…';
+      if (srvMetaCounter) {
+        srvMetaCounter.textContent = `0 / ${IDEAL_MAX} حرف`;
+        srvMetaCounter.className = 'meta-counter ok';
+      }
     } catch (err) {
       console.error('Error creating service:', err);
       showToast(`حدث خطأ: ${err.message}`, 'error');

@@ -58,21 +58,75 @@ document.addEventListener("DOMContentLoaded", async () => {
       setTimeout(typeWriter, 600);
     }
 
-    // --- Dynamic Services Fetching ---
+    // --- Dynamic Services Fetching & SEO ---
     const servicesContainer = document.getElementById('services-list-container');
+    const params = new URLSearchParams(window.location.search);
+    const serviceSlug = params.get('slug');
     
     async function fetchAndRenderServices() {
         try {
-            const { data: services, error } = await sb
-                .from('services')
-                .select('*')
-                .order('order_num', { ascending: true });
+            let query = sb.from('services').select('*');
+            
+            if (serviceSlug) {
+                query = query.eq('slug', serviceSlug).single();
+            } else {
+                query = query.order('order_num', { ascending: true });
+            }
 
-            if (error) throw error;
+            const { data, error } = await query;
+
+            if (error || (serviceSlug && !data)) {
+                if (serviceSlug) {
+                    console.error('Service not found:', serviceSlug);
+                    window.location.href = '/services'; // Redirect to main services if slug invalid
+                    return;
+                }
+                throw error;
+            }
 
             if (servicesContainer) {
                 // Clear loader
                 servicesContainer.innerHTML = '';
+
+                const services = serviceSlug ? [data] : data;
+
+                if (serviceSlug && data) {
+                    // Update SEO Tags for individual service
+                    document.title = `${data.title} | الابتكار`;
+                    updateMetaTag('name', 'description', data.meta_description || data.subtitle || '');
+                    updateMetaTag('property', 'og:title', `${data.title} | الابتكار`);
+                    updateMetaTag('property', 'og:description', data.meta_description || data.subtitle || '');
+                    if (data.icon) updateMetaTag('property', 'og:image', data.icon);
+
+                    // Structured Data (Service Schema)
+                    const serviceSchema = {
+                      "@context": "https://schema.org",
+                      "@type": "Service",
+                      "name": data.title,
+                      "description": data.meta_description || data.subtitle || '',
+                      "provider": {
+                        "@type": "Organization",
+                        "name": "الابتكار",
+                        "url": "https://elebtikar-sa.com"
+                      },
+                      "areaServed": "SA",
+                      "hasOfferCatalog": {
+                        "@type": "OfferCatalog",
+                        "name": "حلول رقمية",
+                        "itemListElement": (data.features || []).map((feat, index) => ({
+                          "@type": "Offer",
+                          "itemOffered": {
+                            "@type": "Service",
+                            "name": feat
+                          }
+                        }))
+                      }
+                    };
+                    const script = document.createElement('script');
+                    script.type = 'application/ld+json';
+                    script.textContent = JSON.stringify(serviceSchema);
+                    document.head.appendChild(script);
+                }
 
                 services.forEach((srv) => {
                     const row = document.createElement('section');
@@ -85,8 +139,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     `).join('') : '';
 
                     // Use image tags for icons
-                    const iconHtml = srv.icon && (srv.icon.startsWith('http') || srv.icon.startsWith('/')) ? `<img src="${srv.icon}" class="srv-icon-img" alt="${srv.title}">` : `<i class="${srv.icon || 'ph ph-duotone ph-gear'}"></i>`;
-                    const bgIconHtml = srv.bg_icon && (srv.bg_icon.startsWith('http') || srv.bg_icon.startsWith('/')) ? `<img src="${srv.bg_icon}" class="srv-bg-img" alt="">` : `<i class="${srv.bg_icon || 'ph ph-duotone ph-circles-three'}"></i>`;
+                    const iconHtml = srv.icon && (srv.icon.startsWith('http') || srv.icon.startsWith('/')) ? `<img src="${srv.icon}" class="srv-icon-img" alt="${srv.title}" loading="lazy">` : `<i class="${srv.icon || 'ph ph-duotone ph-gear'}"></i>`;
+                    const bgIconHtml = srv.bg_icon && (srv.bg_icon.startsWith('http') || srv.bg_icon.startsWith('/')) ? `<img src="${srv.bg_icon}" class="srv-bg-img" alt="" loading="lazy">` : `<i class="${srv.bg_icon || 'ph ph-duotone ph-circles-three'}"></i>`;
 
                     row.innerHTML = `
                         <div class="srv-content">
@@ -207,3 +261,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.initFadeObserver();
     }
 });
+
+/**
+ * Helper to update or create meta tags
+ */
+function updateMetaTag(attr, name, content) {
+    let el = document.querySelector(`meta[${attr}="${name}"]`);
+    if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, name);
+        document.head.appendChild(el);
+    }
+    el.setAttribute('content', content || '');
+}

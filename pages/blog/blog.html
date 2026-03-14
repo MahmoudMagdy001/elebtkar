@@ -3,11 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>المدونة | الابتكار</title>
-  <meta name="description" content="مقالات واستراتيجيات في التسويق الرقمي، السيو، وبناء الحضور الرقمي من فريق الابتكار." />
-  <meta property="og:title"       content="مدونة الابتكار" />
-  <meta property="og:description" content="مقالات واستراتيجيات في التسويق الرقمي والتقنية." />
-  <meta property="og:type"        content="website" />
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logs.png" />
+  <link rel="canonical" href="https://elebtikar-sa.com/blog" />
+
+  <title>المدونة | مقالات واستراتيجيات التسويق الرقمي | الابتكار</title>
+  <meta name="description" content="اقرأ أحدث المقالات عن التسويق الرقمي، السيو، بناء المواقع، والذكاء الاصطناعي. نصائح مجانية من خبراء الابتكار لتنمية عملك في السعودية." />
+  <meta name="keywords" content="مدونة تسويق، مقالات سيو، نصائح تقنية، استراتيجيات رقمية، السعودية" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://elebtikar-sa.com/blog" />
+  <meta property="og:title" content="مدونة الابتكار | وجهتك لتعلم التسويق الرقمي" />
+  <meta property="og:description" content="مقالات واستراتيجيات عملية لتنمية نشاطك التجاري رقمياً في السوق السعودي." />
+  <meta property="og:image" content="https://elebtikar-sa.com/assets/images/logo.png" />
+  <meta property="og:site_name" content="الابتكار" />
+  <meta property="og:locale" content="ar_SA" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://elebtikar-sa.com/blog" />
+  <meta name="twitter:title" content="مدونة الابتكار | وجهتك لتعلم التسويق الرقمي" />
+  <meta name="twitter:description" content="مقالات واستراتيجيات عملية لتنمية نشاطك التجاري رقمياً في السوق السعودي." />
+  <meta name="twitter:image" content="https://elebtikar-sa.com/assets/images/logo.png" />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "الرئيسية",
+      "item": "https://elebtikar-sa.com/"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "المدونة",
+      "item": "https://elebtikar-sa.com/blog"
+    }]
+  }
+  </script>
 
   <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,6 +68,7 @@
   <link rel="stylesheet" href="/pages/blog/blog.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">انتقل إلى المحتوى الرئيسي</a>
 
 <!-- NAV PLACEHOLDER -->
 <div id="navbar-placeholder"></div>
@@ -39,7 +81,7 @@
 </div>
 
 <!-- ── Blog Grid ── -->
-<main class="blog-container">
+<main class="blog-container" id="main-content">
   <div class="posts-grid" id="postsGrid">
 
     <!-- Skeleton cards while loading -->

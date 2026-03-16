@@ -23,6 +23,14 @@
         {
             "source": "/services",
             "destination": "/pages/services/services.html"
+        },
+        {
+            "source": "/privacy-policy",
+            "destination": "/pages/legal/privacy-policy.html"
+        },
+        {
+            "source": "/terms-and-conditions",
+            "destination": "/pages/legal/terms-and-conditions.html"
         }
     ]
 }

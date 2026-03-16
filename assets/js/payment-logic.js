@@ -98,12 +98,21 @@ window.PaymentHandler = {
 
     /**
      * Final step: Save everything to Supabase
+     * This records the transaction details in the 'purchases' table.
      */
     async recordPayment(payment) {
-        const { createClient } = supabase;
+        // Validation check for Supabase client
+        if (!window.supabase) {
+            console.error('Supabase client not found.');
+            return;
+        }
+
+        const { createClient } = window.supabase;
         const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
         try {
+            console.log('Recording payment to Supabase:', payment.id);
+            
             const { error } = await sb
                 .from('purchases')
                 .insert([{
@@ -115,7 +124,10 @@ window.PaymentHandler = {
                     user_email: this.tempCustomerData.email,
                     user_phone: this.tempCustomerData.phone,
                     currency: payment.currency || 'SAR',
-                    metadata: { plan_name: this.tempPlanData.title }
+                    metadata: { 
+                        plan_name: this.tempPlanData.title,
+                        source: 'Moyasar Web SDK'
+                    }
                 }]);
 
             if (error) throw error;
@@ -123,8 +135,9 @@ window.PaymentHandler = {
             alert('تمت عملية الدفع بنجاح! سيتم التواصل معك قريباً.');
             window.location.reload();
         } catch (err) {
-            console.error('Record failed:', err);
-            alert('تم الدفع ولكن فشل الربط بالقاعدة. شكراً لك، طلبك محفوظ في مويسر.');
+            console.error('Record to Supabase failed:', err);
+            // Fallback: Notify user that payment succeeded but recording failed
+            alert('تم الدفع بنجاح ولكن فشل تحديث السجلات تلقائياً. لا تقلق، سنصلك قريباً. (مُعرف الدفع: ' + payment.id + ')');
         }
     }
 };

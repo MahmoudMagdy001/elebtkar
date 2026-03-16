@@ -53,6 +53,10 @@ window.PaymentHandler = {
         }
 
         this.tempCustomerData = { name, email, phone };
+        
+        // Store in sessionStorage for persistence during redirection
+        sessionStorage.setItem('pending_payment_customer', JSON.stringify(this.tempCustomerData));
+        sessionStorage.setItem('pending_payment_plan', JSON.stringify(this.tempPlanData));
 
         // Hide customer form, show Moyasar
         document.getElementById('paymentCustomerForm').style.display = 'none';
@@ -87,7 +91,13 @@ window.PaymentHandler = {
                 country: 'SA'
             },
             on_completed: async (payment) => {
-                await this.recordPayment(payment);
+                // If payment is already successful (e.g. STC Pay or Apple Pay without redirect)
+                if (payment.status === 'paid') {
+                    await this.recordPayment(payment);
+                } else {
+                    // This might happen if Moyasar SDK doesn't automatically redirect for some reason
+                    console.log('Payment completed with status:', payment.status);
+                }
             },
             on_failure: (error) => {
                 console.error('Payment failed:', error);

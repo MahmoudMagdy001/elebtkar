@@ -449,6 +449,18 @@
               <input type="text" id="planTitle" name="planTitle" placeholder="مثال: الحل الاساسي" required />
             </div>
 
+            <!-- Slug -->
+            <div class="field-group">
+              <label for="planSlug">رابط (Slug) الباقة <span class="required">*</span></label>
+              <div class="slug-row">
+                <input type="text" id="planSlug" name="planSlug" placeholder="basic-plan" required autocomplete="off" />
+                <button type="button" class="btn-regen" id="regenPlanSlug" title="إعادة توليد">
+                  <i class="ph ph-arrows-clockwise"></i>
+                </button>
+              </div>
+              <p class="field-hint">رابط الباقة: <strong id="planSlugPreview">…</strong></p>
+            </div>
+
             <div class="field-group">
               <label for="planSubtitle">العنوان الفرعي</label>
               <input type="text" id="planSubtitle" name="planSubtitle" placeholder="مثال: مثالية للحصول علي ابتكار واحد" />
@@ -486,6 +498,10 @@
                 <input type="checkbox" id="planPopular" name="planPopular" />
                 <label for="planPopular">باقة مميزة (الأكثر طلباً)</label>
               </div>
+              <div class="checkbox-group">
+                <input type="checkbox" id="planActive" name="planActive" checked />
+                <label for="planActive">تفعيل الباقة (تظهر في الموقع)</label>
+              </div>
             </div>
 
             <button type="submit" class="submit-btn" id="planSubmitBtn">
@@ -517,6 +533,7 @@
                   <th>السعر</th>
                   <th>الترتيب</th>
                   <th>مميزة</th>
+                  <th>حالة الباقة</th>
                   <th>الإجراءات</th>
                 </tr>
               </thead>

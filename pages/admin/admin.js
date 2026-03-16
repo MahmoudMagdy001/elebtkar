@@ -60,6 +60,26 @@ if (srvMetaInput) {
   });
 }
 
+// ── Pricing Plan SEO Helpers ──────────────────
+const planTitleInput = document.getElementById('planTitle');
+const planSlugInput    = document.getElementById('planSlug');
+const planSlugPreview  = document.getElementById('planSlugPreview');
+const regenPlanBtn     = document.getElementById('regenPlanSlug');
+
+function updatePlanSlugFromTitle() {
+  const s = typeof generateSlug === 'function' ? generateSlug(planTitleInput.value) : planTitleInput.value.toLowerCase().replace(/\s+/g, '-');
+  planSlugInput.value = s;
+  planSlugPreview.textContent = s || '…';
+}
+
+if (planTitleInput) {
+  planTitleInput.addEventListener('input', updatePlanSlugFromTitle);
+  planSlugInput.addEventListener('input', () => {
+    planSlugPreview.textContent = planSlugInput.value || '…';
+  });
+  if (regenPlanBtn) regenPlanBtn.addEventListener('click', updatePlanSlugFromTitle);
+}
+
 // ── Image preview ─────────────────────────────
 const fileInput    = document.getElementById('featuredImage');
 const imagePreview = document.getElementById('imagePreview');
@@ -368,6 +388,7 @@ async function loadPricingPlans() {
         <td>${item.price.toLocaleString()}</td>
         <td>${item.order_num}</td>
         <td>${item.is_popular ? '<span class="code-pill">نعم</span>' : 'لا'}</td>
+        <td><span class="status-badge ${item.is_active ? 'success' : 'failed'}">${item.is_active ? 'نشط' : 'معطل'}</span></td>
         <td class="actions">
           <button class="btn-edit" onclick="handleEditPricingPlan(${item.id})" title="تعديل"><i class="ph ph-pencil-simple"></i></button>
           <button class="btn-delete" onclick="handleDeletePricingPlan(${item.id})" title="حذف"><i class="ph ph-trash"></i></button>
@@ -401,12 +422,15 @@ async function handleEditPricingPlan(id) {
 
     editingPricingPlanId = plan.id;
     document.getElementById('planTitle').value = plan.title;
+    document.getElementById('planSlug').value = plan.slug || '';
+    document.getElementById('planSlugPreview').textContent = plan.slug || '…';
     document.getElementById('planSubtitle').value = plan.subtitle || '';
     document.getElementById('planPrice').value = plan.price;
     document.getElementById('planCurrency').value = plan.currency || '﷼';
     document.getElementById('planCycle').value = plan.billing_cycle || 'شهرياً';
     document.getElementById('planOrder').value = plan.order_num || 1;
     document.getElementById('planPopular').checked = plan.is_popular;
+    document.getElementById('planActive').checked = plan.is_active;
     
     let featuresArray = [];
     try {
@@ -817,6 +841,7 @@ if (planForm) {
     
     // Extract values
     const title = document.getElementById('planTitle').value.trim();
+    const slug = document.getElementById('planSlug').value.trim().toLowerCase();
     const subtitle = document.getElementById('planSubtitle').value.trim();
     const price = parseFloat(document.getElementById('planPrice').value);
     const currency = document.getElementById('planCurrency').value.trim() || '﷼';
@@ -824,9 +849,15 @@ if (planForm) {
     const featuresStr = document.getElementById('planFeatures').value.trim();
     const order_num = parseInt(document.getElementById('planOrder').value) || 1;
     const is_popular = document.getElementById('planPopular').checked;
+    const is_active = document.getElementById('planActive').checked;
 
-    if (!title || isNaN(price) || !featuresStr) {
-      showToast('يرجى ملء كافة الحقول الأساسية (الاسم، السعر، المميزات).', 'error');
+    if (!title || !slug || isNaN(price) || !featuresStr) {
+      showToast('يرجى ملء كافة الحقول الأساسية (الاسم، الرابط، السعر، المميزات).', 'error');
+      return;
+    }
+
+    if (!/^[a-z0-9-]+$/.test(slug)) {
+      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.', 'error');
       return;
     }
 
@@ -838,13 +869,15 @@ if (planForm) {
     try {
       const planData = {
         title,
+        slug,
         subtitle,
         price,
         currency,
         billing_cycle,
         features,
         order_num,
-        is_popular
+        is_popular,
+        is_active
       };
 
       let result;
@@ -874,6 +907,7 @@ if (planForm) {
       planForm.reset();
       editingPricingPlanId = null;
       document.getElementById('planSubmitLabel').textContent = 'حفظ الباقة';
+      document.getElementById('planSlugPreview').textContent = '…';
     } catch (err) {
       console.error('Error saving pricing plan:', err);
       showToast(`حدث خطأ: ${err.message}`, 'error');

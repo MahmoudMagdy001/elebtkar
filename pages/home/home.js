@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const card = document.createElement('div');
                     card.className = `service-card ${srv.is_featured ? 'service-card-accent' : ''}`;
                     
-                    const iconHtml = srv.icon && srv.icon.startsWith('http') 
-                        ? `<img src="${srv.icon}" class="srv-icon-img" alt="${srv.title}" loading="lazy">` 
-                        : `<i class="${srv.icon || 'ph ph-duotone ph-gear'}"></i>`;
+                    const iconHtml = srv.bg_icon && (srv.bg_icon.startsWith('http') || srv.bg_icon.startsWith('/'))
+                        ? `<img src="${srv.bg_icon}" class="srv-icon-img" alt="${srv.title}" loading="lazy">` 
+                        : `<i class="${srv.bg_icon || 'ph ph-duotone ph-circles-three'}"></i>`;
 
                     card.innerHTML = `
                         <div class="service-icon">${iconHtml}</div>

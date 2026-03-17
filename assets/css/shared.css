@@ -436,10 +436,7 @@ nav.scrolled .logo-img { filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
   margin: 0 auto 1.5rem;
 }
 
-.srv-icon .srv-icon-img {
-  width: 64px;
-  height: 64px;
-}
+
 
 .icon-showcase .srv-bg-img {
     filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));

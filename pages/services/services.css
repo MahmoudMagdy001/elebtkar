@@ -139,23 +139,7 @@ body {
   flex: 1;
 }
 
-.srv-icon {
-  font-size: 4rem;
-  color: var(--primary);
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
-  display: inline-block;
-}
 
-.service-row:hover .srv-icon {
-  animation: iconBounce 0.5s ease;
-}
-
-@keyframes iconBounce {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0); }
-}
 
 .srv-title {
   font-size: 2.2rem;
@@ -296,7 +280,7 @@ body {
 .featured-ai .srv-title { color: var(--white); }
 .featured-ai .ai-list li { color: rgba(255,255,255,0.8); }
 .featured-ai .ai-list li i { color: #f0c060; }
-.featured-ai .srv-icon { color: #f0c060; }
+
 
 .ai-btn {
   background: var(--accent);

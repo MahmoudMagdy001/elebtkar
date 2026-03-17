@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     updateMetaTag('property', 'og:title', serviceTitle);
                     updateMetaTag('property', 'og:description', serviceDesc);
                     updateMetaTag('property', 'og:url', serviceUrl);
-                    if (data.icon) updateMetaTag('property', 'og:image', data.icon);
+                    if (data.bg_icon) updateMetaTag('property', 'og:image', data.bg_icon);
 
                     // Update Canonical Link
                     const canonical = document.getElementById('canonical-link');
@@ -150,13 +150,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <li class="included"><i class="ph ph-fill ph-check-circle"></i> ${feat}</li>
                     `).join('') : '';
 
-                    // Use image tags for icons
-                    const iconHtml = srv.icon && (srv.icon.startsWith('http') || srv.icon.startsWith('/')) ? `<img src="${srv.icon}" class="srv-icon-img" alt="${srv.title}" loading="lazy">` : `<i class="${srv.icon || 'ph ph-duotone ph-gear'}"></i>`;
                     const bgIconHtml = srv.bg_icon && (srv.bg_icon.startsWith('http') || srv.bg_icon.startsWith('/')) ? `<img src="${srv.bg_icon}" class="srv-bg-img" alt="" loading="lazy">` : `<i class="${srv.bg_icon || 'ph ph-duotone ph-circles-three'}"></i>`;
 
                     row.innerHTML = `
                         <div class="srv-content">
-                            <div class="srv-icon">${iconHtml}</div>
                             <h2 class="srv-title">${srv.title}</h2>
                             <p class="srv-short">"${srv.subtitle || ''}"</p>
                             <ul class="srv-list">
@@ -212,12 +209,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
             });
 
-            // Floating effect for icons
-            const icons = document.querySelectorAll(".srv-icon i");
-            icons.forEach(icon => {
+            // Floating effect for background icons
+            const bgIcons = document.querySelectorAll(".icon-showcase i");
+            bgIcons.forEach(icon => {
                 gsap.to(icon, {
-                    y: -8,
-                    duration: 1.5,
+                    y: -10,
+                    duration: 2,
                     repeat: -1,
                     yoyo: true,
                     ease: "sine.inOut",

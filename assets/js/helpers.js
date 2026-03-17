@@ -162,6 +162,7 @@ const fetchAndRenderPricing = async () => {
     const { data: plans, error } = await sb
       .from('pricing_plans')
       .select('*')
+      .eq('is_active', true)
       .order('order_num', { ascending: true });
 
     if (error) throw error;

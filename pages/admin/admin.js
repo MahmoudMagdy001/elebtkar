@@ -335,9 +335,12 @@ async function handleEditService(srvSummary) {
     }
     document.getElementById('srvSubtitle').value = srv.subtitle || '';
     document.getElementById('srvDescription').value = srv.description;
-    document.getElementById( 'srvFeatures').value = (srv.features || []).join('\n');
+    document.getElementById('srvFeatures').value = (srv.features || []).join('\n');
     document.getElementById('srvOrder').value = srv.order_num;
     document.getElementById('srvReverse').checked = srv.is_reverse;
+    // Note: Primary icon is handled by DB, bg_icon is a file upload (reset on edit)
+    document.getElementById('srvBgIcon').value = ''; 
+
     
     document.getElementById('srvSubmitLabel').textContent = 'تحديث الخدمة';
     document.getElementById('addServiceSection').classList.add('active');
@@ -372,7 +375,7 @@ async function loadPricingPlans() {
   try {
     const { data, error } = await sb
       .from('pricing_plans')
-      .select('id, title, price, order_num, is_popular')
+      .select('id, title, price, order_num, is_popular, is_active')
       .order('order_num', { ascending: true });
 
     if (error) throw error;
@@ -746,13 +749,13 @@ if (srvForm) {
     const slug = document.getElementById('srvSlug').value.trim().toLowerCase();
     const meta_description = document.getElementById('srvMetaDescription').value.trim();
     const subtitle = document.getElementById('srvSubtitle').value.trim();
+    const description = document.getElementById('srvDescription').value.trim();
     const featuresStr = document.getElementById('srvFeatures').value.trim();
-    const iconFile = document.getElementById('srvIcon').files[0];
     const bgIconFile = document.getElementById('srvBgIcon').files[0];
     const order_num = parseInt(document.getElementById('srvOrder').value) || 1;
     const is_reverse = document.getElementById('srvReverse').checked;
 
-    if (!title || !slug || !meta_description || !description || !featuresStr || (!iconFile && !editingServiceId)) {
+    if (!title || !slug || !meta_description || !description || !featuresStr) {
       showToast('يرجى ملء كافة الحقول الأساسية.', 'error');
       return;
     }
@@ -768,12 +771,8 @@ if (srvForm) {
     setBtnLoading('srvSubmitBtn', 'srvSubmitSpinner', 'srvSubmitIcon', 'srvSubmitLabel', true, 'جاري الحفظ…', 'حفظ الخدمة');
     
     try {
-      // 1. Upload icons
-      let icon = '';
-      if (iconFile) {
-        icon = await uploadFeaturedImage(iconFile);
-      }
-      let bg_icon = '';
+      // 1. Upload background icon if provided
+      let bg_icon = null;
       if (bgIconFile) {
         bg_icon = await uploadFeaturedImage(bgIconFile);
       }
@@ -789,7 +788,6 @@ if (srvForm) {
         order_num,
         is_reverse
       };
-      if (icon) srvData.icon = icon;
       if (bg_icon) srvData.bg_icon = bg_icon;
 
       let result;

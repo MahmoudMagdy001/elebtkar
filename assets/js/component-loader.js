@@ -71,4 +71,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   initBackTop(); // from helpers.js
 
   await loadComponent('/components/footer.html', 'footer-placeholder');
+
+  // Populate dynamic services in the footer
+  const servicesLinks = document.getElementById('footer-services-links');
+  if (servicesLinks && window.supabase && window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
+      const { createClient } = window.supabase;
+      const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+      
+      try {
+          const { data: services, error } = await sb
+              .from('services')
+              .select('title, slug')
+              .order('order_num', { ascending: true });
+              
+          if (!error && services) {
+              services.forEach(srv => {
+                  const link = document.createElement('a');
+                  link.href = `/pages/services/services.html?slug=${srv.slug}`;
+                  link.textContent = srv.title;
+                  servicesLinks.appendChild(link);
+              });
+          }
+      } catch (err) {
+          console.error('Error fetching services for footer:', err);
+      }
+  }
 });

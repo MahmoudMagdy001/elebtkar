@@ -26,10 +26,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 .order('order_num', { ascending: true });
 
             if (error) throw error;
+
+            if (!data || data.length === 0) {
+                const pricingSection = document.getElementById('pricing');
+                if (pricingSection) pricingSection.style.display = 'none';
+                return;
+            }
+
             renderPlans(data);
         } catch (err) {
             console.error('Error fetching pricing plans:', err);
-            pricingContainer.innerHTML = '<p class="text-center">حدث خطأ أثناء تحميل الباقات.</p>';
+            // Hide section on error as well to avoid showing empty state
+            const pricingSection = document.getElementById('pricing');
+            if (pricingSection) pricingSection.style.display = 'none';
         }
     }
 

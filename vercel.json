@@ -21,6 +21,10 @@
             "destination": "/pages/post/post.html"
         },
         {
+            "source": "/services/slug=:slug",
+            "destination": "/pages/services/services.html?slug=:slug"
+        },
+        {
             "source": "/services",
             "destination": "/pages/services/services.html"
         },

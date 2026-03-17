@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (!error && services) {
               services.forEach(srv => {
                   const link = document.createElement('a');
-                  link.href = `/pages/services/services.html?slug=${srv.slug}`;
+                  link.href = `/services/slug=${srv.slug}`;
                   link.textContent = srv.title;
                   servicesLinks.appendChild(link);
               });

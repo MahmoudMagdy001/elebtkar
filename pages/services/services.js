@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // Update SEO Tags for individual service
                     const serviceTitle = `${data.title} | الابتكار`;
                     const serviceDesc = data.meta_description || data.subtitle || '';
-                    const serviceUrl = `https://elebtikar-sa.com/services/${data.slug}`;
+                    const serviceUrl = `https://elebtikar-sa.com/services/slug=${data.slug}`;
 
                     document.title = serviceTitle;
                     updateMetaTag('name', 'description', serviceDesc);

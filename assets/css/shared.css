@@ -433,7 +433,7 @@ nav.scrolled .logo-img { filter: drop-shadow(0 0 5px rgba(255,255,255,0.1)); }
 }
 
 .service-card .srv-icon-img {
-  margin: 0 auto 1.5rem;
+  margin: 0 auto;
 }
 
 

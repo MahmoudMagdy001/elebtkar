@@ -61,7 +61,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     // --- Dynamic Services Fetching & SEO ---
     const servicesContainer = document.getElementById('services-list-container');
     const params = new URLSearchParams(window.location.search);
-    const serviceSlug = params.get('slug');
+    let serviceSlug = params.get('slug');
+
+    // Handle clean URLs: /services/slug=...
+    if (!serviceSlug && window.location.pathname.includes('slug=')) {
+        const pathParts = window.location.pathname.split('slug=');
+        if (pathParts.length > 1) {
+            serviceSlug = pathParts[1].split('/')[0];
+        }
+    }
     
     async function fetchAndRenderServices() {
         try {

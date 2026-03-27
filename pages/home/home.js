@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     card.innerHTML = `
                         <div class="service-icon">${iconHtml}</div>
                         <h3>${srv.title}</h3>
-                        <p>${srv.description || srv.subtitle || ''}</p>
+                        <p>${srv.subtitle || ''}</p>
                     `;
                     servicesGrid.appendChild(card);
                 });
@@ -78,6 +78,40 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         } catch (err) {
             console.error('Error fetching services for home:', err);
+        }
+    }
+
+    // 1.5. Dynamic Partners/Clients Logos Fetching
+    const partnersGrid = document.getElementById('partnersGrid');
+    if (partnersGrid) {
+        try {
+            const { data: partners, error } = await sb
+                .from('partners')
+                .select('*')
+                .order('order_num', { ascending: true });
+
+            if (error) throw error;
+
+            if (partners && partners.length > 0) {
+                partnersGrid.innerHTML = '';
+                partners.forEach(ptn => {
+                    const card = document.createElement('div');
+                    card.className = 'client-card fade-in';
+                    const imgHtml = `<img src="${ptn.logo_url}" alt="شريك نجاح" loading="lazy">`;
+                    
+                    if (ptn.website_url) {
+                        card.innerHTML = `<a href="${ptn.website_url}" target="_blank" rel="noopener noreferrer">${imgHtml}</a>`;
+                    } else {
+                        card.innerHTML = imgHtml;
+                    }
+                    
+                    partnersGrid.appendChild(card);
+                });
+                // Re-run animations for new elements
+                initHomeAnimations();
+            }
+        } catch (err) {
+            console.error('Error fetching partners:', err);
         }
     }
 

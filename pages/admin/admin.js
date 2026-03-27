@@ -177,16 +177,39 @@ navItems.forEach(item => {
       loadServices();
     } else if (targetSection === 'managePricingPlans') {
       loadPricingPlans();
+    } else if (targetSection === 'managePartners') {
+      loadPartners();
     } else if (targetSection === 'managePayments') {
       loadPayments();
     }
   });
 });
 
+// Partner Image Preview
+const partnerLogoInput = document.getElementById('partnerLogo');
+const partnerImagePreview = document.getElementById('partnerImagePreview');
+const partnerUploadZone = document.getElementById('partnerUploadZone');
+
+if (partnerLogoInput) {
+  partnerLogoInput.addEventListener('change', () => {
+    const file = partnerLogoInput.files[0];
+    if (!file) return;
+    partnerImagePreview.src = URL.createObjectURL(file);
+    partnerImagePreview.style.display = 'block';
+  });
+}
+
+if (partnerUploadZone) {
+  partnerUploadZone.addEventListener('dragover', e => { e.preventDefault(); partnerUploadZone.classList.add('drag-over'); });
+  partnerUploadZone.addEventListener('dragleave', () => partnerUploadZone.classList.remove('drag-over'));
+  partnerUploadZone.addEventListener('drop', () => partnerUploadZone.classList.remove('drag-over'));
+}
+
 // ── Variables for Editing ────────────────────
 let editingPostId = null;
 let editingServiceId = null;
 let editingPricingPlanId = null;
+let editingPartnerId = null;
 
 // ── Articles Management ──────────────────────
 async function loadArticles() {
@@ -593,6 +616,81 @@ async function loadContactMessages() {
 
 document.getElementById('refreshContactMessages')?.addEventListener('click', loadContactMessages);
 
+// ── Partners Management ──────────────────────
+async function loadPartners() {
+  const tableBody = document.getElementById('partnersTableBody');
+  const refreshBtn = document.getElementById('refreshPartners');
+  if (refreshBtn) refreshBtn.classList.add('ph-spin');
+
+  try {
+    const { data, error } = await sb
+      .from('partners')
+      .select('*')
+      .order('order_num', { ascending: true });
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 2rem;">لا يوجد شركاء حالياً</td></tr>';
+      return;
+    }
+
+    tableBody.innerHTML = data.map(item => `
+      <tr>
+        <td><img src="${item.logo_url}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: contain; background: #eee;"></td>
+        <td dir="ltr" style="font-size: 0.8rem; color: var(--primary);">${item.website_url || '-'}</td>
+        <td>${item.order_num}</td>
+        <td class="actions">
+          <button class="btn-edit" onclick="handleEditPartner(${JSON.stringify(item).replace(/"/g, '&quot;')})" title="تعديل"><i class="ph ph-pencil-simple"></i></button>
+          <button class="btn-delete" onclick="handleDeletePartner(${item.id})" title="حذف"><i class="ph ph-trash"></i></button>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Error fetching partners:', err);
+    tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 2rem; color: #e53935;">فشل تحميل البيانات</td></tr>`;
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove('ph-spin');
+  }
+}
+
+async function handleDeletePartner(id) {
+  if (!confirm('هل أنت متأكد من حذف هذا الشريك؟')) return;
+  try {
+    const { error } = await sb.from('partners').delete().eq('id', id);
+    if (error) throw error;
+    showToast('تم حذف الشريك بنجاح', 'success');
+    loadPartners();
+  } catch (err) {
+    showToast(`فشل الحذف: ${err.message}`, 'error');
+  }
+}
+
+async function handleEditPartner(ptn) {
+  editingPartnerId = ptn.id;
+  document.getElementById('partnerWebsite').value = ptn.website_url || '';
+  document.getElementById('partnerOrder').value = ptn.order_num || 0;
+  
+  partnerImagePreview.src = ptn.logo_url;
+  partnerImagePreview.style.display = 'block';
+  
+  document.getElementById('partnerSubmitLabel').textContent = 'تحديث الشريك';
+  document.getElementById('partnerFormTitle').textContent = 'تعديل بيانات الشريك';
+  
+  document.getElementById('addPartnerSection').classList.add('active');
+  document.getElementById('managePartnersSection').classList.remove('active');
+  
+  // Update active nav
+  navItems.forEach(i => i.classList.remove('active'));
+  document.querySelector('[data-section="addPartner"]').classList.add('active');
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.getElementById('refreshPartners')?.addEventListener('click', loadPartners);
+window.handleDeletePartner = handleDeletePartner;
+window.handleEditPartner = handleEditPartner;
+
 // Login Form Submit
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
@@ -663,8 +761,8 @@ form.addEventListener('submit', async (e) => {
     showToast('يرجى ملء جميع الحقول المطلوبة.', 'error');
     return;
   }
-  if (!/^[a-z0-9-]+$/.test(slugVal)) {
-    showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.', 'error');
+  if (!/^[a-z0-9-\u0600-\u06FF]+$/.test(slugVal)) {
+    showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية أو عربية وأرقام وشرطات فقط.', 'error');
     return;
   }
   if (file && file.size > 5 * 1024 * 1024) {
@@ -760,8 +858,8 @@ if (srvForm) {
       return;
     }
 
-    if (!/^[a-z0-9-]+$/.test(slug)) {
-      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.', 'error');
+    if (!/^[a-z0-9-\u0600-\u06FF]+$/.test(slug)) {
+      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية أو عربية وأرقام وشرطات فقط.', 'error');
       return;
     }
 
@@ -854,8 +952,8 @@ if (planForm) {
       return;
     }
 
-    if (!/^[a-z0-9-]+$/.test(slug)) {
-      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية صغيرة وأرقام وشرطات فقط.', 'error');
+    if (!/^[a-z0-9-\u0600-\u06FF]+$/.test(slug)) {
+      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية أو عربية وأرقام وشرطات فقط.', 'error');
       return;
     }
 
@@ -911,6 +1009,75 @@ if (planForm) {
       showToast(`حدث خطأ: ${err.message}`, 'error');
     } finally {
       setBtnLoading('planSubmitBtn', 'planSubmitSpinner', 'planSubmitIcon', 'planSubmitLabel', false, 'جاري الحفظ…', 'حفظ الباقة');
+    }
+  });
+}
+
+// ── Partner Form Submission ───────────────────
+const partnerForm = document.getElementById('partnerForm');
+if (partnerForm) {
+  partnerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Extract values
+    const website_url = document.getElementById('partnerWebsite').value.trim();
+    const order_num = parseInt(document.getElementById('partnerOrder').value) || 0;
+    const logoFile = document.getElementById('partnerLogo').files[0];
+
+    if (!logoFile && !editingPartnerId) {
+      showToast('يرجى اختيار شعار للشريك.', 'error');
+      return;
+    }
+
+    setBtnLoading('partnerSubmitBtn', 'partnerSubmitSpinner', 'partnerSubmitIcon', 'partnerSubmitLabel', true, 'جاري الحفظ…', 'حفظ الشريك');
+    
+    try {
+      // 1. Upload logo if provided
+      let logo_url = null;
+      if (logoFile) {
+        logo_url = await uploadFeaturedImage(logoFile);
+      }
+
+      // 2. Insert or Update Supabase
+      const ptnData = {
+        website_url,
+        order_num
+      };
+      if (logo_url) ptnData.logo_url = logo_url;
+
+      let result;
+      if (editingPartnerId) {
+        result = await sb.from('partners').update(ptnData).eq('id', editingPartnerId).select();
+      } else {
+        result = await sb.from('partners').insert([ptnData]).select();
+      }
+
+      const { data, error } = result;
+      if (error) throw error;
+
+      showToast(editingPartnerId ? '✅ تم تحديث الشريك بنجاح!' : '✅ تم إضافة الشريك بنجاح!', 'success');
+      
+      // 3. Reset UI
+      partnerForm.reset();
+      editingPartnerId = null;
+      partnerImagePreview.style.display = 'none';
+      document.getElementById('partnerSubmitLabel').textContent = 'نشر الشريك';
+      document.getElementById('partnerFormTitle').textContent = 'إضافة شريك جديد';
+      
+      // Refresh list and switch view
+      loadPartners();
+      document.getElementById('managePartnersSection').classList.add('active');
+      document.getElementById('addPartnerSection').classList.remove('active');
+      navItems.forEach(i => {
+          i.classList.remove('active');
+          if(i.getAttribute('data-section') === 'managePartners') i.classList.add('active');
+      });
+      
+    } catch (err) {
+      console.error('Partner operation failed:', err);
+      showToast(`فشل العملية: ${err.message}`, 'error');
+    } finally {
+      setBtnLoading('partnerSubmitBtn', 'partnerSubmitSpinner', 'partnerSubmitIcon', 'partnerSubmitLabel', false, 'جاري الحفظ…', editingPartnerId ? 'تحديث الشريك' : 'حفظ الشريك');
     }
   });
 }

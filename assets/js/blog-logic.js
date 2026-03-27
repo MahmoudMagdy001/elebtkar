@@ -164,7 +164,7 @@ function generateSlug(text) {
   return text
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9\s-]/g, '')   // strip non-alphanumeric
-    .replace(/\s+/g, '-')            // spaces → hyphens
-    .replace(/-+/g, '-');            // collapse multiple hyphens
+    .replace(/[^a-z0-9\s-\u0600-\u06FF]/g, '')   // strip non-alphanumeric (including Arabic)
+    .replace(/\s+/g, '-')                      // spaces → hyphens
+    .replace(/-+/g, '-');                      // collapse multiple hyphens
 }

@@ -109,6 +109,7 @@ body {
 .service-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 4rem;
   margin-bottom: 6rem;
   background: var(--white);
@@ -122,6 +123,28 @@ body {
 .service-row:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
+
+.srv-desc-full {
+  width: 100%;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.srv-desc-full p {
+  font-size: 1.15rem;
+  color: var(--text-light);
+  line-height: 1.8;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.srv-desc-full h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 1rem;
 }
 
 .service-row.reverse {
@@ -152,7 +175,16 @@ body {
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--secondary);
+  margin-bottom: 1rem;
+}
+
+.srv-desc {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
+  opacity: 0.9;
 }
 
 .srv-list {

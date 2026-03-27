@@ -124,6 +124,20 @@
 
     <div class="nav-divider"></div>
 
+    <!-- الشركاء مجمعة -->
+    <span class="nav-section-title">الشركاء</span>
+    <button class="nav-item" data-section="managePartners">
+      <i class="ph-duotone ph-handshake"></i>
+      <span>إدارة الشركاء</span>
+    </button>
+
+    <button class="nav-item" data-section="addPartner">
+      <i class="ph-duotone ph-plus-circle"></i>
+      <span>إضافة شريك</span>
+    </button>
+
+    <div class="nav-divider"></div>
+
     <!-- التسويق مجمع -->
     <span class="nav-section-title">التسويق</span>
     <button class="nav-item" data-section="discountCodes">
@@ -542,6 +556,77 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Manage Partners -->
+    <section id="managePartnersSection" class="admin-section">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-handshake"></i>
+          <h1>إدارة الشركاء (Logos)</h1>
+          <button id="refreshPartners" class="btn-refresh" title="تحديث البيانات">
+            <i class="ph ph-arrows-clockwise"></i>
+          </button>
+        </div>
+        <div class="dash-card-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>الشعار</th>
+                  <th>رابط الموقع</th>
+                  <th>الترتيب</th>
+                  <th>الإجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="partnersTableBody">
+                <tr>
+                  <td colspan="4" style="text-align:center; padding: 2rem;">جاري تحميل البيانات...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Add Partner -->
+    <section id="addPartnerSection" class="admin-section">
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <i class="ph-duotone ph-plus-circle"></i>
+          <h1 id="partnerFormTitle">إضافة شريك جديد</h1>
+        </div>
+        <div class="dash-card-body">
+          <form id="partnerForm" novalidate>
+            <div class="field-group">
+              <label for="partnerWebsite">رابط الموقع (Website URL)</label>
+              <input type="url" id="partnerWebsite" name="partnerWebsite" placeholder="https://example.com" dir="ltr" style="text-align: left;" />
+            </div>
+
+            <div class="field-group">
+              <label>شعار الشريك (دائري) <span class="required">*</span></label>
+              <div class="upload-zone" id="partnerUploadZone">
+                <input type="file" id="partnerLogo" name="partnerLogo" accept="image/*" />
+                <div class="upload-icon"><i class="ph-duotone ph-image"></i></div>
+                <p>اسحب الشعار هنا أو اضغط للاختيار</p>
+              </div>
+              <img id="partnerImagePreview" src="" alt="معاينة الشعار" style="max-height: 120px; border-radius: 50%; object-fit: contain; margin-top: 1rem; display: none; background: #f9f9f9; padding: 10px; border: 1px solid var(--gray-200); margin-inline: auto;" />
+            </div>
+
+            <div class="field-group">
+              <label for="partnerOrder">رقم الترتيب</label>
+              <input type="number" id="partnerOrder" name="partnerOrder" value="1" min="0" required />
+            </div>
+
+            <button type="submit" class="submit-btn" id="partnerSubmitBtn" style="margin-top: 2rem;">
+              <div class="spinner" id="partnerSubmitSpinner"></div>
+              <i class="ph-duotone ph-cloud-arrow-up" id="partnerSubmitIcon"></i>
+              <span id="partnerSubmitLabel">نشر الشريك</span>
+            </button>
+          </form>
         </div>
       </div>
     </section>

@@ -166,7 +166,7 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
   direction: rtl;
   font-family: 'Almarai', sans-serif;
 }
-#slug { direction: ltr; text-align: left; font-family: 'Courier New', monospace; font-size: 0.9rem; letter-spacing: 0.5px; }
+#slug { font-family: 'Courier New', monospace; font-size: 0.9rem; letter-spacing: 0.5px; }
 .field-group input:focus,
 .field-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,69,97,0.1); background: var(--white); }
 .field-group input.ltr-field { direction: ltr; text-align: left; }

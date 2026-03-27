@@ -172,6 +172,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <div class="srv-image icon-showcase">
                             ${bgIconHtml}
                         </div>
+                        <div class="srv-desc-full">
+                            <h3>وصف الخدمة</h3>
+                            <p>${srv.description || ''}</p>
+                        </div>
                     `;
                     servicesContainer.appendChild(row);
                 });

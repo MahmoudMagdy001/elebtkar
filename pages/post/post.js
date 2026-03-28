@@ -89,69 +89,11 @@
   document.head.appendChild(bldScript);
 
   // ── 4. Render article HTML ──────────────────
-  const publishDate = post.created_at
-    ? new Intl.DateTimeFormat('ar-SA', { dateStyle: 'long' }).format(new Date(post.created_at))
-    : '';
-
-  const encodedUrl   = encodeURIComponent(pageUrl);
-  const encodedTitle = encodeURIComponent(post.title);
-
-  document.getElementById('postContent').innerHTML = `
-    <!-- Featured image -->
-    <div class="post-featured-img-wrap">
-      <img
-        src="${escHtml(post.featured_image_url)}"
-        alt="${escHtml(post.alt_text)}"
-        loading="eager"
-        fetchpriority="high"
-      />
-    </div>
-
-    <!-- Article -->
-    <article itemscope itemtype="https://schema.org/Article">
-
-      <!-- Meta row -->
-      <div class="article-meta">
-        <span class="article-tag">مدونة الابتكار</span>
-        ${publishDate ? `<span class="article-date"><i class="ph ph-calendar-blank"></i> ${publishDate}</span>` : ''}
-      </div>
-
-      <!-- SEO h1 title -->
-      <h1 itemprop="headline">${escHtml(post.title)}</h1>
-
-      <hr class="article-divider" />
-
-      <!-- Body content -->
-      <div class="article-body" itemprop="articleBody">
-        ${escHtml(post.content)}
-      </div>
-
-      <!-- Share buttons -->
-      <div class="share-row">
-        <span class="share-label">شارك المقالة:</span>
-        <a class="share-btn twitter"
-           href="https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}"
-           target="_blank" rel="noopener noreferrer">
-          <i class="ph-fill ph-x-logo"></i> تويتر
-        </a>
-        <a class="share-btn whatsapp"
-           href="https://wa.me/?text=${encodedTitle}%20${encodedUrl}"
-           target="_blank" rel="noopener noreferrer">
-          <i class="ph-fill ph-whatsapp-logo"></i> واتساب
-        </a>
-        <button class="share-btn copy" onclick="copyLink()">
-          <i class="ph ph-link"></i> نسخ الرابط
-        </button>
-      </div>
-    </article>
-
-    <!-- CTA Banner -->
-    <div class="post-cta">
-      <h2>هل تريد نتائج مثل هذه لنشاطك التجاري؟</h2>
-      <p>فريق الابتكار جاهز لمساعدتك في بناء حضور رقمي قوي</p>
-      <a href="https://wa.me/966579644123" target="_blank" class="btn-primary">تواصل معنا الآن ←</a>
-    </div>
-  `;
+  if (window.BlogRenderer) {
+    window.BlogRenderer.render(post, document.getElementById('postContent'));
+  } else {
+    console.error('BlogRenderer not found! Ensure render.js is loaded.');
+  }
 
   // ── 5. Show content, hide skeleton ──────────
   document.getElementById('skeletonState').style.display = 'none';

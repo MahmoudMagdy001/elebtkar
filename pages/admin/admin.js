@@ -270,7 +270,13 @@ async function handleEditArticle(post) {
     document.getElementById('titleEn').value = ''; // We don't necessarily have global titleEn
     document.getElementById('slug').value = fullPost.slug;
     document.getElementById('metaDescription').value = fullPost.meta_description;
-    document.getElementById('content').value = fullPost.content;
+    
+    if (window.BlogEditor) {
+      window.BlogEditor.setHTML(fullPost.content);
+    } else {
+      document.getElementById('content').value = fullPost.content;
+    }
+    
     document.getElementById('altText').value = fullPost.alt_text;
     
     imagePreview.src = fullPost.featured_image_url;
@@ -739,6 +745,11 @@ const spinner    = document.getElementById('submitSpinner');
 const submitIcon = document.getElementById('submitIcon');
 const submitLbl  = document.getElementById('submitLabel');
 
+// Initialize the Rich Text Editor if container exists
+if (document.getElementById('postEditor') && window.BlogEditor) {
+  window.BlogEditor.init('postEditor');
+}
+
 function setLoading(on) {
   submitBtn.disabled = on;
   spinner.style.display    = on ? 'block' : 'none';
@@ -752,9 +763,12 @@ form.addEventListener('submit', async (e) => {
   const titleVal   = document.getElementById('title').value.trim();
   const slugVal    = slugInput.value.trim().toLowerCase();
   const metaVal    = metaInput.value.trim();
-  const contentVal = document.getElementById('content').value.trim();
+  const contentVal = window.BlogEditor ? window.BlogEditor.getHTML() : document.getElementById('content').value.trim();
   const altVal     = document.getElementById('altText').value.trim();
   const file       = fileInput.files[0];
+
+  // Set the hidden input so standard form handlers are happy
+  document.getElementById('content').value = contentVal;
 
   // Basic client-side validation
   if (!titleVal || !slugVal || !metaVal || !contentVal || !altVal || (!file && !editingPostId)) {
@@ -810,6 +824,7 @@ form.addEventListener('submit', async (e) => {
     });
 
     form.reset();
+    if (window.BlogEditor) window.BlogEditor.reset();
     editingPostId = null;
     submitLbl.textContent = 'نشر المقالة';
     imagePreview.style.display = 'none';

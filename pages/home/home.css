@@ -194,11 +194,13 @@
   gap: 1.5rem;
 }
 .service-card {
+  display: block;
+  text-decoration: none;
   background: var(--white); border: 1px solid var(--gray-200);
   border-radius: var(--radius); padding: 2rem;
   position: relative; overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-  cursor: default;
+  cursor: pointer;
 }
 .service-card::before {
   content: ''; position: absolute; top: 0; right: 0;

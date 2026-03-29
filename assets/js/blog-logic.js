@@ -162,9 +162,7 @@ async function updateService(id, srvData) {
  */
 function generateSlug(text) {
   return text
-    .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9\s-\u0600-\u06FF]/g, '')   // strip non-alphanumeric (including Arabic)
     .replace(/\s+/g, '-')                      // spaces → hyphens
     .replace(/-+/g, '-');                      // collapse multiple hyphens
 }

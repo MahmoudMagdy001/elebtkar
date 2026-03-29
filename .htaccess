@@ -21,7 +21,7 @@ Options -Indexes
   RewriteRule ^blog/?$  /pages/blog/blog.html   [L]
 
   # /services/slug-name  →  /pages/services/services.html?slug=slug-name
-  RewriteRule ^services/([a-z0-9-]+)/?$ /pages/services/services.html?slug=$1 [L,QSA]
+  RewriteRule ^services/([^/]+)/?$ /pages/services/services.html?slug=$1 [L,QSA]
 
   # /post  →  pages/post/post.html  (query string preserved automatically)
   RewriteRule ^post/?$  /pages/post/post.html   [L]

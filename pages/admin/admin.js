@@ -761,7 +761,7 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const titleVal   = document.getElementById('title').value.trim();
-  const slugVal    = slugInput.value.trim().toLowerCase();
+  const slugVal    = slugInput.value.trim();
   const metaVal    = metaInput.value.trim();
   const contentVal = window.BlogEditor ? window.BlogEditor.getHTML() : document.getElementById('content').value.trim();
   const altVal     = document.getElementById('altText').value.trim();
@@ -773,10 +773,6 @@ form.addEventListener('submit', async (e) => {
   // Basic client-side validation
   if (!titleVal || !slugVal || !metaVal || !contentVal || !altVal || (!file && !editingPostId)) {
     showToast('يرجى ملء جميع الحقول المطلوبة.', 'error');
-    return;
-  }
-  if (!/^[a-z0-9-\u0600-\u06FF]+$/.test(slugVal)) {
-    showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية أو عربية وأرقام وشرطات فقط.', 'error');
     return;
   }
   if (file && file.size > 5 * 1024 * 1024) {
@@ -859,7 +855,7 @@ if (srvForm) {
     
     // Extract values
     const title = document.getElementById('srvTitle').value.trim();
-    const slug = document.getElementById('srvSlug').value.trim().toLowerCase();
+    const slug = document.getElementById('srvSlug').value.trim();
     const meta_description = document.getElementById('srvMetaDescription').value.trim();
     const subtitle = document.getElementById('srvSubtitle').value.trim();
     const description = document.getElementById('srvDescription').value.trim();
@@ -870,11 +866,6 @@ if (srvForm) {
 
     if (!title || !slug || !meta_description || !description || !featuresStr) {
       showToast('يرجى ملء كافة الحقول الأساسية.', 'error');
-      return;
-    }
-
-    if (!/^[a-z0-9-\u0600-\u06FF]+$/.test(slug)) {
-      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية أو عربية وأرقام وشرطات فقط.', 'error');
       return;
     }
 
@@ -952,7 +943,7 @@ if (planForm) {
     
     // Extract values
     const title = document.getElementById('planTitle').value.trim();
-    const slug = document.getElementById('planSlug').value.trim().toLowerCase();
+    const slug = document.getElementById('planSlug').value.trim();
     const subtitle = document.getElementById('planSubtitle').value.trim();
     const price = parseFloat(document.getElementById('planPrice').value);
     const currency = document.getElementById('planCurrency').value.trim() || '﷼';
@@ -964,11 +955,6 @@ if (planForm) {
 
     if (!title || !slug || isNaN(price) || !featuresStr) {
       showToast('يرجى ملء كافة الحقول الأساسية (الاسم، الرابط، السعر، المميزات).', 'error');
-      return;
-    }
-
-    if (!/^[a-z0-9-\u0600-\u06FF]+$/.test(slug)) {
-      showToast('الرابط (Slug) يجب أن يحتوي على أحرف إنجليزية أو عربية وأرقام وشرطات فقط.', 'error');
       return;
     }
 

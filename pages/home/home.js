@@ -47,7 +47,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. Dynamic Services Fetching for Home Page
     const servicesGrid = document.querySelector('.services-grid');
-    if (servicesGrid) {
+    const servicesSection = document.getElementById('services');
+    if (servicesGrid && servicesSection) {
         try {
             const { data: services, error } = await sb
                 .from('services')
@@ -76,9 +77,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 // Re-run animations for new elements
                 initHomeAnimations();
+            } else {
+                // Hide section if no data
+                servicesSection.style.display = 'none';
             }
         } catch (err) {
             console.error('Error fetching services for home:', err);
+            // Hide section on error to avoid showing static data
+            servicesSection.style.display = 'none';
         }
     }
 

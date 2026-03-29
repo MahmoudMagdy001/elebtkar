@@ -3,35 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="الابتكار - Elebtkar" />
+  <meta name="theme-color" content="#C9A227" />
   <link rel="icon" type="image/png" href="/assets/images/logs.png" />
-  <link rel="canonical" id="canonical-link" href="https://elebtikar-sa.com/services" />
+  <link rel="canonical" href="https://elebtikar-sa.com/services" />
 
-  <title>خدماتنا المتكاملة | التسويق الرقمي والحلول التقنية | الابتكار</title>
-  <meta name="description" content="اكتشف خدمات الابتكار المتكاملة: SEO، تطوير المواقع والمتاجر، صناعة المحتوى، وإدارة منصات التواصل الاجتماعي. حلول رقمية مصممة لتنمية نشاطك التجاري في السعودية." />
-  <meta name="keywords" content="خدمات تسويق، سيو، تطوير متاجر، إدارة تواصل اجتماعي، ذكاء اصطناعي، السعودية" />
+  <!-- hreflang for Saudi Arabic market -->
+  <link rel="alternate" hreflang="ar-SA" href="https://elebtikar-sa.com/services" />
+  <link rel="alternate" hreflang="ar" href="https://elebtikar-sa.com/services" />
+  <link rel="alternate" hreflang="x-default" href="https://elebtikar-sa.com/services" />
+
+  <title>خدمات الابتكار | SEO وتطوير مواقع وذكاء اصطناعي بالسعودية</title>
+  <meta name="description" content="خدمات الابتكار المتكاملة: SEO وتحسين محركات البحث، تطوير المواقع والمتاجر الإلكترونية، إدارة منصات التواصل الاجتماعي، وحلول الذكاء الاصطناعي لتنمية نشاطك التجاري في السعودية." />
+  <meta name="keywords" content="خدمات تسويق رقمي، سيو السعودية، تطوير متاجر إلكترونية، إدارة تواصل اجتماعي، ذكاء اصطناعي، الابتكار" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://elebtikar-sa.com/services" />
-  <meta property="og:title" content="خدماتنا المتكاملة | الابتكار" />
+  <meta property="og:title" content="خدمات الابتكار | SEO وتطوير مواقع بالسعودية" />
   <meta property="og:description" content="حلول رقمية متخصصة لتنمية نشاطك التجاري بأدوات مبتكرة واستراتيجيات ذكية." />
   <meta property="og:image" content="https://elebtikar-sa.com/assets/images/logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="خدمات الابتكار الرقمية" />
   <meta property="og:site_name" content="الابتكار" />
   <meta property="og:locale" content="ar_SA" />
 
-  <!-- Twitter -->
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Elebtkarsa" />
+  <meta name="twitter:creator" content="@Elebtkarsa" />
   <meta name="twitter:url" content="https://elebtikar-sa.com/services" />
-  <meta name="twitter:title" content="خدماتنا المتكاملة | الابتكار" />
+  <meta name="twitter:title" content="خدمات الابتكار | SEO وتطوير مواقع بالسعودية" />
   <meta name="twitter:description" content="حلول رقمية متخصصة لتنمية نشاطك التجاري بأدوات مبتكرة واستراتيجيات ذكية." />
   <meta name="twitter:image" content="https://elebtikar-sa.com/assets/images/logo.png" />
+  <meta name="twitter:image:alt" content="خدمات الابتكار" />
 
-  <!-- Preconnect -->
+  <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link rel="preconnect" href="https://unpkg.com" crossorigin />
 
+  <!-- Preload critical font (LCP optimization) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet" />
   
   <script type="application/ld+json">
@@ -70,7 +86,8 @@
   
   <!-- Moyasar Form -->
   <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.14.0/moyasar.css" />
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+  <!-- polyfill.io replaced with safe Cloudflare mirror -->
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=fetch"></script>
   <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
 </head>
 <body>
@@ -93,8 +110,13 @@
       <div class="hero-grid"></div>
     </div>
     <div class="hero-content">
-      <h1 class="hero-title" id="typewriter"></h1>
-      <p class="hero-subtitle fade-in-up">حلول رقمية متخصصة لتنمية نشاطك التجاري</p>
+      <!-- Static H1 for SEO crawlers — visible text populated by JS typewriter -->
+      <h1 class="hero-title" id="typewriter" aria-label="خدماتنا المتكاملة — SEO وتطوير مواقع وذكاء اصطناعي في السعودية">
+        <!-- JS fills this with typewriter effect -->
+      </h1>
+      <!-- Fallback for no-JS / crawlers -->
+      <noscript><h1 class="hero-title">خدماتنا المتكاملة — SEO وتطوير مواقع وذكاء اصطناعي في السعودية</h1></noscript>
+      <p class="hero-subtitle fade-in-up">حلول رقمية متخصصة لتنمية نشاطك التجاري في المملكة العربية السعودية</p>
     </div>
     <div class="scroll-indicator">
       <i class="ph ph-caret-double-down"></i>

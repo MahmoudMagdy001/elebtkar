@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/assets/images/logs.png" />
+  <meta name="author" content="الابتكار - Elebtkar" />
+  <meta name="theme-color" content="#C9A227" />
+  <link rel="icon" type="image/png" href="/assets/images/logs.png" />
 
   <!-- ─ SEO placeholders – updated dynamically before content renders ─ -->
   <title>تحميل… | الابتكار</title>
   <meta name="description" content="جاري تحميل المقال..." />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="article" />
@@ -17,10 +19,14 @@
   <meta property="og:title"       content="" id="ogTitle" />
   <meta property="og:description" content="" id="ogDesc" />
   <meta property="og:image"       content="" id="ogImage" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:url"         content="" id="ogUrl" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:site"        content="@Elebtkarsa" />
+  <meta name="twitter:creator"     content="@Elebtkarsa" />
   <meta name="twitter:title"       content="" id="twTitle" />
   <meta name="twitter:description" content="" id="twDesc" />
   <meta name="twitter:image"       content="" id="twImage" />
@@ -28,15 +34,17 @@
   <!-- Canonical (set dynamically) -->
   <link rel="canonical" href="" id="canonicalTag" />
 
-  <!-- Preconnect -->
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="ar-SA" href="https://elebtikar-sa.com/blog" />
+
+  <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://unpkg.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
   <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css" />
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />

@@ -49,12 +49,32 @@
     "@type":    "Article",
     "headline": post.title,
     "description": post.meta_description,
-    "image":    post.featured_image_url,
+    "image": post.featured_image_url
+      ? { "@type": "ImageObject", "url": post.featured_image_url, "width": 1200, "height": 630 }
+      : undefined,
     "datePublished": post.created_at,
+    "dateModified": post.updated_at || post.created_at,
+    "inLanguage": "ar-SA",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl },
+    "author": {
+      "@type": "Organization",
+      "name":  "الابتكار",
+      "url":   "https://elebtikar-sa.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://elebtikar-sa.com/assets/images/logo.png"
+      }
+    },
     "publisher": {
       "@type": "Organization",
       "name":  "الابتكار",
-      "url":   "https://elebtikar-sa.com"
+      "url":   "https://elebtikar-sa.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://elebtikar-sa.com/assets/images/logo.png",
+        "width": 200,
+        "height": 60
+      }
     }
   };
   const ldScript = document.createElement('script');
@@ -87,6 +107,13 @@
   bldScript.type = 'application/ld+json';
   bldScript.textContent = JSON.stringify(bld);
   document.head.appendChild(bldScript);
+
+  // Inject keywords meta if post has tags/category
+  if (post.tags || post.category) {
+    const kw = [post.category, ...(post.tags || [])].filter(Boolean).join('، ');
+    setMeta('name', 'keywords', kw + '، الابتكار، تسويق رقمي، السعودية');
+  }
+
 
   // ── 4. Render article HTML ──────────────────
   if (window.BlogRenderer) {

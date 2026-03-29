@@ -3,68 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/assets/images/logs.png" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="الابتكار - Elebtkar" />
+  <meta name="theme-color" content="#C9A227" />
+  <link rel="icon" type="image/png" href="/assets/images/logs.png" />
   <link rel="canonical" href="https://elebtikar-sa.com/" />
 
-  <title>الابتكار | شريكك الرقمي المتكامل في السعودية | SEO وتطوير المواقع</title>
-  <meta name="description" content="الابتكار نساعدك على التصدر في السوق عبر استراتيجيات SEO ذكية وحلول تقنية مبتكرة. شريكك الموثوق في حلول التسويق الرقمي والبرمجة في المملكة العربية السعودية." />
-  <meta name="keywords" content="الابتكار، تسويق رقمي، سيو، تطوير مواقع، برمجة تطبيقات، ذكاء اصطناعي، رؤية 2030، السعودية، نجران" />
+  <!-- hreflang for Saudi Arabic market -->
+  <link rel="alternate" hreflang="ar-SA" href="https://elebtikar-sa.com/" />
+  <link rel="alternate" hreflang="ar" href="https://elebtikar-sa.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://elebtikar-sa.com/" />
+
+  <title>الابتكار | شريكك الرقمي في السعودية | SEO وتطوير المواقع</title>
+  <meta name="description" content="الابتكار: شريكك في التسويق الرقمي بالمملكة العربية السعودية. خدمات SEO، تطوير مواقع ومتاجر، إدارة تواصل اجتماعي، وذكاء اصطناعي. اطلب استشارتك المجانية الآن." />
+  <meta name="keywords" content="تسويق رقمي السعودية، سيو، تطوير مواقع، متاجر إلكترونية، ذكاء اصطناعي، رؤية 2030، الابتكار، نجران" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://elebtikar-sa.com/" />
-  <meta property="og:title" content="الابتكار | حلول تقنية وتسويقية متكاملة" />
+  <meta property="og:title" content="الابتكار | حلول تقنية وتسويقية متكاملة في السعودية" />
   <meta property="og:description" content="شريكك في التسويق الرقمي والتقنية في المملكة العربية السعودية. نصنع لك أصولاً تقنية وتسويقية تنمو مع الوقت." />
   <meta property="og:image" content="https://elebtikar-sa.com/assets/images/logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="شعار الابتكار — وكالة التسويق الرقمي السعودية" />
   <meta property="og:site_name" content="الابتكار" />
   <meta property="og:locale" content="ar_SA" />
 
-  <!-- Twitter -->
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Elebtkarsa" />
+  <meta name="twitter:creator" content="@Elebtkarsa" />
   <meta name="twitter:url" content="https://elebtikar-sa.com/" />
-  <meta name="twitter:title" content="الابتكار | حلول تقنية وتسويقية متكاملة" />
+  <meta name="twitter:title" content="الابتكار | حلول تقنية وتسويقية متكاملة في السعودية" />
   <meta name="twitter:description" content="شريكك في التسويق الرقمي والتقنية في المملكة العربية السعودية. نصنع لك أصولاً تقنية وتسويقية تنمو مع الوقت." />
   <meta name="twitter:image" content="https://elebtikar-sa.com/assets/images/logo.png" />
+  <meta name="twitter:image:alt" content="شعار الابتكار" />
 
-  <!-- Preconnect -->
+  <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://unpkg.com" crossorigin />
   <link rel="preconnect" href="https://cdn.moyasar.com" crossorigin />
 
+  <!-- Preload critical font (LCP optimization) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet" />
+
+  <!-- WebSite Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "الابتكار",
+    "alternateName": "Elebtkar",
     "url": "https://elebtikar-sa.com/",
+    "inLanguage": "ar-SA",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://elebtikar-sa.com/blog?q={search_term_string}",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://elebtikar-sa.com/blog?q={search_term_string}"
+      },
       "query-input": "required name=search_term_string"
     }
   }
   </script>
+
+  <!-- LocalBusiness + ProfessionalService Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "ProfessionalService"],
     "name": "الابتكار",
-    "description": "حلول تقنية وتسويقية متكاملة في المملكة العربية السعودية",
+    "alternateName": "Elebtkar",
+    "description": "حلول تقنية وتسويقية متكاملة في المملكة العربية السعودية — SEO، تطوير مواقع ومتاجر، إدارة تواصل اجتماعي، وذكاء اصطناعي مؤسسي.",
     "url": "https://elebtikar-sa.com",
-    "logo": "https://elebtikar-sa.com/assets/images/logo.png",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://elebtikar-sa.com/assets/images/logo.png",
+      "width": 200,
+      "height": 60
+    },
     "image": "https://elebtikar-sa.com/assets/images/logo.png",
+    "telephone": "+966579644123",
+    "email": "Info@elebtikar-sa.com",
+    "priceRange": "$$",
+    "currenciesAccepted": "SAR",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    ],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "حي الشرفة الشمالية",
       "addressLocality": "نجران",
-      "addressRegion": "نجران",
+      "addressRegion": "منطقة نجران",
+      "postalCode": "66251",
       "addressCountry": "SA"
     },
-    "telephone": "+966579644123",
-    "priceRange": "$$",
-    "openingHours": "Sa-Th 09:00-18:00",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "17.4920",
+      "longitude": "44.1277"
+    },
+    "areaServed": [
+      {"@type": "City", "name": "نجران"},
+      {"@type": "City", "name": "الرياض"},
+      {"@type": "City", "name": "جدة"},
+      {"@type": "City", "name": "الدمام"},
+      {"@type": "Country", "name": "المملكة العربية السعودية"}
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "خدمات الابتكار الرقمية",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "تحسين محركات البحث SEO"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "تطوير المواقع والمتاجر الإلكترونية"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "إدارة منصات التواصل الاجتماعي"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "تطوير تطبيقات الهواتف الذكية"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "الذكاء الاصطناعي المؤسسي"}}
+      ]
+    },
     "sameAs": [
       "https://x.com/Elebtkarsa",
       "https://www.instagram.com/elebtkar.sa/",
@@ -72,9 +136,53 @@
       "https://www.snapchat.com/add/elebtikar.sa",
       "https://www.tiktok.com/@elebtkar.sa",
       "https://www.linkedin.com/company/elebtkar"
+    ],
+    "foundingDate": "2024"
+  }
+  </script>
+
+  <!-- FAQPage Schema (boosts rich snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "ما هي خدمات الابتكار الرقمية؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نقدم خدمات SEO وتحسين محركات البحث، تطوير المواقع والمتاجر الإلكترونية، إدارة منصات التواصل الاجتماعي، إدارة الإعلانات، تطوير تطبيقات الهواتف، وحلول الذكاء الاصطناعي المؤسسي."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "هل تقدمون خدماتكم في جميع أنحاء المملكة العربية السعودية؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "نعم، نخدم عملاءنا في جميع أنحاء المملكة من الرياض وجدة والدمام ونجران وغيرها من المدن السعودية."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "كيف يمكنني التواصل مع الابتكار؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "يمكنك التواصل معنا عبر واتساب على الرقم 966579644123+ أو البريد الإلكتروني Info@elebtikar-sa.com أو من خلال نموذج التواصل على موقعنا."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ما تكلفة خدمات التسويق الرقمي؟",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "تختلف أسعارنا حسب نوع الخدمة واحتياجات عميلنا. اطلب استشارتك المجانية الآن لنقدم لك عرضاً مناسباً."
+        }
+      }
     ]
   }
   </script>
+
   <link rel="stylesheet" href="/assets/css/shared.css" />
   <link rel="stylesheet" href="/assets/css/components.css" />
   <link rel="stylesheet" href="/pages/home/home.css" />
@@ -85,7 +193,8 @@
   
   <!-- Moyasar Form -->
   <link rel="stylesheet" href="https://cdn.moyasar.com/mpf/1.14.0/moyasar.css" />
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script>
+  <!-- polyfill.io replaced with safe Cloudflare mirror -->
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=fetch"></script>
   <script src="https://cdn.moyasar.com/mpf/1.14.0/moyasar.js"></script>
 </head>
 <body>

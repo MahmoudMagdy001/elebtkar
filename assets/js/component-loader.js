@@ -84,16 +84,24 @@ document.addEventListener('DOMContentLoaded', async () => {
               .select('title, slug')
               .order('order_num', { ascending: true });
               
-          if (!error && services) {
+          if (!error && services && services.length > 0) {
               services.forEach(srv => {
                   const link = document.createElement('a');
                   link.href = `/services/${srv.slug}`;
                   link.textContent = srv.title;
                   servicesLinks.appendChild(link);
               });
+          } else {
+              // Hide the entire "Our Services" column if it's empty
+              if (servicesLinks) {
+                servicesLinks.style.display = 'none';
+              }
           }
       } catch (err) {
           console.error('Error fetching services for footer:', err);
+          if (servicesLinks) servicesLinks.style.display = 'none';
       }
+  } else {
+      if (servicesLinks) servicesLinks.style.display = 'none';
   }
 });

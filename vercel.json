@@ -21,7 +21,7 @@
             "destination": "/pages/post/post.html"
         },
         {
-            "source": "/services/slug=:slug",
+            "source": "/services/:slug(.+)",
             "destination": "/pages/services/services.html?slug=:slug"
         },
         {

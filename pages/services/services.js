@@ -59,15 +59,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // --- Dynamic Services Fetching & SEO ---
+    // 1. Get from query param (via .htaccess rewrite)
     const servicesContainer = document.getElementById('services-list-container');
     const params = new URLSearchParams(window.location.search);
     let serviceSlug = params.get('slug');
+    if (serviceSlug && serviceSlug.startsWith('slug=')) {
+        serviceSlug = serviceSlug.replace('slug=', '');
+    }
 
-    // Handle clean URLs: /services/slug=...
+    // 2. Fallback: Parse from pathname directly if query param is empty
     if (!serviceSlug && window.location.pathname.includes('slug=')) {
         const pathParts = window.location.pathname.split('slug=');
         if (pathParts.length > 1) {
-            serviceSlug = pathParts[1].split('/')[0];
+            // Pathname is always encoded, so we must decode it here
+            serviceSlug = decodeURIComponent(pathParts[1].split('/')[0]);
         }
     }
     

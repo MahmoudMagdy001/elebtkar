@@ -1,7 +1,7 @@
 (async () => {
   // ── 1. Parse slug from URL ──────────────────
   const params = new URLSearchParams(window.location.search);
-  const slug   = params.get('slug');
+  const slug = params.get('slug');
 
   if (!slug) {
     showError();

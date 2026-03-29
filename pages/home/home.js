@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 servicesGrid.innerHTML = '';
                 services.forEach(srv => {
                     const card = document.createElement('a');
-                    card.href = `/services/slug=${srv.slug}`;
+                    card.href = `/services/${srv.slug}`;
                     card.className = `service-card ${srv.is_featured ? 'service-card-accent' : ''}`;
                     
                     const iconHtml = srv.bg_icon && (srv.bg_icon.startsWith('http') || srv.bg_icon.startsWith('/'))

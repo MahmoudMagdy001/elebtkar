@@ -1,20 +1,11 @@
 // ── Slug generation ──────────────────────────
-const titleEnInput = document.getElementById('titleEn');
 const slugInput    = document.getElementById('slug');
 const slugPreview  = document.getElementById('slugPreview');
-const regenBtn     = document.getElementById('regenSlug');
-
-function updateSlugFromTitle() {
-  const s = generateSlug(titleEnInput.value);
-  slugInput.value = s;
-  slugPreview.textContent = s || '…';
+if (slugInput) {
+  slugInput.addEventListener('input', () => {
+    slugPreview.textContent = slugInput.value || '…';
+  });
 }
-
-titleEnInput.addEventListener('input', updateSlugFromTitle);
-slugInput.addEventListener('input', () => {
-  slugPreview.textContent = slugInput.value || '…';
-});
-regenBtn.addEventListener('click', updateSlugFromTitle);
 
 // ── Meta description counter ──────────────────
 const metaInput   = document.getElementById('metaDescription');
@@ -29,23 +20,12 @@ metaInput.addEventListener('input', () => {
 });
 
 // ── Service SEO Helpers ──────────────────
-const srvTitleEnInput = document.getElementById('srvTitleEn');
 const srvSlugInput    = document.getElementById('srvSlug');
 const srvSlugPreview  = document.getElementById('srvSlugPreview');
-const regenSrvBtn     = document.getElementById('regenSrvSlug');
-
-function updateSrvSlugFromTitle() {
-  const s = typeof generateSlug === 'function' ? generateSlug(srvTitleEnInput.value) : srvTitleEnInput.value.toLowerCase().replace(/\s+/g, '-');
-  srvSlugInput.value = s;
-  srvSlugPreview.textContent = s || '…';
-}
-
-if (srvTitleEnInput) {
-  srvTitleEnInput.addEventListener('input', updateSrvSlugFromTitle);
+if (srvSlugInput) {
   srvSlugInput.addEventListener('input', () => {
     srvSlugPreview.textContent = srvSlugInput.value || '…';
   });
-  regenSrvBtn.addEventListener('click', updateSrvSlugFromTitle);
 }
 
 const srvMetaInput   = document.getElementById('srvMetaDescription');
@@ -267,7 +247,6 @@ async function handleEditArticle(post) {
 
     editingPostId = fullPost.id;
     document.getElementById('title').value = fullPost.title;
-    document.getElementById('titleEn').value = ''; // We don't necessarily have global titleEn
     document.getElementById('slug').value = fullPost.slug;
     document.getElementById('metaDescription').value = fullPost.meta_description;
     
@@ -353,7 +332,6 @@ async function handleEditService(srvSummary) {
 
     editingServiceId = srv.id;
     document.getElementById('srvTitle').value = srv.title;
-    document.getElementById('srvTitleEn').value = ''; // Not stored, used for generation
     document.getElementById('srvSlug').value = srv.slug || '';
     document.getElementById('srvSlugPreview').textContent = srv.slug || '…';
     document.getElementById('srvMetaDescription').value = srv.meta_description || '';
@@ -363,7 +341,14 @@ async function handleEditService(srvSummary) {
         srvMetaCounter.className = 'meta-counter ' + (len <= IDEAL_MAX ? (len >= 100 ? 'ok' : 'warn') : 'over');
     }
     document.getElementById('srvSubtitle').value = srv.subtitle || '';
-    document.getElementById('srvDescription').value = srv.description;
+    if (serviceEditor) {
+      serviceEditor.root.innerHTML = typeof DOMPurify !== 'undefined'
+        ? DOMPurify.sanitize(srv.description || '')
+        : (srv.description || '');
+      document.getElementById('srvDescription').value = serviceEditor.root.innerHTML;
+    } else {
+      document.getElementById('srvDescription').value = srv.description || '';
+    }
     document.getElementById('srvFeatures').value = (srv.features || []).join('\n');
     document.getElementById('srvOrder').value = srv.order_num;
     document.getElementById('srvReverse').checked = srv.is_reverse;
@@ -744,10 +729,32 @@ const submitBtn  = document.getElementById('submitBtn');
 const spinner    = document.getElementById('submitSpinner');
 const submitIcon = document.getElementById('submitIcon');
 const submitLbl  = document.getElementById('submitLabel');
+let serviceEditor = null;
 
 // Initialize the Rich Text Editor if container exists
 if (document.getElementById('postEditor') && window.BlogEditor) {
   window.BlogEditor.init('postEditor');
+}
+
+if (document.getElementById('srvDescriptionEditor') && window.Quill) {
+  serviceEditor = new Quill('#srvDescriptionEditor', {
+    theme: 'snow',
+    placeholder: 'اكتب وصف الخدمة بشكل احترافي...',
+    modules: {
+      toolbar: [
+        [{ 'size': ['small', false, 'large', 'huge'] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'align': [] }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video'],
+        [{ 'script': 'sub' }, { 'script': 'super' }],
+        ['clean']
+      ],
+      history: { delay: 1000, maxStack: 200, userOnly: true }
+    }
+  });
 }
 
 function setLoading(on) {
@@ -858,7 +865,11 @@ if (srvForm) {
     const slug = document.getElementById('srvSlug').value.trim();
     const meta_description = document.getElementById('srvMetaDescription').value.trim();
     const subtitle = document.getElementById('srvSubtitle').value.trim();
-    const description = document.getElementById('srvDescription').value.trim();
+    const description = serviceEditor
+      ? (typeof DOMPurify !== 'undefined'
+          ? DOMPurify.sanitize(serviceEditor.root.innerHTML)
+          : serviceEditor.root.innerHTML).trim()
+      : document.getElementById('srvDescription').value.trim();
     const featuresStr = document.getElementById('srvFeatures').value.trim();
     const bgIconFile = document.getElementById('srvBgIcon').files[0];
     const order_num = parseInt(document.getElementById('srvOrder').value) || 1;
@@ -868,6 +879,8 @@ if (srvForm) {
       showToast('يرجى ملء كافة الحقول الأساسية.', 'error');
       return;
     }
+
+    document.getElementById('srvDescription').value = description;
 
     // Convert features text to array (split by lines and filter empty)
     const features = featuresStr.split('\n').map(f => f.trim()).filter(f => f);
@@ -919,6 +932,7 @@ if (srvForm) {
       });
 
       srvForm.reset();
+      if (serviceEditor) serviceEditor.setContents([]);
       editingServiceId = null;
       document.getElementById('srvSubmitLabel').textContent = 'حفظ الخدمة';
       document.getElementById('srvSlugPreview').textContent = '…';

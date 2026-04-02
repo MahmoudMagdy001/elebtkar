@@ -71,6 +71,22 @@ const initBackTop = () => {
   };
 
   window.addEventListener('scroll', handleScroll, { passive: true });
+
+  if (!btn.dataset.backTopBound) {
+    btn.dataset.backTopBound = '1';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // Keep URL clean after returning to top (remove #fragment only).
+      if (window.location.hash) {
+        const cleanUrl = `${window.location.pathname}${window.location.search}`;
+        window.history.replaceState(null, '', cleanUrl);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   handleScroll(); // check on load
 };
 window.initBackTop = initBackTop;

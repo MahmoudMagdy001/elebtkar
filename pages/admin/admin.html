@@ -180,21 +180,12 @@
               <input type="text" id="title" name="title" placeholder="مثال: كيف تحسّن ترتيب موقعك في جوجل" required />
             </div>
 
-            <!-- English Title → Slug -->
-            <div class="field-group">
-              <label for="titleEn">العنوان بالإنجليزية (لإنشاء الرابط) <span class="required">*</span></label>
-              <input type="text" id="titleEn" name="titleEn" placeholder="How to Improve Your Google Ranking" class="ltr-field" dir="ltr" style="text-align:left" required />
-            </div>
-
             <!-- Slug -->
             <hr class="form-divider" />
             <div class="field-group">
               <label for="slug">رابط (Slug) المدونة <span class="required">*</span></label>
               <div class="slug-row">
                 <input type="text" id="slug" name="slug" placeholder="how-to-improve-your-google-ranking" required autocomplete="off" />
-                <button type="button" class="btn-regen" id="regenSlug" title="إعادة توليد">
-                  <i class="ph ph-arrows-clockwise"></i>
-                </button>
               </div>
               <p class="field-hint">رابط المدونة: <strong id="slugPreview">…</strong></p>
             </div>
@@ -324,21 +315,12 @@
               <input type="text" id="srvTitle" name="srvTitle" placeholder="مثال: تحسين محركات البحث SEO" required />
             </div>
 
-            <!-- English Title → Slug -->
-            <div class="field-group">
-              <label for="srvTitleEn">الاسم بالإنجليزية (لإنشاء الرابط) <span class="required">*</span></label>
-              <input type="text" id="srvTitleEn" name="srvTitleEn" placeholder="SEO Optimization" class="ltr-field" dir="ltr" style="text-align:left" required />
-            </div>
-
             <!-- Slug -->
             <hr class="form-divider" />
             <div class="field-group">
               <label for="srvSlug">رابط (Slug) الخدمة <span class="required">*</span></label>
               <div class="slug-row">
                 <input type="text" id="srvSlug" name="srvSlug" placeholder="seo-optimization" required autocomplete="off" />
-                <button type="button" class="btn-regen" id="regenSrvSlug" title="إعادة توليد">
-                  <i class="ph ph-arrows-clockwise"></i>
-                </button>
               </div>
               <p class="field-hint">رابط الخدمة: <strong id="srvSlugPreview">…</strong></p>
             </div>
@@ -357,7 +339,10 @@
 
             <div class="field-group">
               <label for="srvDescription">الوصف <span class="required">*</span></label>
-              <textarea id="srvDescription" name="srvDescription" placeholder="وصف الخدمة الذي سيظهر للمستخدم..." required></textarea>
+              <div class="ql-wrapper" id="srvQlWrapper">
+                <div id="srvDescriptionEditor"></div>
+              </div>
+              <input type="hidden" id="srvDescription" name="srvDescription" />
             </div>
 
             <div class="field-group">

@@ -7,6 +7,8 @@
 window.BlogEditor = (() => {
 
   let quill = null;
+  let imageControls = null;
+  let activeImage = null;
 
   /* ── Toolbar config ─────────────────────────── */
   const toolbarOptions = [
@@ -39,6 +41,24 @@ window.BlogEditor = (() => {
       ALLOW_DATA_ATTR: true,
       FORCE_BODY: false
     });
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function getImageWidthPercent(img) {
+    if (!img) return 100;
+    const inlineWidth = img.style.width || '';
+    if (inlineWidth.endsWith('%')) {
+      const parsed = parseFloat(inlineWidth);
+      return Number.isFinite(parsed) ? clamp(Math.round(parsed), 10, 100) : 100;
+    }
+    if (img.naturalWidth && img.width) {
+      const parsed = (img.width / img.naturalWidth) * 100;
+      return Number.isFinite(parsed) ? clamp(Math.round(parsed), 10, 100) : 100;
+    }
+    return 100;
   }
 
   /* ── Image handlers ─────────────────────────── */
@@ -353,6 +373,121 @@ window.BlogEditor = (() => {
     }
   }
 
+  function createImageControls() {
+    if (imageControls) return imageControls;
+
+    const controls = document.createElement('div');
+    controls.className = 'editor-image-controls';
+    controls.innerHTML = `
+      <div class="editor-image-controls-row">
+        <span class="editor-image-controls-label">حجم الصورة</span>
+        <div class="editor-image-presets">
+          <button type="button" class="img-preset-btn" data-width="100">100%</button>
+          <button type="button" class="img-preset-btn" data-width="75">75%</button>
+          <button type="button" class="img-preset-btn" data-width="50">50%</button>
+          <button type="button" class="img-preset-btn" data-width="35">35%</button>
+        </div>
+      </div>
+      <div class="editor-image-controls-row">
+        <input type="range" class="editor-image-range" min="10" max="100" step="1" value="100" />
+        <div class="editor-image-number-wrap">
+          <input type="number" class="editor-image-number" min="10" max="100" step="1" value="100" />
+          <span>%</span>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(controls);
+    imageControls = controls;
+
+    const rangeInput = controls.querySelector('.editor-image-range');
+    const numberInput = controls.querySelector('.editor-image-number');
+    const presetButtons = controls.querySelectorAll('.img-preset-btn');
+
+    const applyWidth = (value) => {
+      if (!activeImage) return;
+      const width = clamp(parseInt(value, 10) || 100, 10, 100);
+      activeImage.style.width = `${width}%`;
+      activeImage.style.height = 'auto';
+      activeImage.style.maxWidth = '100%';
+      activeImage.style.display = 'block';
+      activeImage.style.margin = '1rem auto';
+      activeImage.dataset.size = width >= 90 ? 'full' : width >= 55 ? 'medium' : 'small';
+      rangeInput.value = String(width);
+      numberInput.value = String(width);
+      presetButtons.forEach(btn => btn.classList.toggle('active', parseInt(btn.dataset.width, 10) === width));
+      quill?.history?.cutoff();
+    };
+
+    rangeInput.addEventListener('input', (e) => applyWidth(e.target.value));
+    numberInput.addEventListener('change', (e) => applyWidth(e.target.value));
+
+    presetButtons.forEach(btn => {
+      btn.addEventListener('click', () => applyWidth(btn.dataset.width));
+    });
+
+    return controls;
+  }
+
+  function positionImageControls(targetImg) {
+    if (!imageControls || !targetImg) return;
+    const rect = targetImg.getBoundingClientRect();
+    const top = rect.bottom + window.scrollY + 8;
+    const left = rect.left + window.scrollX + (rect.width / 2);
+    imageControls.style.top = `${top}px`;
+    imageControls.style.left = `${left}px`;
+    imageControls.classList.add('active');
+  }
+
+  function hideImageControls() {
+    if (!imageControls) return;
+    imageControls.classList.remove('active');
+    if (activeImage) activeImage.classList.remove('editor-selected-image');
+    activeImage = null;
+  }
+
+  function setupImageResizer() {
+    createImageControls();
+    if (!quill) return;
+
+    quill.root.addEventListener('click', (e) => {
+      const img = e.target.closest('img');
+      if (!img || !quill.root.contains(img)) {
+        hideImageControls();
+        return;
+      }
+
+      if (activeImage) activeImage.classList.remove('editor-selected-image');
+      activeImage = img;
+      activeImage.classList.add('editor-selected-image');
+
+      const width = getImageWidthPercent(img);
+      const rangeInput = imageControls.querySelector('.editor-image-range');
+      const numberInput = imageControls.querySelector('.editor-image-number');
+      rangeInput.value = String(width);
+      numberInput.value = String(width);
+
+      imageControls.querySelectorAll('.img-preset-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.width, 10) === width);
+      });
+
+      positionImageControls(img);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!imageControls?.contains(e.target) && !quill.root.contains(e.target)) {
+        hideImageControls();
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      if (activeImage && imageControls?.classList.contains('active')) positionImageControls(activeImage);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      if (activeImage && imageControls?.classList.contains('active')) positionImageControls(activeImage);
+    });
+  }
+
   /* ── Public init ───────────────────────────────── */
   function init(containerId) {
     const container = document.getElementById(containerId);
@@ -411,6 +546,7 @@ window.BlogEditor = (() => {
     buildYoutubeModal();
     buildLinkModal();
     setupTooltips(wrapper);
+    setupImageResizer();
 
     // Keyboard shortcuts hint tooltip
     quill.keyboard.addBinding({ key: 'K', shortKey: true }, () => {

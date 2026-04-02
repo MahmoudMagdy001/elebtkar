@@ -48,7 +48,7 @@
 .ql-editor {
   min-height: 420px;
   padding: 1.5rem 2rem;
-  line-height: 1.85;
+  line-height: 1.55;
   color: var(--gray-800);
   direction: rtl;
   text-align: right;
@@ -88,7 +88,7 @@
 .ql-editor h1 { font-size: 1.9rem; font-weight: 800; color: var(--primary); line-height: 1.35; margin: 1.5rem 0 0.8rem; }
 .ql-editor h2 { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin: 1.3rem 0 0.7rem; }
 .ql-editor h3 { font-size: 1.2rem; font-weight: 700; color: var(--primary-light, #005f80); margin: 1.2rem 0 0.6rem; }
-.ql-editor p  { margin-bottom: 1rem; }
+.ql-editor p  { margin-bottom: 0.55rem; }
 .ql-editor blockquote {
   border-right: 4px solid var(--primary);
   padding: 0.8rem 1.2rem 0.8rem 0.8rem;
@@ -113,14 +113,18 @@
 .ql-editor a { color: var(--secondary); text-decoration: underline; text-underline-offset: 3px; }
 .ql-editor a:hover { color: var(--primary); }
 .ql-editor img { max-width: 100%; border-radius: 10px; margin: 1rem 0; display: block; }
+.ql-editor img.editor-selected-image {
+  outline: 3px solid rgba(0, 69, 97, 0.35);
+  outline-offset: 2px;
+}
 /* Fix RTL Lists inside the editor */
 .ql-editor ul, .ql-editor ol {
   padding-right: 0 !important;
   padding-left: 0 !important;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
 }
 .ql-editor li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
   padding-right: 1.5em !important;
   padding-left: 0 !important;
   direction: rtl;
@@ -428,6 +432,97 @@
   background: var(--primary);
   color: var(--white);
   border-color: var(--primary);
+}
+
+/* ─── In-editor image controls ───────────────────── */
+.editor-image-controls {
+  position: absolute;
+  transform: translateX(-50%);
+  background: var(--white);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+  padding: 0.7rem 0.8rem;
+  min-width: 300px;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.editor-image-controls.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.editor-image-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.editor-image-controls-row + .editor-image-controls-row {
+  margin-top: 0.5rem;
+}
+.editor-image-controls-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gray-700, #374151);
+  white-space: nowrap;
+}
+.editor-image-presets {
+  display: flex;
+  gap: 0.35rem;
+  margin-right: auto;
+}
+.img-preset-btn {
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--gray-600);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.25rem 0.45rem;
+  cursor: pointer;
+  font-family: 'Almarai', sans-serif;
+}
+.img-preset-btn.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+.editor-image-range {
+  flex: 1;
+  accent-color: var(--primary);
+}
+.editor-image-number-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 0.2rem 0.35rem;
+  min-width: 62px;
+  background: var(--gray-50, #f8faff);
+}
+.editor-image-number {
+  width: 34px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gray-700);
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.editor-image-number::-webkit-outer-spin-button,
+.editor-image-number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.editor-image-number-wrap span {
+  font-size: 0.76rem;
+  color: var(--gray-600);
+  font-weight: 700;
 }
 
 /* ─── Animations ─────────────────────────────────── */

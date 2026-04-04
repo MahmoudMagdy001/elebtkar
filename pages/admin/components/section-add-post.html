@@ -1,0 +1,68 @@
+<!-- Section: Add Post -->
+<section id="addPostSection" class="admin-section">
+  <div class="dash-card">
+    <div class="dash-card-header">
+      <i class="ph-duotone ph-plus-circle"></i>
+      <h1>إضافة مدونة جديدة</h1>
+    </div>
+    <div class="dash-card-body">
+      <form id="postForm" novalidate>
+        <!-- Arabic Title -->
+        <div class="field-group">
+          <label for="title">عنوان المدونة (بالعربية) <span class="required">*</span></label>
+          <input type="text" id="title" name="title" placeholder="مثال: كيف تحسّن ترتيب موقعك في جوجل" required />
+        </div>
+
+        <!-- Slug -->
+        <hr class="form-divider" />
+        <div class="field-group">
+          <label for="slug">رابط (Slug) المدونة <span class="required">*</span></label>
+          <div class="slug-row">
+            <input type="text" id="slug" name="slug" placeholder="how-to-improve-your-google-ranking" required autocomplete="off" />
+          </div>
+          <p class="field-hint">رابط المدونة: <strong id="slugPreview">…</strong></p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-group">
+          <label for="metaDescription">وصف ميتا (Meta Description) <span class="required">*</span></label>
+          <input type="text" id="metaDescription" name="metaDescription" placeholder="وصف مختصر يظهر في نتائج البحث" maxlength="155" required />
+          <div class="meta-counter ok" id="metaCounter">0 / 155 حرف</div>
+        </div>
+
+        <!-- Rich Text Content Editor -->
+        <div class="field-group">
+          <label>محتوى المدونة <span class="required">*</span></label>
+          <div class="ql-wrapper" id="qlWrapper">
+            <div id="postEditor"></div>
+          </div>
+          <!-- Hidden field to carry HTML to the submit handler -->
+          <input type="hidden" id="content" name="content" />
+        </div>
+
+        <!-- Image Upload -->
+        <div class="field-group">
+          <label>الصورة المميزة <span class="required">*</span></label>
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="featuredImage" name="featuredImage" accept="image/*" required />
+            <div class="upload-icon"><i class="ph-duotone ph-image"></i></div>
+            <p>اسحب الصورة هنا أو اضغط للاختيار</p>
+          </div>
+          <img id="imagePreview" src="" alt="معاينة الصورة" />
+        </div>
+
+        <!-- Alt Text -->
+        <div class="field-group">
+          <label for="altText">النص البديل للصورة (Alt Text) <span class="required">*</span></label>
+          <input type="text" id="altText" name="altText" placeholder="وصف الصورة لمحركات البحث" required />
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <div class="spinner" id="submitSpinner"></div>
+          <i class="ph-duotone ph-cloud-arrow-up" id="submitIcon"></i>
+          <span id="submitLabel">نشر المدونة</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

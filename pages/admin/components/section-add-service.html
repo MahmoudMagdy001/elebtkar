@@ -1,0 +1,79 @@
+<!-- Section: Add Service -->
+<section id="addServiceSection" class="admin-section">
+  <div class="dash-card">
+    <div class="dash-card-header">
+      <i class="ph-duotone ph-briefcase"></i>
+      <h1>إضافة خدمة جديدة</h1>
+    </div>
+    <div class="dash-card-body">
+      <form id="serviceForm" novalidate>
+        <div class="field-group">
+          <label for="srvTitle">اسم الخدمة (بالعربية) <span class="required">*</span></label>
+          <input type="text" id="srvTitle" name="srvTitle" placeholder="مثال: تحسين محركات البحث SEO" required />
+        </div>
+
+        <!-- Slug -->
+        <hr class="form-divider" />
+        <div class="field-group">
+          <label for="srvSlug">رابط (Slug) الخدمة <span class="required">*</span></label>
+          <div class="slug-row">
+            <input type="text" id="srvSlug" name="srvSlug" placeholder="seo-optimization" required autocomplete="off" />
+          </div>
+          <p class="field-hint">رابط الخدمة: <strong id="srvSlugPreview">…</strong></p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-group">
+          <label for="srvMetaDescription">وصف ميتا (Meta Description) <span class="required">*</span></label>
+          <input type="text" id="srvMetaDescription" name="srvMetaDescription" placeholder="وصف مختصر يظهر في نتائج البحث" maxlength="155" required />
+          <div class="meta-counter ok" id="srvMetaCounter">0 / 155 حرف</div>
+        </div>
+
+        <div class="field-group">
+          <label for="srvSubtitle">العنوان الفرعي (يظهر كعنوان قصير داخل الصفحة)</label>
+          <input type="text" id="srvSubtitle" name="srvSubtitle" placeholder="مثال: نهيّئ موقعك ليتصدر نتائج البحث" />
+        </div>
+
+        <div class="field-group">
+          <label for="srvDescription">الوصف <span class="required">*</span></label>
+          <div class="ql-wrapper" id="srvQlWrapper">
+            <div id="srvDescriptionEditor"></div>
+          </div>
+          <input type="hidden" id="srvDescription" name="srvDescription" />
+        </div>
+
+        <div class="field-group">
+          <label for="srvFeatures">المميزات (ميزة في كل سطر) <span class="required">*</span></label>
+          <textarea id="srvFeatures" name="srvFeatures" placeholder="ميزة 1&#10;ميزة 2&#10;ميزة 3" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label for="srvBgIcon">أيقونة الخلفية (صورة)</label>
+            <input type="file" id="srvBgIcon" name="srvBgIcon" accept="image/*" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label for="srvOrder">رقم الترتيب</label>
+            <input type="number" id="srvOrder" name="srvOrder" value="1" min="1" required />
+          </div>
+        </div>
+
+        <div class="form-row" style="gap: 2rem; margin-top: 1rem;">
+          <div class="checkbox-group">
+            <input type="checkbox" id="srvReverse" name="srvReverse" />
+            <label for="srvReverse">عكس اتجاه التصميم (Reverse)</label>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="srvSubmitBtn">
+          <div class="spinner" id="srvSubmitSpinner"></div>
+          <i class="ph-duotone ph-cloud-arrow-up" id="srvSubmitIcon"></i>
+          <span id="srvSubmitLabel">حفظ الخدمة</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

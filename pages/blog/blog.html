@@ -88,66 +88,11 @@
 <!-- NAV PLACEHOLDER -->
 <div id="navbar-placeholder"></div>
 
-<!-- ── Hero ── -->
-<div class="blog-hero">
-  <span class="section-tag">مدونة الابتكار</span>
-  <h1>مقالات في التسويق الرقمي والتقنية</h1>
-  <p>استراتيجيات ونصائح عملية لتنمية نشاطك التجاري رقمياً في السوق السعودي</p>
-</div>
+<!-- ── Hero Placeholder ── -->
+<div id="blog-hero-placeholder"></div>
 
-<!-- ── Blog Grid ── -->
-<main class="blog-container" id="main-content">
-  <div class="posts-grid" id="postsGrid">
-
-    <!-- Skeleton cards while loading -->
-    <div class="sk-card" id="sk1">
-      <div class="skeleton sk-card-img"></div>
-      <div class="sk-card-body">
-        <div class="skeleton sk-line sk-short"></div>
-        <div class="skeleton sk-title"></div>
-        <div class="skeleton sk-line"></div>
-        <div class="skeleton sk-line"></div>
-        <div class="skeleton sk-line sk-short"></div>
-      </div>
-    </div>
-    <div class="sk-card" id="sk2">
-      <div class="skeleton sk-card-img"></div>
-      <div class="sk-card-body">
-        <div class="skeleton sk-line sk-short"></div>
-        <div class="skeleton sk-title"></div>
-        <div class="skeleton sk-line"></div>
-        <div class="skeleton sk-line"></div>
-        <div class="skeleton sk-line sk-short"></div>
-      </div>
-    </div>
-    <div class="sk-card" id="sk3">
-      <div class="skeleton sk-card-img"></div>
-      <div class="sk-card-body">
-        <div class="skeleton sk-line sk-short"></div>
-        <div class="skeleton sk-title"></div>
-        <div class="skeleton sk-line"></div>
-        <div class="skeleton sk-line"></div>
-        <div class="skeleton sk-line sk-short"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Empty state (hidden by default) -->
-  <div id="emptyState" class="state-center" style="display:none;">
-    <div class="state-icon"><i class="ph ph-duotone ph-notebook"></i></div>
-    <h2>لا توجد مقالات بعد</h2>
-    <p>سيتم نشر مقالات قريباً. تابعنا على منصات التواصل الاجتماعي.</p>
-    <a href="/" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">العودة للرئيسية</a>
-  </div>
-
-  <!-- Error state (hidden by default) -->
-  <div id="errorState" class="state-center" style="display:none;">
-    <div class="state-icon"><i class="ph ph-duotone ph-warning-circle"></i></div>
-    <h2>تعذّر تحميل المقالات</h2>
-    <p>تحقق من اتصالك بالإنترنت أو حاول مجدداً لاحقاً.</p>
-  </div>
-</main>
+<!-- ── Blog Grid Placeholder ── -->
+<div id="blog-grid-placeholder"></div>
 
 <!-- FOOTER -->
 <div id="footer-placeholder"></div>
@@ -161,6 +106,14 @@
 <script src="/assets/js/helpers.js"></script>
 <script src="/assets/js/component-loader.js"></script>
 <script src="/assets/js/blog-logic.js"></script>
-<script src="/pages/blog/blog.js"></script>
+
+<!-- Blog Component Loader -->
+<script src="/assets/js/site/blog/blog-loader.js"></script>
+
+<!-- Modular Site Scripts -->
+<script src="/assets/js/site/site-i18n.js"></script>
+<script src="/assets/js/site/site-core.js"></script>
+<script src="/assets/js/site/blog/blog-posts.js"></script>
+<script src="/assets/js/site/blog/blog-init.js"></script>
 </body>
 </html>

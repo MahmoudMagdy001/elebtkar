@@ -1,0 +1,38 @@
+<!-- Section: Add Partner -->
+<section id="addPartnerSection" class="admin-section">
+  <div class="dash-card">
+    <div class="dash-card-header">
+      <i class="ph-duotone ph-plus-circle"></i>
+      <h1 id="partnerFormTitle">إضافة شريك جديد</h1>
+    </div>
+    <div class="dash-card-body">
+      <form id="partnerForm" novalidate>
+        <div class="field-group">
+          <label for="partnerWebsite">رابط الموقع (Website URL)</label>
+          <input type="url" id="partnerWebsite" name="partnerWebsite" placeholder="https://example.com" dir="ltr" style="text-align: left;" />
+        </div>
+
+        <div class="field-group">
+          <label>شعار الشريك (دائري) <span class="required">*</span></label>
+          <div class="upload-zone" id="partnerUploadZone">
+            <input type="file" id="partnerLogo" name="partnerLogo" accept="image/*" />
+            <div class="upload-icon"><i class="ph-duotone ph-image"></i></div>
+            <p>اسحب الشعار هنا أو اضغط للاختيار</p>
+          </div>
+          <img id="partnerImagePreview" src="" alt="معاينة الشعار" style="max-height: 120px; border-radius: 50%; object-fit: contain; margin-top: 1rem; display: none; background: #f9f9f9; padding: 10px; border: 1px solid var(--gray-200); margin-inline: auto;" />
+        </div>
+
+        <div class="field-group">
+          <label for="partnerOrder">رقم الترتيب</label>
+          <input type="number" id="partnerOrder" name="partnerOrder" value="1" min="0" required />
+        </div>
+
+        <button type="submit" class="submit-btn" id="partnerSubmitBtn" style="margin-top: 2rem;">
+          <div class="spinner" id="partnerSubmitSpinner"></div>
+          <i class="ph-duotone ph-cloud-arrow-up" id="partnerSubmitIcon"></i>
+          <span id="partnerSubmitLabel">نشر الشريك</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

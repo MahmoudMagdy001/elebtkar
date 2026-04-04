@@ -14,6 +14,9 @@ if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
 const { createClient } = supabase;
 const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
+// Expose to window for admin panel and other modules
+window.sb = sb;
+
 // ─── Image Upload ─────────────────────────────
 /**
  * Uploads a File object to the `article-images` storage bucket.

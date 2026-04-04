@@ -29,20 +29,22 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
   border-left: 1px solid var(--gray-200);
   display: flex;
   flex-direction: column;
-  position: sticky;
+  position: fixed;
   top: 70px;
+  right: 0;
   height: calc(100vh - 70px);
   z-index: 90;
   transition: width 0.3s ease;
 }
 
 .sidebar-nav {
-  padding: 1.5rem 1rem 1rem;
+  padding: 1.5rem 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   overflow-y: auto;
+  min-height: 0;
 }
 
 .nav-item {
@@ -100,8 +102,9 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
 
 .sidebar-footer {
   padding: 1rem;
-  border-top: 1px solid var(--gray-50);
-  margin-top: auto;
+  border-top: 1px solid var(--gray-200);
+  flex-shrink: 0;
+  background: var(--white);
 }
 
 .btn-logout-sidebar {
@@ -128,6 +131,7 @@ body { background: var(--gray-50); min-height: 100vh; padding: 0; }
   flex: 1;
   padding: 2.5rem;
   background: var(--gray-50);
+  margin-right: 260px;
 }
 
 .admin-section {

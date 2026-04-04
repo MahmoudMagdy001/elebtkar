@@ -1,0 +1,78 @@
+<!-- Section: Add Pricing Plan -->
+<section id="addPricingPlanSection" class="admin-section">
+  <div class="dash-card">
+    <div class="dash-card-header">
+      <i class="ph-duotone ph-currency-circle-dollar"></i>
+      <h1>إضافة حل ابتكار (باقة)</h1>
+    </div>
+    <div class="dash-card-body">
+      <form id="pricingPlanForm" novalidate>
+        <div class="field-group">
+          <label for="planTitle">اسم الباقة <span class="required">*</span></label>
+          <input type="text" id="planTitle" name="planTitle" placeholder="مثال: الحل الاساسي" required />
+        </div>
+
+        <!-- Slug -->
+        <div class="field-group">
+          <label for="planSlug">رابط (Slug) الباقة <span class="required">*</span></label>
+          <div class="slug-row">
+            <input type="text" id="planSlug" name="planSlug" placeholder="basic-plan" required autocomplete="off" />
+            <button type="button" class="btn-regen" id="regenPlanSlug" title="إعادة توليد">
+              <i class="ph ph-arrows-clockwise"></i>
+            </button>
+          </div>
+          <p class="field-hint">رابط الباقة: <strong id="planSlugPreview">…</strong></p>
+        </div>
+
+        <div class="field-group">
+          <label for="planSubtitle">العنوان الفرعي</label>
+          <input type="text" id="planSubtitle" name="planSubtitle" placeholder="مثال: مثالية للحصول علي ابتكار واحد" />
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label for="planPrice">السعر <span class="required">*</span></label>
+            <input type="number" id="planPrice" name="planPrice" placeholder="مثال: 2000" min="0" required />
+          </div>
+          <div class="field-group">
+            <label for="planCurrency">العملة</label>
+            <input type="text" id="planCurrency" name="planCurrency" value="﷼" />
+          </div>
+          <div class="field-group">
+            <label for="planCycle">دورة الدفع</label>
+            <input type="text" id="planCycle" name="planCycle" value="شهرياً" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="planFeatures">الخدمات المشمولة (ميزة في كل سطر) <span class="required">*</span></label>
+          <textarea id="planFeatures" name="planFeatures" placeholder="ميزة 1&#10;ميزة 2&#10;ميزة 3" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label for="planOrder">رقم الترتيب</label>
+            <input type="number" id="planOrder" name="planOrder" value="1" min="1" required />
+          </div>
+        </div>
+
+        <div class="form-row" style="gap: 2rem; margin-top: 1rem;">
+          <div class="checkbox-group">
+            <input type="checkbox" id="planPopular" name="planPopular" />
+            <label for="planPopular">باقة مميزة (الأكثر طلباً)</label>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="planActive" name="planActive" checked />
+            <label for="planActive">تفعيل الباقة (تظهر في الموقع)</label>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="planSubmitBtn">
+          <div class="spinner" id="planSubmitSpinner"></div>
+          <i class="ph-duotone ph-cloud-arrow-up" id="planSubmitIcon"></i>
+          <span id="planSubmitLabel">حفظ الباقة</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

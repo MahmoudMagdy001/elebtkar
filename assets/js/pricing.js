@@ -4,7 +4,7 @@
  * Fetches pricing plans from Supabase and renders them.
  */
 
-document.addEventListener("DOMContentLoaded", async () => {
+async function initPricing() {
     const pricingContainer = document.getElementById('pricingContainer');
     if (!pricingContainer) return;
 
@@ -86,4 +86,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     await fetchPlans();
-});
+}
+
+// Initialize when components are loaded (works on both services and home pages)
+function initWhenReady() {
+    if (window.servicesComponentsLoaded || window.homeComponentsLoaded) {
+        initPricing();
+    } else {
+        document.addEventListener('servicesComponentsLoaded', initPricing, { once: true });
+        document.addEventListener('homeComponentsLoaded', initPricing, { once: true });
+    }
+}
+
+initWhenReady();

@@ -68,28 +68,11 @@
 <!-- ── Main Content ── -->
 <main class="post-layout" id="main-content">
 
-  <!-- Skeleton shown while loading -->
-  <div id="skeletonState">
-    <div class="skeleton sk-img"></div>
-    <div style="background:var(--white);border-radius:var(--radius);padding:2.5rem 3rem;box-shadow:var(--shadow-md);">
-      <div class="skeleton sk-line sk-short" style="width:25%;margin-bottom:1.5rem;"></div>
-      <div class="skeleton sk-title"></div>
-      <div class="skeleton sk-line"></div>
-      <div class="skeleton sk-line"></div>
-      <div class="skeleton sk-line sk-short"></div>
-    </div>
-  </div>
+  <!-- Post states placeholder (skeleton + error) -->
+  <div id="post-states-placeholder"></div>
 
   <!-- Populated by JS -->
   <div id="postContent" style="display:none;"></div>
-
-  <!-- Error state (hidden by default) -->
-  <div id="errorState" style="display:none;" class="state-box">
-    <div class="state-icon"><i class="ph ph-duotone ph-magnifying-glass"></i></div>
-    <h2>المقالة غير موجودة</h2>
-    <p>لم نتمكن من إيجاد المقالة المطلوبة. ربما تم حذفها أو تغيير رابطها.</p>
-    <a href="/" class="btn-primary" style="margin-top:1.5rem;display:inline-flex;">العودة للرئيسية</a>
-  </div>
 
 </main>
 
@@ -106,6 +89,14 @@
 <script src="/assets/js/component-loader.js"></script>
 <script src="/assets/js/blog-logic.js"></script>
 <script src="/assets/js/render.js"></script>
-<script src="/pages/post/post.js"></script>
+
+<!-- Post Component Loader -->
+<script src="/assets/js/site/post/post-loader.js"></script>
+
+<!-- Modular Site Scripts -->
+<script src="/assets/js/site/site-i18n.js"></script>
+<script src="/assets/js/site/site-core.js"></script>
+<script src="/assets/js/site/post/post-renderer.js"></script>
+<script src="/assets/js/site/post/post-init.js"></script>
 </body>
 </html>

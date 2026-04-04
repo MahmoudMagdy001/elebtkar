@@ -1,0 +1,37 @@
+<!-- DISCOUNT CODE -->
+<section id="discount-code">
+  <div class="section-inner">
+    <div class="discount-container fade-in">
+      <div class="discount-content">
+        <span class="section-tag">عرض خاص</span>
+        <h2 class="section-title">احصل على خصم 20% الآن!</h2>
+        <p class="section-subtitle">أدخل بياناتك باللغة الإنجليزية لتوليد كود الخصم الخاص بك واستخدمه عند التواصل معنا.</p>
+        
+        <form id="discountForm" class="discount-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="companyName">اسم الشركة</label>
+              <input type="text" id="companyName" placeholder="ادخل اسم شركتك" required>
+            </div>
+            <div class="form-group">
+              <label for="userPhone">رقم الجوال</label>
+              <input type="tel" id="userPhone" placeholder="05xxxxxxxx" required>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary">توليد الكود</button>
+        </form>
+
+        <div id="codeResult" class="code-result" style="display: none;">
+          <p>كود الخصم الخاص بك هو:</p>
+          <div class="code-display">
+            <span id="generatedCode">MAHMOUD7609</span>
+            <button id="copyCodeBtn" class="copy-btn" title="نسخ الكود">
+              <i class="ph ph-copy"></i>
+            </button>
+          </div>
+          <p class="code-note">انسخ الكود وأرسله لنا عند التواصل للحصول على الخصم!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

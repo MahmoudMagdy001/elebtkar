@@ -101,60 +101,14 @@
 
   <main id="main-content">
 
-  <!-- HERO SECTION -->
-  <header class="services-hero">
-    <div class="hero-bg-shapes">
-      <div class="hero-shape"></div>
-      <div class="hero-shape"></div>
-      <div class="hero-shape"></div>
-      <div class="hero-grid"></div>
-    </div>
-    <div class="hero-content">
-      <!-- Static H1 for SEO crawlers — visible text populated by JS typewriter -->
-      <h1 class="hero-title" id="typewriter" aria-label="خدماتنا المتكاملة — SEO وتطوير مواقع وذكاء اصطناعي في السعودية">
-        <!-- JS fills this with typewriter effect -->
-      </h1>
-      <!-- Fallback for no-JS / crawlers -->
-      <noscript><h1 class="hero-title">خدماتنا المتكاملة — SEO وتطوير مواقع وذكاء اصطناعي في السعودية</h1></noscript>
-      <p class="hero-subtitle fade-in-up">حلول رقمية متخصصة لتنمية نشاطك التجاري في المملكة العربية السعودية</p>
-    </div>
-    <div class="scroll-indicator">
-      <i class="ph ph-caret-double-down"></i>
-    </div>
-  </header>
+  <!-- Hero Placeholder -->
+  <div id="services-hero-placeholder"></div>
 
-  <!-- SERVICES MAIN -->
-  <section class="services-container" id="services-list-container">
-    <div class="flex-center py-5" id="services-loader">
-      <p style="color:var(--white); opacity:0.7;">جاري تحميل الخدمات...</p>
-    </div>
-  </section>
+  <!-- Services Content Placeholder -->
+  <div id="services-content-placeholder"></div>
 
-  <!-- PRICING PLANS -->
-  <section id="pricing">
-    <div class="section-inner">
-      <div class="fade-in text-center mb-4">
-        <span class="section-tag section-tag--dark">حلول الابتكار</span>
-        <h2 class="section-title section-title--white">حلول تناسب جميع احتياجاتك</h2>
-        <p class="section-subtitle section-subtitle--white mx-auto">اختر الابتكار الأنسب لنمو نشاطك التجاري</p>
-      </div>
-      <div class="pricing-grid fade-in" id="pricingContainer">
-        <!-- Pricing cards will be rendered dynamically by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section at Bottom -->
-  <section class="final-cta services-cta">
-    <div class="cta-content">
-      <h2>هل أنت جاهز لتنمية نشاطك الرقمي؟</h2>
-      <p class="text-muted mb-3" style="font-size: 1.15rem;">فريقنا من الخبراء جاهز لمساعدتك في كل خطوة</p>
-      <div class="cta-actions flex-center flex-wrap gap-1" style="flex-direction: row-reverse;">
-        <a href="https://wa.me/966579644123" target="_blank" class="btn-primary btn-pulse">ابدأ مشروعك الآن</a>
-        <a href="/#contact" class="btn-secondary">تواصل معنا</a>
-      </div>
-    </div>
-  </section>
+  <!-- Payment Modal Placeholder -->
+  <div id="payment-modal-placeholder"></div>
 
   <!-- FOOTER -->
   <div id="footer-placeholder"></div>
@@ -162,46 +116,26 @@
   <!-- CONTACT WIDGET PLACEHOLDER -->
   <div id="contact-widget-placeholder"></div>
 
-  <!-- PAYMENT MODAL -->
-  <div id="paymentModal" class="payment-modal">
-    <div class="modal-content">
-      <button class="modal-close" id="closePaymentModal">&times;</button>
-      <div class="modal-header">
-        <h3 id="paymentPlanTitle">إتمام الطلب</h3>
-        <p id="paymentPlanPrice"></p>
-      </div>
-      
-      <!-- USER DETAILS FORM -->
-      <div id="paymentCustomerForm" class="payment-customer-form">
-        <div class="field-group">
-          <label>الاسم الكامل</label>
-          <input type="text" id="custName" placeholder="ادخل اسمك" required />
-        </div>
-        <div class="field-group">
-          <label>البريد الإلكتروني</label>
-          <input type="email" id="custEmail" placeholder="example@mail.com" required dir="ltr" />
-        </div>
-        <div class="field-group">
-          <label>رقم الجوال</label>
-          <input type="tel" id="custPhone" placeholder="05xxxxxxxx" required dir="ltr" />
-        </div>
-        <button type="button" class="btn-primary" id="proceedToPay" style="width:100%; justify-content:center;">الانتقال للدفع</button>
-      </div>
-
-      <div class="mysr-form" style="display: none;"></div>
-    </div>
-  </div>
-
-  </main>
+</main>
 
   <!-- SCRIPTS -->
   <script src="/assets/js/config.js"></script>
   <script src="/assets/js/helpers.js"></script>
   <script src="/assets/js/component-loader.js"></script>
-  
+  <script src="/assets/js/blog-logic.js"></script>
+
+  <!-- Services Component Loader -->
+  <script src="/assets/js/site/services/services-loader.js"></script>
+
   <!-- Services specific JS -->
   <script src="/assets/js/payment-logic.js"></script>
   <script src="/assets/js/pricing.js"></script>
-  <script src="/pages/services/services.js"></script>
+
+  <!-- Modular Site Scripts -->
+  <script src="/assets/js/site/site-i18n.js"></script>
+  <script src="/assets/js/site/site-core.js"></script>
+  <script src="/assets/js/site/services/services-list.js"></script>
+  <script src="/assets/js/site/services/services-animations.js"></script>
+  <script src="/assets/js/site/services/services-init.js"></script>
 </body>
 </html>

@@ -39,16 +39,20 @@ const populateFooterServices = async () => {
   const servicesLinks = document.getElementById('footer-services-links');
   if (!servicesLinks) return;
 
-  if (!window.supabase || !window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+  // Wait for Supabase client to be ready
+  let retries = 0;
+  while (!window.sb && retries < 10) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    retries++;
+  }
+
+  if (!window.sb) {
     servicesLinks.style.display = 'none';
     return;
   }
 
-  const { createClient } = window.supabase;
-  const sb = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-
   try {
-    const { data: services, error } = await sb
+    const { data: services, error } = await window.sb
       .from('services')
       .select('title, slug')
       .order('order_num', { ascending: true });

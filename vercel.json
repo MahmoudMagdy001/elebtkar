@@ -48,6 +48,20 @@
             ]
         }
     ],
+    "redirects": [
+        {
+            "source": "/pages/services/service-detail.html",
+            "has": [
+                {
+                    "type": "query",
+                    "key": "slug",
+                    "value": "(?<slug>.*)"
+                }
+            ],
+            "destination": "/services/:slug",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/",

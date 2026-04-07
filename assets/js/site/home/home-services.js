@@ -32,6 +32,18 @@ window.HomeServices = (() => {
 
     if (!grid || !section) return;
 
+    // Wait for Supabase client to be ready
+    let retries = 0;
+    while (!window.sb && retries < 10) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      retries++;
+    }
+
+    if (!window.sb) {
+      section.style.display = 'none';
+      return;
+    }
+
     try {
       const { data: services, error } = await window.sb
         .from('services')

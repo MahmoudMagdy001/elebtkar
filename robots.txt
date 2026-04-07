@@ -11,4 +11,4 @@ User-agent: Yandex
 Crawl-delay: 3
 
 # Sitemaps
-Sitemap: https://elebtikar-sa.com/sitemap.xml
+Sitemap: https://elebtkar.vercel.app/sitemap.xml

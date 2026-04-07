@@ -37,12 +37,13 @@ const loadComponent = async (url, placeholderId) => {
  */
 // Fallback services data if Supabase fails
 const FALLBACK_SERVICES = [
-  { title: 'تحسين محركات البحث (SEO)', slug: 'seo' },
-  { title: 'تطوير المواقع والمتاجر', slug: 'web-development' },
-  { title: 'إدارة التواصل الاجتماعي', slug: 'social-media' },
-  { title: 'صناعة المحتوى', slug: 'content-creation' },
-  { title: 'إعلانات ممولة', slug: 'paid-ads' },
-  { title: 'الذكاء الاصطناعي', slug: 'ai-solutions' }
+  { title: 'SEO & GEO', slug: 'seo-geo' },
+  { title: 'المتاجر والمواقع الإلكترونية', slug: 'web-stores' },
+  { title: 'تطوير المحتوى', slug: 'content-development' },
+  { title: 'إدارة منصات التواصل الاجتماعي', slug: 'social-media' },
+  { title: 'إدارة الإعلانات', slug: 'ads-management' },
+  { title: 'تطبيقات الهواتف الذكية', slug: 'mobile-apps' },
+  { title: 'الذكاء الاصطناعي المؤسسي', slug: 'enterprise-ai' }
 ];
 
 const populateFooterServices = async () => {
@@ -60,15 +61,22 @@ const populateFooterServices = async () => {
     servicesList.replaceChildren(frag);
   };
 
+  // First check: if Supabase library is not loaded at all, use fallback immediately
+  if (typeof window.supabase === 'undefined') {
+    console.warn('[Footer] Supabase library not loaded, using fallback services');
+    renderServices(FALLBACK_SERVICES);
+    return;
+  }
+
   // Wait for Supabase client to be ready
   let retries = 0;
-  while (!window.sb && retries < 30) {
+  while (!window.sb && retries < 50) {
     await new Promise(resolve => setTimeout(resolve, 100));
     retries++;
   }
 
   if (!window.sb) {
-    console.warn('[Footer] Supabase not available, using fallback services');
+    console.warn('[Footer] Supabase client not available after retries, using fallback services');
     renderServices(FALLBACK_SERVICES);
     return;
   }
@@ -100,27 +108,48 @@ const deferFooterServicesPopulation = () => {
     return;
   }
 
-  if ('IntersectionObserver' in window) {
-    console.log('[Footer] Using IntersectionObserver');
-    const observer = new IntersectionObserver((entries) => {
-      console.log('[Footer] IntersectionObserver callback, entries:', entries);
-      if (!entries.some((entry) => entry.isIntersecting)) {
-        console.log('[Footer] Footer not intersecting yet');
-        return;
-      }
-      console.log('[Footer] Footer intersecting, calling populateFooterServices');
-      observer.disconnect();
+  // Ensure Supabase client is ready before observing
+  const startObserver = () => {
+    // Check if footer is already visible (no scroll needed)
+    const rect = footerPlaceholder.getBoundingClientRect();
+    const isAlreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    
+    if (isAlreadyVisible) {
+      console.log('[Footer] Footer already visible, calling populateFooterServices immediately');
       populateFooterServices();
-    }, { rootMargin: '300px 0px' });
-    observer.observe(footerPlaceholder);
-    return;
-  }
+      return;
+    }
 
-  console.log('[Footer] Falling back to requestIdleCallback/setTimeout');
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(() => populateFooterServices(), { timeout: 1500 });
+    if ('IntersectionObserver' in window) {
+      console.log('[Footer] Using IntersectionObserver');
+      const observer = new IntersectionObserver((entries) => {
+        console.log('[Footer] IntersectionObserver callback, entries:', entries);
+        if (!entries.some((entry) => entry.isIntersecting)) {
+          console.log('[Footer] Footer not intersecting yet');
+          return;
+        }
+        console.log('[Footer] Footer intersecting, calling populateFooterServices');
+        observer.disconnect();
+        populateFooterServices();
+      }, { rootMargin: '300px 0px' });
+      observer.observe(footerPlaceholder);
+      return;
+    }
+
+    console.log('[Footer] Falling back to requestIdleCallback/setTimeout');
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(() => populateFooterServices(), { timeout: 1500 });
+    } else {
+      setTimeout(() => populateFooterServices(), 800);
+    }
+  };
+
+  // If Supabase is not ready, wait a bit then start anyway (fallback will kick in)
+  if (!window.sb && window.supabase) {
+    console.log('[Footer] Supabase library present but client not ready, waiting...');
+    setTimeout(startObserver, 500);
   } else {
-    setTimeout(() => populateFooterServices(), 800);
+    startObserver();
   }
 };
 

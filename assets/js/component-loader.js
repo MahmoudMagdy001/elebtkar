@@ -36,8 +36,8 @@ const loadComponent = async (url, placeholderId) => {
  * Deferred to avoid competing with first paint.
  */
 const populateFooterServices = async () => {
-  const servicesLinks = document.getElementById('footer-services-links');
-  if (!servicesLinks) return;
+  const servicesList = document.getElementById('footer-services-list');
+  if (!servicesList) return;
 
   // Wait for Supabase client to be ready
   let retries = 0;
@@ -47,7 +47,7 @@ const populateFooterServices = async () => {
   }
 
   if (!window.sb) {
-    servicesLinks.style.display = 'none';
+    servicesList.style.display = 'none';
     return;
   }
 
@@ -58,7 +58,7 @@ const populateFooterServices = async () => {
       .order('order_num', { ascending: true });
 
     if (error || !services || services.length === 0) {
-      servicesLinks.style.display = 'none';
+      servicesList.style.display = 'none';
       return;
     }
 
@@ -69,10 +69,10 @@ const populateFooterServices = async () => {
       link.textContent = srv.title;
       frag.appendChild(link);
     });
-    servicesLinks.replaceChildren(frag);
+    servicesList.replaceChildren(frag);
   } catch (err) {
     console.error('Error fetching services for footer:', err);
-    servicesLinks.style.display = 'none';
+    servicesList.style.display = 'none';
   }
 };
 

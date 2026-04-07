@@ -399,11 +399,13 @@ body {
   font-size: clamp(2rem, 3.5vw, 2.5rem);
   font-weight: 800;
   color: var(--white);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .services-cta p {
   color: rgba(255,255,255,0.7);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
 }
 
 .btn-secondary {
@@ -434,7 +436,142 @@ body {
   }
 }
 
-/* RESPONSIVE DESIGN */
+/* SERVICES GRID LAYOUT */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* SERVICE CARD */
+.service-card {
+  background: var(--white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.srv-card-image {
+  height: 200px;
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.srv-card-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.1) 2px, transparent 2px);
+  background-size: 20px 20px;
+  opacity: 0.5;
+}
+
+.srv-card-image i {
+  font-size: 6rem;
+  color: var(--white);
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+  transition: transform 0.4s ease;
+  z-index: 2;
+}
+
+.service-card:hover .srv-card-image i {
+  transform: scale(1.1);
+}
+
+.srv-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.service-card:hover .srv-card-img {
+  transform: scale(1.05);
+}
+
+.srv-card-content {
+  padding: 1.5rem;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.srv-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.srv-card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.srv-card-btn:hover {
+  background: var(--primary-light);
+  box-shadow: 0 8px 20px rgba(0, 69, 97, 0.3);
+  transform: translateY(-2px);
+}
+
+.srv-card-btn i {
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVE GRID */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .srv-card-image {
+    height: 180px;
+  }
+  
+  .srv-card-image i {
+    font-size: 5rem;
+  }
+  
+  .srv-card-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 992px) {
   .service-row, .service-row.reverse {
     flex-direction: column;

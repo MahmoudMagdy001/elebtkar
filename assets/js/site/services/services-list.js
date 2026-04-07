@@ -47,9 +47,13 @@ window.ServicesList = (() => {
 
       // Render services
       container.innerHTML = '';
+      const grid = document.createElement('div');
+      grid.className = 'services-grid';
+      container.appendChild(grid);
+      
       services.forEach(srv => {
-        const row = createServiceRow(srv);
-        container.appendChild(row);
+        const card = createServiceCard(srv);
+        grid.appendChild(card);
       });
 
       // Initialize GSAP animations
@@ -132,36 +136,30 @@ window.ServicesList = (() => {
   }
 
   /**
-   * Create service row element
+   * Create service card element (grid layout)
    */
-  function createServiceRow(srv) {
-    const row = document.createElement('section');
-    row.className = `service-row ${srv.is_reverse ? 'reverse' : ''}`;
-    row.id = `service-${srv.id}`;
-
-    const featuresHtml = srv.features
-      ? srv.features.map(feat => `<li class="included"><i class="ph ph-fill ph-check-circle"></i> ${feat}</li>`).join('')
-      : '';
+  function createServiceCard(srv) {
+    const card = document.createElement('div');
+    card.className = 'service-card';
+    card.id = `service-${srv.id}`;
 
     const bgIconHtml = srv.bg_icon?.startsWith('http') || srv.bg_icon?.startsWith('/')
-      ? `<img src="${srv.bg_icon}" class="srv-bg-img" alt="" loading="lazy">`
+      ? `<img src="${srv.bg_icon}" class="srv-card-img" alt="${core.escapeHtml(srv.title)}" loading="lazy">`
       : `<i class="${srv.bg_icon || 'ph ph-duotone ph-circles-three'}"></i>`;
 
-    row.innerHTML = `
-      <div class="srv-content">
-        <h2 class="srv-title">${core.escapeHtml(srv.title)}</h2>
-        <p class="srv-short">"${core.escapeHtml(srv.subtitle || '')}"</p>
-        <ul class="srv-list">${featuresHtml}</ul>
-        <a href="/#contact" class="btn-primary srv-btn">اطلب الخدمة <i class="ph-bold ph-arrow-left"></i></a>
+    card.innerHTML = `
+      <div class="srv-card-image">
+        ${bgIconHtml}
       </div>
-      <div class="srv-image icon-showcase">${bgIconHtml}</div>
-      <div class="srv-desc-full">
-        <h3>وصف الخدمة</h3>
-        <p>${srv.description || ''}</p>
+      <div class="srv-card-content">
+        <h3 class="srv-card-title">${core.escapeHtml(srv.title)}</h3>
+        <a href="/pages/services/service-detail.html?slug=${srv.slug}" class="srv-card-btn">
+          اكتشف المزيد <i class="ph-bold ph-arrow-left"></i>
+        </a>
       </div>
     `;
 
-    return row;
+    return card;
   }
 
   return { init };

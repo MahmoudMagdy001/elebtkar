@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="الابتكار - Elebtkar" />
+  <meta name="theme-color" content="#C9A227" />
+  <link rel="icon" type="image/png" href="/assets/images/logs.png" />
+
+  <title>تفاصيل الخدمة | الابتكار</title>
+  <meta name="description" content="تفاصيل الخدمة - الابتكار" />
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+
+  <!-- Fonts -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/assets/css/shared.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/pages/services/services.css" />
+  <link rel="stylesheet" href="/pages/services/service-detail.css" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">انتقل إلى المحتوى الرئيسي</a>
+
+  <!-- Progress Bar -->
+  <div class="reading-progress" id="progress-bar"></div>
+
+  <!-- NAV PLACEHOLDER -->
+  <div id="navbar-placeholder"></div>
+
+  <main id="main-content">
+
+  <!-- Hero -->
+  <section class="services-hero service-detail-hero">
+    <div class="hero-bg-shapes">
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-shape"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title" id="service-typewriter"></h1>
+      <p class="hero-subtitle fade-in-up" id="service-subtitle"></p>
+    </div>
+    <div class="scroll-indicator">
+      <i class="ph ph-caret-double-down"></i>
+    </div>
+  </section>
+
+  <!-- Service Detail -->
+  <section class="services-container" id="service-detail-container">
+    <div class="flex-center py-5" id="service-loader">
+      <p style="color:var(--white); opacity:0.7;">جاري تحميل التفاصيل...</p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="services-cta">
+    <div class="cta-content">
+      <h2>هل أنت مهتم بهذه الخدمة؟</h2>
+      <p>تواصل معنا الآن للحصول على استشارة مجانية</p>
+      <a href="/#contact" class="btn-primary btn-pulse">اطلب الخدمة الآن <i class="ph-bold ph-arrow-left"></i></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+
+  <!-- CONTACT WIDGET -->
+  <div id="contact-widget-placeholder"></div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="/assets/js/config.js"></script>
+  <script src="/assets/js/helpers.js"></script>
+  <script src="/assets/js/component-loader.js"></script>
+
+  <script src="/assets/js/site/site-i18n.js"></script>
+  <script src="/assets/js/site/site-core.js"></script>
+  <script src="/assets/js/site/services/services-animations.js"></script>
+  <script src="/pages/services/service-detail.js"></script>
+</body>
+</html>

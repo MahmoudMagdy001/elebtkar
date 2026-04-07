@@ -3,24 +3,48 @@
         {
             "source": "/sitemap.xml",
             "headers": [
-                { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
-                { "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" }
+                {
+                    "key": "Content-Type",
+                    "value": "application/xml; charset=utf-8"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400, s-maxage=86400"
+                }
             ]
         },
         {
             "source": "/robots.txt",
             "headers": [
-                { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-                { "key": "Cache-Control", "value": "public, max-age=86400" }
+                {
+                    "key": "Content-Type",
+                    "value": "text/plain; charset=utf-8"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400"
+                }
             ]
         },
         {
             "source": "/(.*)",
             "headers": [
-                { "key": "X-Content-Type-Options", "value": "nosniff" },
-                { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-                { "key": "X-XSS-Protection", "value": "1; mode=block" },
-                { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                },
+                {
+                    "key": "X-XSS-Protection",
+                    "value": "1; mode=block"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                }
             ]
         }
     ],
@@ -47,7 +71,7 @@
         },
         {
             "source": "/services/:slug(.+)",
-            "destination": "/pages/services/services.html?slug=:slug"
+            "destination": "/pages/services/service-detail.html?slug=:slug"
         },
         {
             "source": "/services",

@@ -47,10 +47,20 @@ const FALLBACK_SERVICES = [
 ];
 
 const populateFooterServices = async () => {
+  console.log('[Footer] populateFooterServices started');
+  
+  // Small delay to ensure footer DOM is fully rendered
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
   const servicesList = document.getElementById('footer-services-list');
-  if (!servicesList) return;
+  console.log('[Footer] servicesList element:', servicesList);
+  if (!servicesList) {
+    console.warn('[Footer] footer-services-list element not found in DOM');
+    return;
+  }
 
   const renderServices = (services) => {
+    console.log('[Footer] renderServices called with:', services);
     const frag = document.createDocumentFragment();
     services.forEach((srv) => {
       const link = document.createElement('a');
@@ -59,9 +69,11 @@ const populateFooterServices = async () => {
       frag.appendChild(link);
     });
     servicesList.replaceChildren(frag);
+    console.log('[Footer] Services rendered successfully');
   };
 
   // First check: if Supabase library is not loaded at all, use fallback immediately
+  console.log('[Footer] Checking window.supabase:', typeof window.supabase);
   if (typeof window.supabase === 'undefined') {
     console.warn('[Footer] Supabase library not loaded, using fallback services');
     renderServices(FALLBACK_SERVICES);
@@ -70,10 +82,12 @@ const populateFooterServices = async () => {
 
   // Wait for Supabase client to be ready
   let retries = 0;
+  console.log('[Footer] Waiting for window.sb...');
   while (!window.sb && retries < 50) {
     await new Promise(resolve => setTimeout(resolve, 100));
     retries++;
   }
+  console.log('[Footer] window.sb after retries:', window.sb, 'retries:', retries);
 
   if (!window.sb) {
     console.warn('[Footer] Supabase client not available after retries, using fallback services');
@@ -82,10 +96,13 @@ const populateFooterServices = async () => {
   }
 
   try {
+    console.log('[Footer] Fetching services from Supabase...');
     const { data: services, error } = await window.sb
       .from('services')
       .select('title, slug')
       .order('order_num', { ascending: true });
+
+    console.log('[Footer] Supabase response:', { services, error });
 
     if (error || !services || services.length === 0) {
       console.warn('[Footer] No services data from Supabase, using fallback:', error);
@@ -110,12 +127,20 @@ const deferFooterServicesPopulation = () => {
 
   // Ensure Supabase client is ready before observing
   const startObserver = () => {
-    // Check if footer is already visible (no scroll needed)
+    // IMPORTANT: Check if footer content is actually loaded (footer-services-list exists)
+    const servicesList = document.getElementById('footer-services-list');
+    if (!servicesList) {
+      console.log('[Footer] Footer content not loaded yet, retrying in 200ms...');
+      setTimeout(startObserver, 200);
+      return;
+    }
+
+    // Now check if footer is visible
     const rect = footerPlaceholder.getBoundingClientRect();
     const isAlreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
     
     if (isAlreadyVisible) {
-      console.log('[Footer] Footer already visible, calling populateFooterServices immediately');
+      console.log('[Footer] Footer visible and content loaded, calling populateFooterServices');
       populateFooterServices();
       return;
     }
@@ -136,21 +161,12 @@ const deferFooterServicesPopulation = () => {
       return;
     }
 
-    console.log('[Footer] Falling back to requestIdleCallback/setTimeout');
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(() => populateFooterServices(), { timeout: 1500 });
-    } else {
-      setTimeout(() => populateFooterServices(), 800);
-    }
+    console.log('[Footer] Falling back to setTimeout');
+    setTimeout(() => populateFooterServices(), 800);
   };
 
-  // If Supabase is not ready, wait a bit then start anyway (fallback will kick in)
-  if (!window.sb && window.supabase) {
-    console.log('[Footer] Supabase library present but client not ready, waiting...');
-    setTimeout(startObserver, 500);
-  } else {
-    startObserver();
-  }
+  // Start checking immediately
+  startObserver();
 };
 
 /**

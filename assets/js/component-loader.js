@@ -60,66 +60,75 @@ const populateFooterServices = async () => {
   }
 
   const renderServices = (services) => {
-    console.log('[Footer] renderServices called with:', services);
-    const frag = document.createDocumentFragment();
-    services.forEach((srv) => {
-      const link = document.createElement('a');
-      link.href = `/services/${srv.slug}`;
-      link.textContent = srv.title;
-      frag.appendChild(link);
-    });
-    servicesList.replaceChildren(frag);
-    console.log('[Footer] Services rendered successfully');
+    console.log('[Footer] renderServices called with:', services.length, 'services');
+    try {
+      const frag = document.createDocumentFragment();
+      services.forEach((srv) => {
+        const link = document.createElement('a');
+        link.href = `/services/${srv.slug}`;
+        link.textContent = srv.title;
+        frag.appendChild(link);
+      });
+      servicesList.replaceChildren(frag);
+      console.log('[Footer] Services rendered successfully with', services.length, 'items');
+    } catch (err) {
+      console.error('[Footer] Error rendering services:', err);
+      // Fallback: render using HTML directly
+      servicesList.innerHTML = services.map(srv => 
+        `<a href="/services/${srv.slug}">${escHtml(srv.title)}</a>`
+      ).join('');
+    }
   };
 
-  // First check: if Supabase library is not loaded at all, use fallback immediately
-  console.log('[Footer] Checking window.supabase:', typeof window.supabase);
-  if (typeof window.supabase === 'undefined') {
-    console.warn('[Footer] Supabase library not loaded, using fallback services');
-    renderServices(FALLBACK_SERVICES);
-    return;
-  }
-
-  // Wait for Supabase client to be ready
-  let retries = 0;
-  console.log('[Footer] Waiting for window.sb...');
-  while (!window.sb && retries < 50) {
-    await new Promise(resolve => setTimeout(resolve, 100));
-    retries++;
-  }
-  console.log('[Footer] window.sb after retries:', window.sb, 'retries:', retries);
-
-  if (!window.sb) {
-    console.warn('[Footer] Supabase client not available after retries, using fallback services');
-    renderServices(FALLBACK_SERVICES);
-    return;
-  }
-
+  // Try to fetch from Supabase, but have aggressive fallback
   try {
-    console.log('[Footer] Fetching services from Supabase...');
-    const { data: services, error } = await window.sb
-      .from('services')
-      .select('title, slug')
-      .order('order_num', { ascending: true });
-
-    console.log('[Footer] Supabase response:', { services, error });
-
-    if (error || !services || services.length === 0) {
-      console.warn('[Footer] No services data from Supabase, using fallback:', error);
-      renderServices(FALLBACK_SERVICES);
-      return;
+    // Wait for Supabase client to be ready (max 5 seconds)
+    let retries = 0;
+    const maxRetries = 50;
+    
+    while (!window.sb && retries < maxRetries) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      retries++;
     }
+    
+    console.log('[Footer] After waiting:', { hasSupabase: !!window.sb, retries });
 
-    renderServices(services);
+    if (window.sb) {
+      try {
+        console.log('[Footer] Fetching services from Supabase...');
+        const { data: services, error } = await Promise.race([
+          window.sb
+            .from('services')
+            .select('title, slug')
+            .order('order_num', { ascending: true }),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Supabase request timeout')), 3000))
+        ]);
+
+        if (!error && services && services.length > 0) {
+          console.log('[Footer] Successfully fetched', services.length, 'services from Supabase');
+          renderServices(services);
+          return;
+        } else {
+          console.warn('[Footer] Supabase query returned no data or error:', error);
+        }
+      } catch (err) {
+        console.warn('[Footer] Supabase fetch failed:', err.message);
+      }
+    } else {
+      console.warn('[Footer] Supabase client not available');
+    }
   } catch (err) {
-    console.error('[Footer] Error fetching services, using fallback:', err);
-    renderServices(FALLBACK_SERVICES);
+    console.error('[Footer] Unexpected error:', err);
   }
+
+  // Always fallback to hardcoded services
+  console.log('[Footer] Using fallback services');
+  renderServices(FALLBACK_SERVICES);
 };
 
 const deferFooterServicesPopulation = () => {
   const footerPlaceholder = document.getElementById('footer-placeholder');
-  console.log('[Footer] deferFooterServicesPopulation called, placeholder:', footerPlaceholder);
+  console.log('[Footer] deferFooterServicesPopulation called, placeholder:', !!footerPlaceholder);
   if (!footerPlaceholder) {
     console.warn('[Footer] No footer placeholder found');
     return;
@@ -141,28 +150,28 @@ const deferFooterServicesPopulation = () => {
     
     if (isAlreadyVisible) {
       console.log('[Footer] Footer visible and content loaded, calling populateFooterServices');
-      populateFooterServices();
+      populateFooterServices().catch(err => console.error('[Footer] Error in populateFooterServices:', err));
       return;
     }
 
     if ('IntersectionObserver' in window) {
       console.log('[Footer] Using IntersectionObserver');
       const observer = new IntersectionObserver((entries) => {
-        console.log('[Footer] IntersectionObserver callback, entries:', entries);
+        console.log('[Footer] IntersectionObserver callback, entries count:', entries.length);
         if (!entries.some((entry) => entry.isIntersecting)) {
           console.log('[Footer] Footer not intersecting yet');
           return;
         }
         console.log('[Footer] Footer intersecting, calling populateFooterServices');
         observer.disconnect();
-        populateFooterServices();
+        populateFooterServices().catch(err => console.error('[Footer] Error in populateFooterServices:', err));
       }, { rootMargin: '300px 0px' });
       observer.observe(footerPlaceholder);
       return;
     }
 
     console.log('[Footer] Falling back to setTimeout');
-    setTimeout(() => populateFooterServices(), 800);
+    setTimeout(() => populateFooterServices().catch(err => console.error('[Footer] Error in populateFooterServices:', err)), 800);
   };
 
   // Start checking immediately

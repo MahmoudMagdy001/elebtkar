@@ -13,11 +13,34 @@
 window.SUPABASE_URL      = 'https://fdevgkvjloezhyelciqb.supabase.co';
 window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkZXZna3ZqbG9lemh5ZWxjaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTQ5MzgsImV4cCI6MjA4ODYzMDkzOH0.hahG-eXojQZulQPTRJ59rn3oaqGcuHWEHn6YVChAE_M';
 
-// Initialize Supabase client for all pages
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.supabase && window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
-    window.sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+// Initialize Supabase client with retry mechanism
+const initSupabaseClient = async () => {
+  // Wait for Supabase library to be available
+  let retries = 0;
+  const maxRetries = 50;
+  
+  while (!window.supabase && retries < maxRetries) {
+    await new Promise(resolve => setTimeout(resolve, 100));
+    retries++;
   }
+  
+  if (window.supabase && window.SUPABASE_URL && window.SUPABASE_ANON_KEY) {
+    try {
+      window.sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+      console.log('[Config] Supabase client initialized successfully');
+      return true;
+    } catch (err) {
+      console.error('[Config] Failed to initialize Supabase client:', err);
+      return false;
+    }
+  } else {
+    console.warn('[Config] Supabase library or credentials not available');
+    return false;
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSupabaseClient();
 });
 
 // Moyasar Configuration

@@ -216,7 +216,26 @@
 
 </main>
 
+  <!-- Supabase JS Library with timeout handling -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script>
+    // Ensure Supabase library loads, with timeout fallback
+    (function() {
+      let retries = 0;
+      const maxRetries = 30;
+      const checkSupabaseInterval = setInterval(() => {
+        if (window.supabase) {
+          console.log('[Supabase] Library loaded successfully');
+          clearInterval(checkSupabaseInterval);
+        } else if (++retries >= maxRetries) {
+          console.warn('[Supabase] Library failed to load after', maxRetries * 100, 'ms, marking as unavailable');
+          window.supabase = null; // Explicitly set to null to allow config.js to handle gracefully
+          clearInterval(checkSupabaseInterval);
+        }
+      }, 100);
+    })();
+  </script>
+
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/blog-logic.js"></script>
 <script src="/assets/js/helpers.js"></script>

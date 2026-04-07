@@ -65,7 +65,7 @@ const populateFooterServices = async () => {
     const frag = document.createDocumentFragment();
     services.forEach((srv) => {
       const link = document.createElement('a');
-      link.href = `/services/${encodeURIComponent(srv.slug)}`;
+      link.href = `/services/${srv.slug}`;
       link.textContent = srv.title;
       frag.appendChild(link);
     });

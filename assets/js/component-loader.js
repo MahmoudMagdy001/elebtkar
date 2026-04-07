@@ -41,12 +41,13 @@ const populateFooterServices = async () => {
 
   // Wait for Supabase client to be ready
   let retries = 0;
-  while (!window.sb && retries < 10) {
+  while (!window.sb && retries < 30) {
     await new Promise(resolve => setTimeout(resolve, 100));
     retries++;
   }
 
   if (!window.sb) {
+    console.warn('[Footer] Supabase not available, hiding services list');
     servicesList.style.display = 'none';
     return;
   }
@@ -58,6 +59,7 @@ const populateFooterServices = async () => {
       .order('order_num', { ascending: true });
 
     if (error || !services || services.length === 0) {
+      console.warn('[Footer] No services data:', error || 'empty response');
       servicesList.style.display = 'none';
       return;
     }

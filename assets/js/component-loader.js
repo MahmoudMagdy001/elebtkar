@@ -35,9 +35,30 @@ const loadComponent = async (url, placeholderId) => {
  * Loads "Our Services" links in footer from Supabase.
  * Deferred to avoid competing with first paint.
  */
+// Fallback services data if Supabase fails
+const FALLBACK_SERVICES = [
+  { title: 'تحسين محركات البحث (SEO)', slug: 'seo' },
+  { title: 'تطوير المواقع والمتاجر', slug: 'web-development' },
+  { title: 'إدارة التواصل الاجتماعي', slug: 'social-media' },
+  { title: 'صناعة المحتوى', slug: 'content-creation' },
+  { title: 'إعلانات ممولة', slug: 'paid-ads' },
+  { title: 'الذكاء الاصطناعي', slug: 'ai-solutions' }
+];
+
 const populateFooterServices = async () => {
   const servicesList = document.getElementById('footer-services-list');
   if (!servicesList) return;
+
+  const renderServices = (services) => {
+    const frag = document.createDocumentFragment();
+    services.forEach((srv) => {
+      const link = document.createElement('a');
+      link.href = `/services/${srv.slug}`;
+      link.textContent = srv.title;
+      frag.appendChild(link);
+    });
+    servicesList.replaceChildren(frag);
+  };
 
   // Wait for Supabase client to be ready
   let retries = 0;
@@ -47,8 +68,8 @@ const populateFooterServices = async () => {
   }
 
   if (!window.sb) {
-    console.warn('[Footer] Supabase not available, hiding services list');
-    servicesList.style.display = 'none';
+    console.warn('[Footer] Supabase not available, using fallback services');
+    renderServices(FALLBACK_SERVICES);
     return;
   }
 
@@ -59,32 +80,35 @@ const populateFooterServices = async () => {
       .order('order_num', { ascending: true });
 
     if (error || !services || services.length === 0) {
-      console.warn('[Footer] No services data:', error || 'empty response');
-      servicesList.style.display = 'none';
+      console.warn('[Footer] No services data from Supabase, using fallback:', error);
+      renderServices(FALLBACK_SERVICES);
       return;
     }
 
-    const frag = document.createDocumentFragment();
-    services.forEach((srv) => {
-      const link = document.createElement('a');
-      link.href = `/services/${srv.slug}`;
-      link.textContent = srv.title;
-      frag.appendChild(link);
-    });
-    servicesList.replaceChildren(frag);
+    renderServices(services);
   } catch (err) {
-    console.error('Error fetching services for footer:', err);
-    servicesList.style.display = 'none';
+    console.error('[Footer] Error fetching services, using fallback:', err);
+    renderServices(FALLBACK_SERVICES);
   }
 };
 
 const deferFooterServicesPopulation = () => {
   const footerPlaceholder = document.getElementById('footer-placeholder');
-  if (!footerPlaceholder) return;
+  console.log('[Footer] deferFooterServicesPopulation called, placeholder:', footerPlaceholder);
+  if (!footerPlaceholder) {
+    console.warn('[Footer] No footer placeholder found');
+    return;
+  }
 
   if ('IntersectionObserver' in window) {
+    console.log('[Footer] Using IntersectionObserver');
     const observer = new IntersectionObserver((entries) => {
-      if (!entries.some((entry) => entry.isIntersecting)) return;
+      console.log('[Footer] IntersectionObserver callback, entries:', entries);
+      if (!entries.some((entry) => entry.isIntersecting)) {
+        console.log('[Footer] Footer not intersecting yet');
+        return;
+      }
+      console.log('[Footer] Footer intersecting, calling populateFooterServices');
       observer.disconnect();
       populateFooterServices();
     }, { rootMargin: '300px 0px' });
@@ -92,6 +116,7 @@ const deferFooterServicesPopulation = () => {
     return;
   }
 
+  console.log('[Footer] Falling back to requestIdleCallback/setTimeout');
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(() => populateFooterServices(), { timeout: 1500 });
   } else {

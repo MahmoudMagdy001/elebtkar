@@ -8,7 +8,6 @@ Disallow: /assets/js/config.js
 
 # Crawl delay for Yandex
 User-agent: Yandex
-Crawl-delay: 3
 
 # Sitemaps
 Sitemap: https://elebtkar.vercel.app/sitemap.xml

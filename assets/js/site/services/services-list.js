@@ -153,7 +153,7 @@ window.ServicesList = (() => {
       </div>
       <div class="srv-card-content">
         <h3 class="srv-card-title">${core.escapeHtml(srv.title)}</h3>
-        <a href="/pages/services/service-detail.html?slug=${srv.slug}" class="srv-card-btn">
+        <a href="/services/${encodeURIComponent(srv.slug)}" class="srv-card-btn">
           اكتشف المزيد <i class="ph-bold ph-arrow-left"></i>
         </a>
       </div>

@@ -82,18 +82,15 @@ const populateFooterServices = async () => {
 
   // Try to fetch from Supabase, but have aggressive fallback
   try {
-    // Wait for Supabase client to be ready (max 5 seconds)
-    let retries = 0;
-    const maxRetries = 50;
+    // Wait for Supabase client to be ready using shared promise (max 10 seconds)
+    const supabaseReady = await Promise.race([
+      window.SUPABASE_READY,
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Supabase init timeout')), 10000))
+    ]);
     
-    while (!window.sb && retries < maxRetries) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-      retries++;
-    }
-    
-    console.log('[Footer] After waiting:', { hasSupabase: !!window.sb, retries });
+    console.log('[Footer] After waiting for SUPABASE_READY:', { supabaseReady, hasClient: !!window.sb });
 
-    if (window.sb) {
+    if (supabaseReady && window.sb) {
       try {
         console.log('[Footer] Fetching services from Supabase...');
         const { data: services, error } = await Promise.race([

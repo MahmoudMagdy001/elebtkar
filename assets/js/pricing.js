@@ -8,14 +8,20 @@ async function initPricing() {
     const pricingContainer = document.getElementById('pricingContainer');
     if (!pricingContainer) return;
 
-    // Use existing Supabase client if available, otherwise init
-    let sb;
-    if (window.supabase && typeof window.supabase.createClient === 'function') {
-        sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
-    } else {
-        console.error('Supabase SDK not loaded');
+    // Wait for Supabase client to be ready using shared promise
+    const supabaseReady = await Promise.race([
+        window.SUPABASE_READY || Promise.resolve(false),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Supabase init timeout')), 8000))
+    ]);
+
+    if (!supabaseReady || !window.sb) {
+        console.error('Supabase client not available');
+        const pricingSection = document.getElementById('pricing');
+        if (pricingSection) pricingSection.style.display = 'none';
         return;
     }
+
+    const sb = window.sb;
 
     async function fetchPlans() {
         try {

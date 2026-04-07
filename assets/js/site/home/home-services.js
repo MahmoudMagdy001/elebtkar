@@ -32,14 +32,13 @@ window.HomeServices = (() => {
 
     if (!grid || !section) return;
 
-    // Wait for Supabase client to be ready
-    let retries = 0;
-    while (!window.sb && retries < 10) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-      retries++;
-    }
+    // Wait for Supabase client to be ready using shared promise
+    const supabaseReady = await Promise.race([
+      window.SUPABASE_READY || Promise.resolve(false),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Supabase init timeout')), 8000))
+    ]);
 
-    if (!window.sb) {
+    if (!supabaseReady || !window.sb) {
       section.style.display = 'none';
       return;
     }
@@ -98,6 +97,14 @@ window.HomeServices = (() => {
   async function fetchAndRenderPartners() {
     const grid = document.getElementById('partnersGrid');
     if (!grid) return;
+
+    // Wait for Supabase client to be ready using shared promise
+    const supabaseReady = await Promise.race([
+      window.SUPABASE_READY || Promise.resolve(false),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Supabase init timeout')), 8000))
+    ]);
+
+    if (!supabaseReady || !window.sb) return;
 
     try {
       const { data: partners, error } = await window.sb

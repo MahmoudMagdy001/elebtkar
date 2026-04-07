@@ -13,6 +13,11 @@
 window.SUPABASE_URL      = 'https://fdevgkvjloezhyelciqb.supabase.co';
 window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZkZXZna3ZqbG9lemh5ZWxjaXFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNTQ5MzgsImV4cCI6MjA4ODYzMDkzOH0.hahG-eXojQZulQPTRJ59rn3oaqGcuHWEHn6YVChAE_M';
 
+// Shared promise for Supabase readiness
+window.SUPABASE_READY = new Promise((resolve) => {
+  window._resolveSupabaseReady = resolve;
+});
+
 // Initialize Supabase client with retry mechanism
 const initSupabaseClient = async () => {
   // Wait for Supabase library to be available
@@ -28,13 +33,16 @@ const initSupabaseClient = async () => {
     try {
       window.sb = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
       console.log('[Config] Supabase client initialized successfully');
+      window._resolveSupabaseReady(true);
       return true;
     } catch (err) {
       console.error('[Config] Failed to initialize Supabase client:', err);
+      window._resolveSupabaseReady(false);
       return false;
     }
   } else {
     console.warn('[Config] Supabase library or credentials not available');
+    window._resolveSupabaseReady(false);
     return false;
   }
 };

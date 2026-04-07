@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (!slug) {
     // Try from pathname
     const pathMatch = window.location.pathname.match(/\/services\/([^\/]+)/);
-    if (pathMatch) slug = pathMatch[1];
+    if (pathMatch) slug = decodeURIComponent(pathMatch[1]);
+  } else {
+    // Also decode slug from query param
+    slug = decodeURIComponent(slug);
   }
 
   if (!slug) {

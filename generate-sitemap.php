@@ -4,7 +4,12 @@
  * Dynamically generates sitemap.xml by fetching data from Supabase REST API
  */
 
+// Suppress all errors to ensure clean XML output
+error_reporting(0);
+ini_set('display_errors', 0);
+
 header("Content-Type: application/xml; charset=utf-8");
+header("HTTP/1.1 200 OK");
 
 // Configuration - Values mirror assets/js/config.js
 $supabaseUrl = 'https://fdevgkvjloezhyelciqb.supabase.co';
@@ -19,13 +24,20 @@ function fetchSupabase($table, $select = '*') {
         "http" => [
             "method" => "GET",
             "header" => "apikey: " . $supabaseKey . "\r\n" .
-                        "Authorization: Bearer " . $supabaseKey . "\r\n"
+                        "Authorization: Bearer " . $supabaseKey . "\r\n",
+            "timeout" => 10
         ]
     ];
     
     $context = stream_context_create($opts);
-    $result = file_get_contents($url, false, $context);
-    return $result ? json_decode($result, true) : [];
+    $result = @file_get_contents($url, false, $context);
+    
+    if ($result === false) {
+        return [];
+    }
+    
+    $decoded = json_decode($result, true);
+    return is_array($decoded) ? $decoded : [];
 }
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;

@@ -103,7 +103,7 @@ export default async function handler(req, res) {
     const dynamicServiceEntries = services
       .filter((item) => item?.slug)
       .map((item) => ({
-        loc: `${siteUrl}/services/${item.slug}`,
+        loc: `${siteUrl}/services/${encodeURIComponent(item.slug)}`,
         lastmod: getLastMod(item),
         changefreq: "weekly",
         priority: "0.7",
@@ -112,7 +112,7 @@ export default async function handler(req, res) {
     const dynamicPostEntries = posts
       .filter((item) => item?.slug)
       .map((item) => ({
-        loc: `${siteUrl}/post?slug=${encodeURIComponent(item.slug)}`,
+        loc: `${siteUrl}/blog/${encodeURIComponent(item.slug)}`,
         lastmod: getLastMod(item),
         changefreq: "weekly",
         priority: "0.6",

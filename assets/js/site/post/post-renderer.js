@@ -14,7 +14,9 @@ window.PostRenderer = (() => {
    */
   async function init() {
     const params = new URLSearchParams(window.location.search);
-    const slug = params.get('slug');
+    const querySlug = params.get('slug');
+    const pathSlug = getSlugFromPath();
+    const slug = querySlug || pathSlug;
 
     if (!slug) {
       showError();
@@ -43,7 +45,7 @@ window.PostRenderer = (() => {
    * Update all SEO meta tags
    */
   function updateSEO(post) {
-    const pageUrl = window.location.href;
+    const pageUrl = getCanonicalPostUrl(post.slug);
 
     // Title
     core.setTitle(`${post.title} | ${i18n.seo.siteName}`);
@@ -76,7 +78,7 @@ window.PostRenderer = (() => {
    * Inject structured data (Article + Breadcrumb)
    */
   function updateStructuredData(post) {
-    const pageUrl = window.location.href;
+    const pageUrl = getCanonicalPostUrl(post.slug);
     const siteUrl = i18n.seo.siteUrl;
 
     // Article schema
@@ -187,8 +189,21 @@ window.PostRenderer = (() => {
    * Copy post link to clipboard
    */
   async function copyLink() {
-    const result = await core.copyToClipboard(window.location.href, 'تم نسخ رابط المقالة!');
-    alert(result.success ? result.message : 'انسخ الرابط يدوياً: ' + window.location.href);
+    const postSlug = new URLSearchParams(window.location.search).get('slug') || getSlugFromPath();
+    const canonicalUrl = getCanonicalPostUrl(postSlug);
+    const result = await core.copyToClipboard(canonicalUrl, 'تم نسخ رابط المقالة!');
+    alert(result.success ? result.message : 'انسخ الرابط يدوياً: ' + canonicalUrl);
+  }
+
+  function getSlugFromPath() {
+    const match = window.location.pathname.match(/^\/blog\/([^/]+)$/);
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function getCanonicalPostUrl(slug) {
+    const base = window.location.origin;
+    const safeSlug = encodeURIComponent(slug || '');
+    return `${base}/blog/${safeSlug}`;
   }
 
   // Expose copyLink globally for onclick

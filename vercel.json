@@ -77,6 +77,18 @@
             ],
             "destination": "/services/:slug",
             "permanent": true
+        },
+        {
+            "source": "/post",
+            "has": [
+                {
+                    "type": "query",
+                    "key": "slug",
+                    "value": "(?<slug>.*)"
+                }
+            ],
+            "destination": "/blog/:slug",
+            "permanent": true
         }
     ],
     "rewrites": [
@@ -99,6 +111,10 @@
         {
             "source": "/blog",
             "destination": "/pages/blog/blog.html"
+        },
+        {
+            "source": "/blog/:slug(.+)",
+            "destination": "/pages/post/post.html?slug=:slug"
         },
         {
             "source": "/post",

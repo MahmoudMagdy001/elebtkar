@@ -51,7 +51,7 @@ window.BlogPosts = (() => {
 
     const card = document.createElement('a');
     card.className = 'post-card fade-in';
-    card.href = `/post?slug=${encodeURIComponent(post.slug)}`;
+    card.href = `/blog/${encodeURIComponent(post.slug)}`;
 
     const imageHtml = post.featured_image_url
       ? `<img class="post-card-img" src="${post.featured_image_url}" alt="${core.escapeHtml(post.alt_text)}" loading="lazy" />`

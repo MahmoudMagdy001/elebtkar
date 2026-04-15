@@ -1,3 +1,8 @@
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};
 const DEFAULT_SITE_URL = "https://elebtkar.vercel.app";
 const SUPABASE_URL =
   process.env.SUPABASE_URL || "https://fdevgkvjloezhyelciqb.supabase.co";

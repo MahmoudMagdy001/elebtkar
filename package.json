@@ -4,7 +4,7 @@
     "description": "Elebtkar website",
     "type": "module",
     "scripts": {
-        "build": "node scripts/generate-sitemap.js",
+        "build": "node scripts/generate-sitemap.js && echo 'done'",
         "generate-sitemap": "node scripts/generate-sitemap.js"
     },
     "dependencies": {}

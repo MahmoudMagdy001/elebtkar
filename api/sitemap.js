@@ -93,8 +93,8 @@ export default async function handler(req, res) {
         { select: "slug" },
       ]),
       fetchRowsWithFallback("posts", [
-        { select: "slug,updated_at,created_at,published", extraQuery: "&published=eq.true" },
-        { select: "slug,created_at,published", extraQuery: "&published=eq.true" },
+        { select: "slug,updated_at,created_at,published" },
+        { select: "slug,created_at,published" },
         { select: "slug,created_at" },
         { select: "slug" },
       ]),
@@ -110,7 +110,7 @@ export default async function handler(req, res) {
       }));
 
     const dynamicPostEntries = posts
-      .filter((item) => item?.slug && (item?.published === undefined || item?.published === true))
+      .filter((item) => item?.slug)
       .map((item) => ({
         loc: `${siteUrl}/post?slug=${encodeURIComponent(item.slug)}`,
         lastmod: getLastMod(item),

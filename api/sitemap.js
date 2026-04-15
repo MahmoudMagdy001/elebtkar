@@ -21,8 +21,10 @@ function normalizeDate(value) {
   return parsed.toISOString().slice(0, 10);
 }
 
-async function fetchSupabase(table, selectQuery) {
-  const endpoint = `${SUPABASE_URL}/rest/v1/${table}?select=${encodeURIComponent(selectQuery)}`;
+async function fetchSupabase(table, selectQuery, extraQuery = "") {
+  const endpoint = `${SUPABASE_URL}/rest/v1/${table}?select=${encodeURIComponent(
+    selectQuery
+  )}${extraQuery}`;
   const response = await fetch(endpoint, {
     headers: {
       apikey: SUPABASE_ANON_KEY,
@@ -30,10 +32,31 @@ async function fetchSupabase(table, selectQuery) {
     },
   });
 
-  if (!response.ok) return [];
+  if (!response.ok) {
+    return { ok: false, data: [] };
+  }
 
   const payload = await response.json();
-  return Array.isArray(payload) ? payload : [];
+  return { ok: true, data: Array.isArray(payload) ? payload : [] };
+}
+
+async function fetchRowsWithFallback(table, queries) {
+  for (const query of queries) {
+    const result = await fetchSupabase(table, query.select, query.extraQuery || "");
+    if (result.ok) return result.data;
+  }
+
+  return [];
+}
+
+function getLastMod(item) {
+  return normalizeDate(
+    item?.updated_at ||
+      item?.modified_at ||
+      item?.published_at ||
+      item?.created_at ||
+      item?.date
+  );
 }
 
 function buildUrlEntry(loc, lastmod, changefreq, priority) {
@@ -64,24 +87,33 @@ export default async function handler(req, res) {
     ];
 
     const [services, posts] = await Promise.all([
-      fetchSupabase("services", "slug,updated_at,created_at"),
-      fetchSupabase("posts", "slug,updated_at,created_at"),
+      fetchRowsWithFallback("services", [
+        { select: "slug,updated_at,created_at" },
+        { select: "slug,created_at" },
+        { select: "slug" },
+      ]),
+      fetchRowsWithFallback("posts", [
+        { select: "slug,updated_at,created_at,published", extraQuery: "&published=eq.true" },
+        { select: "slug,created_at,published", extraQuery: "&published=eq.true" },
+        { select: "slug,created_at" },
+        { select: "slug" },
+      ]),
     ]);
 
     const dynamicServiceEntries = services
       .filter((item) => item?.slug)
       .map((item) => ({
         loc: `${siteUrl}/services/${item.slug}`,
-        lastmod: normalizeDate(item.updated_at || item.created_at),
+        lastmod: getLastMod(item),
         changefreq: "weekly",
         priority: "0.7",
       }));
 
     const dynamicPostEntries = posts
-      .filter((item) => item?.slug)
+      .filter((item) => item?.slug && (item?.published === undefined || item?.published === true))
       .map((item) => ({
         loc: `${siteUrl}/post?slug=${encodeURIComponent(item.slug)}`,
-        lastmod: normalizeDate(item.updated_at || item.created_at),
+        lastmod: getLastMod(item),
         changefreq: "weekly",
         priority: "0.6",
       }));

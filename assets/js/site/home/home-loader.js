@@ -33,19 +33,17 @@ const loadHomeComponent = async (url, placeholderId, append = false) => {
 
 // ─── Load all home components on DOM ready ────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  // Load main content components (append mode)
-  await Promise.all([
-    loadHomeComponent('/pages/home/components/hero.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/who-we-are.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/discount-code.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/services.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/pricing.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/why-different.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/why-choose-us.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/process.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/results-cta.html', 'home-content-placeholder', true),
-    loadHomeComponent('/pages/home/components/contact.html', 'home-content-placeholder', true)
-  ]);
+  // Load main content components sequentially (in order) to prevent race conditions
+  await loadHomeComponent('/pages/home/components/hero.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/who-we-are.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/discount-code.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/services.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/pricing.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/why-different.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/why-choose-us.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/process.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/results-cta.html', 'home-content-placeholder', true);
+  await loadHomeComponent('/pages/home/components/contact.html', 'home-content-placeholder', true);
 
   // Load payment modal (replace mode - separate placeholder)
   await loadHomeComponent('/pages/home/components/payment-modal.html', 'payment-modal-placeholder');

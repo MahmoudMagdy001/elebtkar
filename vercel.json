@@ -89,11 +89,6 @@
             ],
             "destination": "/blog/:slug",
             "permanent": true
-        },
-        {
-            "source": "/sitemap.xml",
-            "destination": "/api/sitemap",
-            "permanent": false
         }
     ],
     "rewrites": [

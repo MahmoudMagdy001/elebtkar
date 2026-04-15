@@ -16,7 +16,8 @@ const loadHomeComponent = async (url, placeholderId, append = false) => {
   if (!placeholder) return;
 
   try {
-    const response = await fetch(url, { cache: 'force-cache' });
+    // Avoid stale home sections after content edits.
+    const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Failed to load ${url}: ${response.status}`);
     const html = await response.text();
     

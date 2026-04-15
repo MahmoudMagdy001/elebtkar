@@ -1,73 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
-  <!-- الصفحة الرئيسية -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://elebtkar.vercel.app/</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://elebtkar.vercel.app/"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://elebtkar.vercel.app/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://elebtkar.vercel.app/"/>
-    <image:image>
-      <image:loc>https://elebtkar.vercel.app/assets/images/logo.png</image:loc>
-      <image:title>الابتكار — وكالة التسويق الرقمي السعودية</image:title>
-    </image:image>
   </url>
-
-  <!-- صفحة الخدمات -->
   <url>
     <loc>https://elebtkar.vercel.app/services</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://elebtkar.vercel.app/services"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://elebtkar.vercel.app/services"/>
   </url>
-
-  <!-- صفحة المدونة -->
   <url>
     <loc>https://elebtkar.vercel.app/blog</loc>
-    <lastmod>2026-04-07</lastmod>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://elebtkar.vercel.app/blog"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://elebtkar.vercel.app/blog"/>
   </url>
-
-  <!-- صفحة من نحن -->
-  <url>
-    <loc>https://elebtkar.vercel.app/about</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- صفحة تواصل معنا -->
-  <url>
-    <loc>https://elebtkar.vercel.app/contact</loc>
-    <lastmod>2026-04-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- سياسة الخصوصية -->
   <url>
     <loc>https://elebtkar.vercel.app/privacy-policy</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
-
-  <!-- الشروط والأحكام -->
   <url>
     <loc>https://elebtkar.vercel.app/terms-and-conditions</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-04-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
   </url>
-
 </urlset>

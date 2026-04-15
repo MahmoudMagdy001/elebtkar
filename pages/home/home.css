@@ -365,8 +365,29 @@
   border: 1px solid var(--gray-200);
   border-radius: var(--radius-sm);
   font-size: 1rem;
+  line-height: 1.5;
+  font-family: 'Almarai', sans-serif;
+  font-weight: 400;
+  -webkit-appearance: none;
+  appearance: none;
   background: var(--gray-50); color: var(--gray-800);
   transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-group input {
+  min-height: 56px;
+  padding-top: 0.95rem;
+  padding-bottom: 0.95rem;
+}
+.form-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  font-family: 'Almarai', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  opacity: 1;
 }
 .form-group input:focus, .form-group textarea:focus {
   outline: none; border-color: var(--primary);
@@ -395,11 +416,12 @@
 }
 .chip-item span {
   display: inline-block;
-  padding: 8px 16px;
+  padding: 10px 16px 9px;
   background: var(--gray-50);
   border: 1px solid var(--gray-200);
   border-radius: 50px;
   font-size: 0.85rem;
+  line-height: 1.4;
   color: var(--gray-600);
   transition: all var(--transition);
   user-select: none;

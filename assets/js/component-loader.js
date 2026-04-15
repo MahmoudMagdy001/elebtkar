@@ -23,7 +23,8 @@ const loadComponent = async (url, placeholderId) => {
   if (!placeholder) return;
 
   try {
-    const response = await fetch(url, { cache: 'force-cache' });
+    // Use no-store so shared components (especially footer links) update immediately after edits.
+    const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Failed to load ${url}: ${response.status}`);
     placeholder.innerHTML = await response.text();
   } catch (err) {

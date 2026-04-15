@@ -1,4 +1,7 @@
 {
+    "build": {
+        "buildCommand": "npm run generate-sitemap"
+    },
     "headers": [
         {
             "source": "/sitemap.xml",

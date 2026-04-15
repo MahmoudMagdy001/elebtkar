@@ -1,0 +1,10 @@
+{
+  "name": "elebtkar",
+  "version": "1.0.0",
+  "description": "Elebtkar website",
+  "type": "module",
+  "scripts": {
+    "generate-sitemap": "node scripts/generate-sitemap.js"
+  },
+  "dependencies": {}
+}

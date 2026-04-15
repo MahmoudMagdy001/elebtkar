@@ -189,7 +189,8 @@ window.AdminServices = (() => {
     e.preventDefault();
 
     const title = document.getElementById('srvTitle').value.trim();
-    const slug = document.getElementById('srvSlug').value.trim();
+    const slugInput = document.getElementById('srvSlug');
+    const slug = forms.normalizeSlug(slugInput?.value || '');
     const meta_description = document.getElementById('srvMetaDescription').value.trim();
     const subtitle = document.getElementById('srvSubtitle').value.trim();
     const description = serviceEditor
@@ -209,6 +210,12 @@ window.AdminServices = (() => {
     if (!validation.valid) {
       core.showToast(validation.message, 'error');
       return;
+    }
+
+    if (slugInput) {
+      slugInput.value = slug;
+      const slugPreview = document.getElementById('srvSlugPreview');
+      if (slugPreview) slugPreview.textContent = slug || '…';
     }
 
     core.setBtnLoading('srvSubmitBtn', 'srvSubmitSpinner', 'srvSubmitIcon', 'srvSubmitLabel', true, i18n.t('publishing'));

@@ -165,7 +165,8 @@ window.AdminPosts = (() => {
     e.preventDefault();
 
     const titleVal = document.getElementById('title').value.trim();
-    const slugVal = document.getElementById('slug').value.trim();
+    const slugInput = document.getElementById('slug');
+    const slugVal = forms.normalizeSlug(slugInput?.value || '');
     const metaVal = document.getElementById('metaDescription').value.trim();
     const contentVal = window.BlogEditor ? window.BlogEditor.getHTML() : document.getElementById('content')?.value.trim();
     const altVal = document.getElementById('altText').value.trim();
@@ -189,6 +190,12 @@ window.AdminPosts = (() => {
     if (!validation.valid) {
       core.showToast(validation.message, 'error');
       return;
+    }
+
+    if (slugInput) {
+      slugInput.value = slugVal;
+      const slugPreview = document.getElementById('slugPreview');
+      if (slugPreview) slugPreview.textContent = slugVal || '…';
     }
 
     // Image size check

@@ -5,6 +5,24 @@
 
 window.AdminForms = (() => {
   'use strict';
+  /**
+   * Normalize slug to SEO-friendly format
+   * - Keeps Arabic/English letters and numbers
+   * - Replaces spaces/underscores with dashes
+   * - Removes duplicate/edge dashes
+   */
+  function normalizeSlug(text) {
+    if (!text) return '';
+
+    return String(text)
+      .trim()
+      .replace(/[_\s]+/g, '-')
+      .replace(/[^\p{L}\p{N}-]/gu, '')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .toLowerCase();
+  }
+
 
   const i18n = window.AdminI18n;
   const core = window.AdminCore;
@@ -74,6 +92,12 @@ window.AdminForms = (() => {
       slugInput.addEventListener('input', () => {
         slugPreview.textContent = slugInput.value || '…';
       });
+
+      slugInput.addEventListener('blur', () => {
+        const normalized = normalizeSlug(slugInput.value);
+        slugInput.value = normalized;
+        slugPreview.textContent = normalized || '…';
+      });
     }
 
     // Meta counter
@@ -101,9 +125,9 @@ window.AdminForms = (() => {
 
       const generateSlug = (text) => {
         if (typeof window.generateSlug === 'function') {
-          return window.generateSlug(text);
+          return normalizeSlug(window.generateSlug(text));
         }
-        return text.trim().toLowerCase().replace(/\s+/g, '-').replace(/-+/g, '-');
+        return normalizeSlug(text);
       };
 
       const updateSlug = () => {
@@ -227,6 +251,7 @@ window.AdminForms = (() => {
     loadTableData,
     handleDelete,
     setupSeoHelpers,
+    normalizeSlug,
     setupImagePreview,
     validateFields,
     parseFeatures,

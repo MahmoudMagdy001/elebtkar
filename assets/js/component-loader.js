@@ -269,11 +269,10 @@ const bindHomeNavScrollTop = () => {
 
 // ─── Auto-run on DOM ready ────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([
-    loadComponent('/components/navbar.html', 'navbar-placeholder'),
-    loadComponent('/components/contact-widget.html', 'contact-widget-placeholder'),
-    loadComponent('/components/footer.html', 'footer-placeholder')
-  ]);
+  // Load layout components sequentially to ensure correct order (Navbar first)
+  await loadComponent('/components/navbar.html', 'navbar-placeholder');
+  await loadComponent('/components/contact-widget.html', 'contact-widget-placeholder');
+  await loadComponent('/components/footer.html', 'footer-placeholder');
 
   markActiveNavLink();
   bindHomeNavScrollTop();

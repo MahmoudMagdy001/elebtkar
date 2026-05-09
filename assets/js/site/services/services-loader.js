@@ -32,18 +32,14 @@ const loadServicesComponent = async (url, placeholderId, append = false) => {
 
 // ─── Load all services components on DOM ready ────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  // Load layout components (replace mode)
-  await Promise.all([
-    loadServicesComponent('/pages/services/components/hero.html', 'services-hero-placeholder'),
-    loadServicesComponent('/pages/services/components/payment-modal.html', 'payment-modal-placeholder')
-  ]);
+  // Load layout components (replace mode) sequentially
+  await loadServicesComponent('/pages/services/components/hero.html', 'services-hero-placeholder');
+  await loadServicesComponent('/pages/services/components/payment-modal.html', 'payment-modal-placeholder');
 
-  // Load main content components (append mode)
-  await Promise.all([
-    loadServicesComponent('/pages/services/components/services-list.html', 'services-content-placeholder', true),
-    loadServicesComponent('/pages/services/components/pricing.html', 'services-content-placeholder', true),
-    loadServicesComponent('/pages/services/components/cta.html', 'services-content-placeholder', true)
-  ]);
+  // Load main content components (append mode) sequentially to preserve order
+  await loadServicesComponent('/pages/services/components/services-list.html', 'services-content-placeholder', true);
+  await loadServicesComponent('/pages/services/components/pricing.html', 'services-content-placeholder', true);
+  await loadServicesComponent('/pages/services/components/cta.html', 'services-content-placeholder', true);
 
   // Dispatch event to signal all components are loaded
   window.servicesComponentsLoaded = true;

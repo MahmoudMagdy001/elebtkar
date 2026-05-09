@@ -32,28 +32,24 @@ const loadAdminComponent = async (url, placeholderId, append = false) => {
 
 // ─── Load all admin components on DOM ready ────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  // Load layout components
-  await Promise.all([
-    loadAdminComponent('/pages/admin/components/login.html', 'login-placeholder'),
-    loadAdminComponent('/pages/admin/components/header.html', 'header-placeholder'),
-    loadAdminComponent('/pages/admin/components/sidebar.html', 'sidebar-placeholder')
-  ]);
+  // Load layout components sequentially
+  await loadAdminComponent('/pages/admin/components/login.html', 'login-placeholder');
+  await loadAdminComponent('/pages/admin/components/header.html', 'header-placeholder');
+  await loadAdminComponent('/pages/admin/components/sidebar.html', 'sidebar-placeholder');
 
-  // Load all section components into main content (append mode)
-  await Promise.all([
-    loadAdminComponent('/pages/admin/components/section-contact-messages.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-discount-codes.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-add-post.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-manage-posts.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-add-service.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-manage-services.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-add-pricing.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-manage-pricing.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-add-partner.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-manage-partners.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-manage-payments.html', 'admin-sections-placeholder', true),
-    loadAdminComponent('/pages/admin/components/section-manage-stats.html', 'admin-sections-placeholder', true)
-  ]);
+  // Load all section components into main content (append mode) sequentially
+  await loadAdminComponent('/pages/admin/components/section-contact-messages.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-discount-codes.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-add-post.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-manage-posts.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-add-service.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-manage-services.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-add-pricing.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-manage-pricing.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-add-partner.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-manage-partners.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-manage-payments.html', 'admin-sections-placeholder', true);
+  await loadAdminComponent('/pages/admin/components/section-manage-stats.html', 'admin-sections-placeholder', true);
 
   // Dispatch event to signal all components are loaded
   // This allows admin-init.js to know when to initialize

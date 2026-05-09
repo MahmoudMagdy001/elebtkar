@@ -25,10 +25,9 @@ const loadBlogComponent = async (url, placeholderId) => {
 
 // ─── Load all blog components on DOM ready ────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([
-    loadBlogComponent('/pages/blog/components/hero.html', 'blog-hero-placeholder'),
-    loadBlogComponent('/pages/blog/components/blog-grid.html', 'blog-grid-placeholder')
-  ]);
+  // Load components sequentially to ensure correct order
+  await loadBlogComponent('/pages/blog/components/hero.html', 'blog-hero-placeholder');
+  await loadBlogComponent('/pages/blog/components/blog-grid.html', 'blog-grid-placeholder');
 
   // Dispatch event to signal all components are loaded
   window.blogComponentsLoaded = true;

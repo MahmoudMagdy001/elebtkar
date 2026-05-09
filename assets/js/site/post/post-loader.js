@@ -25,10 +25,9 @@ const loadPostComponent = async (url, placeholderId) => {
 
 // ─── Load all post components on DOM ready ────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  await Promise.all([
-    loadPostComponent('/pages/post/components/post-skeleton.html', 'post-states-placeholder'),
-    loadPostComponent('/pages/post/components/post-error.html', 'post-states-placeholder')
-  ]);
+  // Load components sequentially to ensure correct order
+  await loadPostComponent('/pages/post/components/post-skeleton.html', 'post-states-placeholder');
+  await loadPostComponent('/pages/post/components/post-error.html', 'post-states-placeholder');
 
   // Dispatch event to signal all components are loaded
   window.postComponentsLoaded = true;

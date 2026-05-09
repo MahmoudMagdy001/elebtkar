@@ -138,6 +138,41 @@ const initFadeObserver = (withCounters = false) => {
 };
 window.initFadeObserver = initFadeObserver;
 
+// ─── Hash Scrolling ──────────────────────────
+/**
+ * Smoothly scrolls to the element matching the URL hash, if present.
+ * Useful for when components are loaded dynamically and the browser's 
+ * default anchor jump fails.
+ * @param {number} offset — vertical offset (e.g. for fixed navbar)
+ */
+const handleHashScroll = (offset = 80) => {
+  const hash = window.location.hash;
+  if (!hash) return;
+
+  const target = document.querySelector(hash);
+  if (!target) {
+    // If not found, try again after a small delay in case content is still rendering
+    setTimeout(() => {
+      const retryTarget = document.querySelector(hash);
+      if (retryTarget) {
+        const elementPosition = retryTarget.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+    }, 100);
+    return;
+  }
+
+  const elementPosition = target.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: 'smooth'
+  });
+};
+window.handleHashScroll = handleHashScroll;
+
 // ─── Counter Animation ───────────────────────
 /**
  * Animates all [data-count] elements from 0 to their target value.

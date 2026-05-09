@@ -33,8 +33,20 @@
       window.HomeStats.init();
     }
 
+    // Handle hash scrolling for anchors like #contact, #who, #why
+    if (window.handleHashScroll) {
+      window.handleHashScroll();
+    }
+
     console.log('Home page initialized');
   }
+
+  // Handle clicking internal anchors while already on the home page
+  window.addEventListener('hashchange', () => {
+    if (window.handleHashScroll) {
+      window.handleHashScroll();
+    }
+  });
 
   // Initialize when home components are loaded (or immediately if already loaded)
   if (document.readyState === 'loading') {

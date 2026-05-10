@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './admin.css';
 import { supabase } from '../utils/supabase';
 import SEO from '../components/SEO';
 

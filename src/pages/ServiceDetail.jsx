@@ -170,10 +170,10 @@ const ServiceDetail = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-20 pt-20 border-t border-gray-100"
+            className="mt-20 pt-20 border-t border-gray-100 w-full overflow-hidden"
           >
             <h3 className="text-3xl font-extrabold text-primary mb-8 text-center md:text-right">تفاصيل إضافية عن الخدمة</h3>
-            <div className="article-content text-lg text-gray-600 leading-relaxed max-w-none">
+            <div className="article-content text-lg text-gray-600 leading-relaxed w-full">
               {service.description ? (
                 <div dangerouslySetInnerHTML={{ __html: service.description }} />
               ) : (

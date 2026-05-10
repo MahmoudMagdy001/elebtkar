@@ -53,7 +53,7 @@ const Footer = () => {
           <div className="lg:col-span-4 space-y-6">
             <div className="mb-6">
               <Link to="/" onClick={handleHomeClick}>
-                <img src="/src/assets/images/logo.png" alt="الابتكار logo" className="h-[50px] w-auto transition-transform duration-300 hover:scale-105" />
+                <img src="/images/logo.png" alt="الابتكار logo" className="h-[50px] w-auto transition-transform duration-300 hover:scale-105" />
               </Link>
             </div>
             <p className="text-sm leading-relaxed max-w-xs">
@@ -150,13 +150,13 @@ const Footer = () => {
             <div className="flex flex-wrap gap-4 pt-4">
               <a href="/assets/docs/sgl.pdf" target="_blank" className="flex flex-col items-center gap-2 group text-center">
                 <div className="w-10 h-10 rounded-full border-2 border-white/10 overflow-hidden group-hover:border-accent group-hover:scale-110 transition-all">
-                  <img src="/src/assets/images/1.png" alt="SGL" className="w-full h-full object-cover" />
+                  <img src="/images/1.png" alt="SGL" className="w-full h-full object-cover" />
                 </div>
                 <span className="text-[0.7rem] group-hover:text-white">السجل التجاري</span>
               </a>
               <a href="/assets/docs/location.pdf" target="_blank" className="flex flex-col items-center gap-2 group text-center">
                 <div className="w-10 h-10 rounded-full border-2 border-white/10 overflow-hidden group-hover:border-accent group-hover:scale-110 transition-all">
-                  <img src="/src/assets/images/2.webp" alt="Location" className="w-full h-full object-cover" />
+                  <img src="/images/2.webp" alt="Location" className="w-full h-full object-cover" />
                 </div>
                 <span className="text-[0.7rem] group-hover:text-white">العنوان الوطني</span>
               </a>

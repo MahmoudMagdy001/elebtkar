@@ -18,7 +18,7 @@ const Hero = () => {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('/src/assets/images/${isMobile ? 'header_mobile.png' : 'header.png'}')` 
+          backgroundImage: `linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('/images/${isMobile ? 'header_mobile.png' : 'header.png'}')` 
         }}
       />
       

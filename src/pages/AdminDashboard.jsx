@@ -95,7 +95,7 @@ const AdminDashboard = () => {
       <div className="login-container">
         <div className="login-card">
           <div className="login-header">
-            <img src="/src/assets/images/logs.png" alt="Elebtkar Logo" className="logo-img mx-auto" />
+            <img src="/images/logs.png" alt="Elebtkar Logo" className="logo-img mx-auto" />
             <h2>لوحة التحكم</h2>
             <p>سجل دخولك لإدارة محتوى الموقع</p>
           </div>
@@ -128,7 +128,7 @@ const AdminDashboard = () => {
         </Link>
         <div className="flex items-center gap-3">
           <span className="dash-title">لوحة إدارة الابتكار</span>
-          <img src="/src/assets/images/logs.png" alt="Logo" className="logo-img" />
+          <img src="/images/logs.png" alt="Logo" className="logo-img" />
         </div>
       </header>
 

@@ -103,7 +103,7 @@ const BlogPage = () => {
               >
                 <Link to={`/blog/${post.slug}`} className="relative h-[220px] overflow-hidden block">
                   <img
-                    src={post.featured_image_url || '/src/assets/images/header.png'}
+                    src={post.featured_image_url || '/images/header.png'}
                     alt={post.alt_text || post.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />

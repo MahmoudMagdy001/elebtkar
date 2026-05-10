@@ -52,7 +52,7 @@ const Navbar = () => {
       >
         <Link to="/" onClick={handleHomeClick} className="flex items-center group">
           <img
-            src="/src/assets/images/logo.png"
+            src="/images/logo.png"
             alt="الابتكار logo"
             className="h-[45px] w-auto transition-transform duration-300 group-hover:scale-105"
           />

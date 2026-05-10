@@ -11,6 +11,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import ServicesPage from './pages/ServicesPage';
 import ServiceDetail from './pages/ServiceDetail';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function AppContent() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsOfService />} />
           <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       {!isAdmin && <Footer />}

@@ -63,7 +63,7 @@ const Pricing = ({ onSelectPlan }) => {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1100px] mx-auto items-center">
+        <div className="flex flex-wrap justify-center gap-8 max-w-[1100px] mx-auto items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
@@ -72,7 +72,7 @@ const Pricing = ({ onSelectPlan }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={cn(
-                "bg-white/5 rounded-xl p-8 border border-white/10 transition-all duration-300 relative flex flex-col h-full",
+                "w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] bg-white/5 rounded-xl p-8 border border-white/10 transition-all duration-300 relative flex flex-col min-h-[500px]",
                 plan.is_popular && "border-accent border-2 pt-14 scale-105 z-10 bg-primary shadow-xl"
               )}
             >
@@ -88,7 +88,12 @@ const Pricing = ({ onSelectPlan }) => {
                 
                 <div className="flex items-baseline gap-2 mt-6 pb-6 border-b border-white/10">
                   <span className="text-4xl font-extrabold text-white">{plan.price}</span>
-                  <span className="text-sm text-gray-400">{plan.currency || 'ر.س'}</span>
+                  <img 
+                    src="/images/currency.png" 
+                    alt="ريال" 
+                    className="h-5 w-auto object-contain" 
+                    style={{ filter: 'brightness(0) invert(1)' }} 
+                  />
                   <span className="text-sm text-gray-400">/ {plan.billing_cycle || 'شهرياً'}</span>
                 </div>
               </div>

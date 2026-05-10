@@ -32,6 +32,7 @@ const Home = () => {
       <DiscountCode />
       <Services />
       <Pricing onSelectPlan={handleSelectPlan} />
+      <div className="h-24 bg-white" />
       <WhyDifferent />
       <WhyChooseUs />
       <Process />

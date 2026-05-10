@@ -126,7 +126,13 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
                 <div className="inline-flex items-center gap-2 bg-accent/10 px-4 py-1.5 rounded-full text-accent font-bold">
                   <span>{plan?.title}</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-accent/40" />
-                  <span>{plan?.price?.toLocaleString()} ر.س</span>
+                  <span>{plan?.price?.toLocaleString()}</span>
+                  <img 
+                    src="/images/currency.png" 
+                    alt="ريال" 
+                    className="h-4 w-auto object-contain" 
+                    style={{ filter: 'brightness(0) invert(1)' }} 
+                  />
                 </div>
               </div>
             )}

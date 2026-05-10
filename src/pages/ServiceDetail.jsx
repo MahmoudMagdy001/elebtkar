@@ -5,12 +5,21 @@ import { CheckCircle2, ArrowRight, PhoneCall, Sparkles } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import { cn } from '../utils/cn';
 import SEO from '../components/SEO';
+import Pricing from '../sections/Pricing';
+import PaymentModal from '../components/PaymentModal';
 
 const ServiceDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+
+  const handleSelectPlan = (plan) => {
+    setSelectedPlan(plan);
+    setIsPaymentOpen(true);
+  };
 
   useEffect(() => {
     const fetchService = async () => {
@@ -174,6 +183,44 @@ const ServiceDetail = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <Pricing onSelectPlan={handleSelectPlan} />
+
+      {/* Final CTA */}
+      <section className="py-24 px-[5%] bg-white text-center">
+        <div className="max-w-[800px] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="bg-primary-gradient p-12 md:p-20 rounded-[40px] text-white shadow-2xl relative overflow-hidden"
+          >
+            <div className="absolute inset-0 opacity-10 pointer-events-none" 
+              style={{ 
+                backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+                backgroundSize: '40px 40px'
+              }}
+            />
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-8 relative z-10">هل أنت مستعد للبدء؟</h2>
+            <p className="text-xl text-white/80 mb-12 relative z-10">انضم إلى قائمة شركائنا المتميزين وابدأ رحلة ابتكارك اليوم</p>
+            <div className="flex flex-wrap justify-center gap-6 relative z-10">
+              <a href="https://wa.me/966579644123" target="_blank" rel="noopener noreferrer" className="btn-primary bg-white text-primary hover:bg-accent-light">
+                تواصل معنا الآن
+              </a>
+              <Link to="/contact" className="btn-secondary border-white text-white hover:bg-white/10">
+                طلب استشارة مجانية
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <PaymentModal 
+        plan={selectedPlan}
+        isOpen={isPaymentOpen}
+        onClose={() => setIsPaymentOpen(false)}
+      />
     </div>
   );
 };

@@ -118,12 +118,12 @@ const DiscountCode = () => {
                   className="pt-8 border-t border-white/10"
                 >
                   <p className="text-white/70 mb-4">كود الخصم الخاص بك هو:</p>
-                  <div className="inline-flex items-center gap-4 bg-white text-primary px-8 py-4 rounded-full font-extrabold text-2xl md:text-3xl shadow-xl mb-6 tracking-widest relative group">
-                    <span>{generatedCode}</span>
+                  <div className="inline-flex flex-wrap items-center justify-center gap-4 bg-white text-primary px-6 py-4 md:px-8 rounded-2xl md:rounded-full font-extrabold text-xl sm:text-2xl md:text-3xl shadow-xl mb-6 tracking-widest relative group max-w-full">
+                    <span className="break-all">{generatedCode}</span>
                     <button
                       onClick={handleCopy}
                       className={cn(
-                        "w-10 h-10 rounded-full flex items-center justify-center transition-all",
+                        "w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0",
                         copied ? "bg-green-500 text-white" : "bg-primary text-white hover:bg-accent"
                       )}
                     >

@@ -62,8 +62,8 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          // Responsive typography: small on mobile, larger on bigger screens
-          className="text-white text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-5"
+          // Responsive typography: adjusted for mobile to prevent awkward wrapping
+          className="text-white text-[1.45rem] sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-5 px-2"
         >
           لتتصدر سوق المملكة..<br/>
         </motion.h1>

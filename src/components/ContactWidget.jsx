@@ -16,8 +16,8 @@ const ContactWidget = () => {
 
   return (
     <>
-      {/* Floating Menu */}
-      <div className="fixed bottom-8 right-8 z-[1000] flex flex-col items-center gap-4">
+      {/* Floating Menu - Swapped to Left for RTL to avoid overlapping start of text */}
+      <div className="fixed bottom-4 left-4 md:bottom-8 md:left-8 z-[1000] flex flex-col items-center gap-4">
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -33,7 +33,7 @@ const ContactWidget = () => {
                 className="w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110 group relative"
               >
                 <i className="ph ph-whatsapp-logo text-[24px]"></i>
-                <span className="absolute right-16 bg-black/80 text-white text-xs px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                <span className="absolute left-16 bg-black/80 text-white text-xs px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
                   واتساب
                 </span>
               </a>
@@ -42,7 +42,7 @@ const ContactWidget = () => {
                 className="w-12 h-12 rounded-full bg-[#0077a8] text-white flex items-center justify-center shadow-lg transition-transform hover:scale-110 group relative"
               >
                 <i className="ph-duotone ph-phone text-[24px]"></i>
-                <span className="absolute right-16 bg-black/80 text-white text-xs px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                <span className="absolute left-16 bg-black/80 text-white text-xs px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
                   اتصال
                 </span>
               </a>
@@ -69,7 +69,7 @@ const ContactWidget = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-8 left-8 z-[999] w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg transition-all hover:bg-accent hover:-translate-y-1"
+            className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[999] w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg transition-all hover:bg-accent hover:-translate-y-1"
           >
             <i className="ph ph-arrow-up text-[24px]"></i>
           </motion.button>

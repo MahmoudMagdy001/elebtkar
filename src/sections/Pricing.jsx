@@ -72,8 +72,8 @@ const Pricing = ({ onSelectPlan }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={cn(
-                "w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] bg-white/5 rounded-xl p-8 border border-white/10 transition-all duration-300 relative flex flex-col md:min-h-[500px]",
-                plan.is_popular && "border-accent border-2 pt-14 scale-105 z-10 bg-primary shadow-xl"
+                "w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.33%-2rem)] bg-white/5 rounded-xl p-8 border border-white/10 transition-all duration-300 relative flex flex-col",
+                plan.is_popular && "border-accent border-2 pt-14 lg:scale-105 z-10 bg-primary shadow-xl"
               )}
             >
               {plan.is_popular && (

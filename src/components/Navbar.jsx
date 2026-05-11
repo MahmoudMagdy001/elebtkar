@@ -57,7 +57,7 @@ const Navbar = () => {
       <nav
         className={cn(
           // Mobile-first: default small height + padding, scale up at md
-          'fixed inset-x-0 top-0 z-[1000] h-16 px-4 sm:px-6 flex items-center justify-between transition-all duration-300',
+          'fixed inset-x-0 top-0 z-[1000] h-16 px-6 sm:px-8 flex items-center justify-between transition-all duration-300',
           'md:h-20 lg:px-12',
           scrolled ? 'bg-primary-dark/85 backdrop-blur-md shadow-lg' : 'bg-transparent'
         )}
@@ -66,8 +66,8 @@ const Navbar = () => {
           <img
             src="/images/logo.png"
             alt="الابتكار logo"
-            // Make logo responsive: smaller on mobile, larger on desktop
-            className="h-10 md:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+            // Make logo responsive: smaller on mobile to avoid crowding
+            className="h-8 md:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
 
@@ -121,7 +121,7 @@ const Navbar = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[999] bg-primary-dark/97 flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-[999] bg-primary-dark/97 flex flex-col items-center justify-center gap-8 overflow-y-auto py-20"
           >
             
             {navLinks.map((link, i) => (
@@ -166,4 +166,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

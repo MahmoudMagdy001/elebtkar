@@ -35,8 +35,8 @@
   }
 
   .section-padding {
-    /* Mobile-first padding: small px on mobile, increase on larger screens */
-    @apply py-24 px-4 sm:px-6 lg:px-12;
+    /* Mobile-first padding: increased px on mobile for better breathing room */
+    @apply py-20 px-6 sm:px-10 lg:px-12;
   }
 
   .section-inner {
@@ -48,7 +48,7 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-extrabold text-primary leading-tight mb-4;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-primary leading-tight mb-4;
   }
 
   .section-subtitle {

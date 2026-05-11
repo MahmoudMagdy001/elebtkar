@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { CheckCircle2, ArrowRight, PhoneCall, Sparkles } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import { cn } from '../utils/cn';
@@ -46,9 +46,9 @@ const ServiceDetail = () => {
 
   if (loading) {
     return (
-      <div className="pt-[150px] pb-24 px-[5%] max-w-[1000px] mx-auto animate-pulse">
+      <div className="pt-20 md:pt-36 pb-24 section-padding section-inner mx-auto animate-pulse">
         <SEO title="جاري التحميل..." />
-        <div className="h-[400px] bg-gray-200 rounded-3xl mb-12" />
+        <div className="h-96 md:h-[400px] bg-gray-200 rounded-3xl mb-12" />
         <div className="h-10 w-2/3 bg-gray-200 rounded mb-6" />
         <div className="h-6 w-full bg-gray-200 rounded mb-4" />
         <div className="h-6 w-5/6 bg-gray-200 rounded mb-12" />
@@ -69,10 +69,10 @@ const ServiceDetail = () => {
         image={service.bg_icon}
       />
       {/* Hero */}
-      <header className="relative pt-[180px] pb-32 px-[5%] bg-primary-dark overflow-hidden">
+      <header className="relative pt-24 md:pt-44 pb-32 section-padding bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[70%] bg-accent blur-[150px] rounded-full" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[70%] bg-primary blur-[150px] rounded-full" />
+          <div className="hidden md:block absolute top-[-20%] right-[-10%] md:w-[50%] md:h-[70%] bg-accent blur-[150px] rounded-full" />
+          <div className="hidden md:block absolute bottom-[-20%] left-[-10%] md:w-[50%] md:h-[70%] bg-primary blur-[150px] rounded-full" />
         </div>
 
         <div className="max-w-[1000px] mx-auto relative z-10">
@@ -98,8 +98,8 @@ const ServiceDetail = () => {
       </header>
 
       {/* Content */}
-      <section className="py-24 px-[5%] relative z-10 -mt-16">
-        <div className="max-w-[1100px] mx-auto">
+      <section className="py-24 section-padding relative z-10 -mt-16">
+        <div className="section-inner">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 items-start">
             {/* Features & Actions */}
             <motion.div
@@ -144,7 +144,7 @@ const ServiceDetail = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="h-[400px] lg:h-[500px] w-full bg-primary-gradient rounded-3xl flex items-center justify-center relative overflow-hidden shadow-2xl group"
+              className="h-96 lg:h-[500px] w-full bg-primary-gradient rounded-3xl flex items-center justify-center relative overflow-hidden shadow-2xl group"
             >
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none" />
               
@@ -188,8 +188,8 @@ const ServiceDetail = () => {
       <Pricing onSelectPlan={handleSelectPlan} />
 
       {/* Final CTA */}
-      <section className="py-24 px-[5%] bg-white text-center">
-        <div className="max-w-[800px] mx-auto">
+      <section className="py-24 section-padding bg-white text-center">
+        <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}

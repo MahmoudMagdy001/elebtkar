@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 
 const steps = [
   { num: 1, title: 'تحليل', desc: 'ندرس نشاطك ومنافسيك بدقة' },
@@ -10,8 +10,8 @@ const steps = [
 
 const Process = () => {
   return (
-    <section id="process" className="py-24 px-[5%] bg-white overflow-hidden">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="process" className="bg-white section-padding overflow-hidden">
+      <div className="section-inner">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -26,7 +26,7 @@ const Process = () => {
 
         <div className="relative">
           {/* Progress Line */}
-          <div className="absolute top-[32px] right-[12.5%] left-[12.5%] h-0.5 bg-gray-100 hidden md:block">
+          <div className="absolute top-8 inset-x-4 md:inset-x-[12.5%] h-0.5 bg-gray-100 hidden md:block">
             <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: '100%' }}

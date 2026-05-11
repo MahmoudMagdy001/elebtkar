@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { ArrowLeft } from 'lucide-react';
 import StatItem from '../components/StatItem';
 import { supabase } from '../utils/supabase';
@@ -21,8 +21,8 @@ const WhoWeAre = () => {
   }, []);
 
   return (
-    <section id="who" className="bg-gray-50 py-24 px-[5%]">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="who" className="bg-gray-50 section-padding">
+      <div className="section-inner">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ const WhoWeAre = () => {
           >
             {stats.length > 0 ? (
               stats.map((stat) => (
-                <div key={stat.id} className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md flex flex-col justify-center min-h-[140px]">
+                <div key={stat.id} className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-200 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md flex flex-col justify-center min-h-36">
                   <StatItem 
                     count={stat.value} 
                     prefix={stat.prefix} 
@@ -78,7 +78,7 @@ const WhoWeAre = () => {
             ) : (
               // Fallback skeleton or empty state while loading
               [1, 2, 3, 4].map((i) => (
-                <div key={i} className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-200 flex flex-col justify-center min-h-[140px] opacity-50">
+                <div key={i} className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-200 flex flex-col justify-center min-h-36 opacity-50">
                   <div className="h-8 w-16 bg-gray-200 rounded mx-auto mb-2 animate-pulse"></div>
                   <div className="h-4 w-24 bg-gray-200 rounded mx-auto animate-pulse"></div>
                 </div>

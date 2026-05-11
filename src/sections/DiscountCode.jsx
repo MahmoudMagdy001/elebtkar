@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from '../utils/lazyFramer';
 import { Copy, Check, Sparkles } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { supabase } from '../utils/supabase';
@@ -50,8 +50,8 @@ const DiscountCode = () => {
   };
 
   return (
-    <section id="discount-code" className="py-24 px-[5%] bg-gray-50">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="discount-code" className="bg-gray-50 section-padding">
+      <div className="section-inner">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -67,7 +67,7 @@ const DiscountCode = () => {
             }}
           />
 
-          <div className="relative z-10 max-w-[800px] mx-auto">
+            <div className="relative z-10 max-w-3xl mx-auto">
             <span className="section-tag bg-white/10 text-accent border-white/20">عرض خاص</span>
             <h2 className="section-title text-white mb-4">احصل على خصم 20% الآن!</h2>
             <p className="text-white/80 mb-10 text-lg">أدخل بياناتك لتوليد كود الخصم الخاص بك واستخدمه عند التواصل معنا.</p>
@@ -80,7 +80,7 @@ const DiscountCode = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   onSubmit={handleSubmit}
-                  className="flex flex-col gap-6 max-w-[500px] mx-auto"
+                  className="flex flex-col gap-6 max-w-md mx-auto"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="text-right">

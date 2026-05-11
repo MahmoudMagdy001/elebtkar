@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { Calendar, ArrowRight, Share2, Twitter, Facebook, Linkedin, Copy, Check } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import { cn } from '../utils/cn';
@@ -45,11 +45,11 @@ const PostDetail = () => {
 
   if (loading) {
     return (
-      <div className="pt-[150px] pb-24 px-[5%] max-w-[900px] mx-auto animate-pulse">
+      <div className="pt-20 md:pt-36 pb-24 section-padding section-inner mx-auto animate-pulse">
         <SEO title="جاري التحميل..." />
         <div className="h-4 w-24 bg-gray-200 rounded mb-4" />
         <div className="h-10 w-full bg-gray-200 rounded mb-8" />
-        <div className="h-[450px] bg-gray-200 rounded-2xl mb-10" />
+        <div className="h-96 md:h-[450px] bg-gray-200 rounded-2xl mb-10" />
         <div className="space-y-4">
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="h-4 w-full bg-gray-200 rounded" />
@@ -61,7 +61,7 @@ const PostDetail = () => {
 
   if (!post) {
     return (
-      <div className="pt-[200px] pb-24 px-[5%] text-center">
+      <div className="pt-24 md:pt-44 pb-24 section-padding text-center">
         <SEO title="المقال غير موجود" />
         <h2 className="text-3xl font-extrabold text-primary mb-4">المقال غير موجود</h2>
         <Link to="/blog" className="btn-primary">العودة للمدونة</Link>
@@ -78,10 +78,10 @@ const PostDetail = () => {
         type="article"
       />
       {/* Hero */}
-      <header className="relative pt-[180px] pb-32 px-[5%] bg-primary-dark overflow-hidden">
+      <header className="relative pt-24 md:pt-44 pb-32 section-padding bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[70%] bg-accent blur-[150px] rounded-full" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[70%] bg-primary blur-[150px] rounded-full" />
+          <div className="hidden md:block absolute top-[-20%] right-[-10%] md:w-[50%] md:h-[70%] bg-accent blur-[150px] rounded-full" />
+          <div className="hidden md:block absolute bottom-[-20%] left-[-10%] md:w-[50%] md:h-[70%] bg-primary blur-[150px] rounded-full" />
         </div>
 
         <div className="max-w-[1000px] mx-auto relative z-10">
@@ -109,15 +109,15 @@ const PostDetail = () => {
       </header>
 
       {/* Content */}
-      <section className="py-24 px-[5%] relative z-10 -mt-24 md:-mt-32">
-        <div className="max-w-[1100px] mx-auto">
+      <section className="py-24 section-padding relative z-10 -mt-24 md:-mt-32">
+        <div className="section-inner">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Featured Image */}
-            <div className="relative h-[400px] md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden mb-16 shadow-2xl border-4 border-white/10 group">
+            <div className="relative h-96 md:h-[500px] lg:h-[600px] rounded-3xl overflow-hidden mb-16 shadow-2xl border-4 border-white/10 group">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent pointer-events-none z-10" />
               <img
                 src={post.featured_image_url || '/images/header.png'}

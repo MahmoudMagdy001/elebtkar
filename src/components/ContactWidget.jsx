@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from '../utils/lazyFramer';
 import { cn } from '../utils/cn';
 
 const ContactWidget = () => {
@@ -17,7 +17,7 @@ const ContactWidget = () => {
   return (
     <>
       {/* Floating Menu */}
-      <div className="fixed bottom-[30px] right-[30px] z-[1000] flex flex-col items-center gap-4">
+      <div className="fixed bottom-8 right-8 z-[1000] flex flex-col items-center gap-4">
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -69,7 +69,7 @@ const ContactWidget = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-[30px] left-[30px] z-[999] w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg transition-all hover:bg-accent hover:-translate-y-1"
+            className="fixed bottom-8 left-8 z-[999] w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg transition-all hover:bg-accent hover:-translate-y-1"
           >
             <i className="ph ph-arrow-up text-[24px]"></i>
           </motion.button>

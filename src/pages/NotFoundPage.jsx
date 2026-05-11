@@ -1,12 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Home } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const NotFoundPage = () => {
   return (
-    <div className="min-h-screen bg-primary flex items-center justify-center relative overflow-hidden py-24 px-[5%]">
+    <div className="min-h-screen bg-primary flex items-center justify-center relative overflow-hidden py-24 section-padding">
       <SEO 
         title="404 - الصفحة غير موجودة" 
         description="عذراً، الصفحة التي تبحث عنها غير موجودة."
@@ -17,17 +17,17 @@ const NotFoundPage = () => {
         <motion.div 
           animate={{ translateY: [0, -30, 0], scale: [1, 1.04, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute w-[500px] h-[500px] -top-[100px] -left-[150px] rounded-full bg-white/5"
+          className="hidden md:block absolute md:w-[500px] md:h-[500px] -top-24 -left-36 rounded-full bg-white/5"
         />
         <motion.div 
           animate={{ translateY: [0, -30, 0], scale: [1, 1.04, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          className="absolute w-[350px] h-[350px] -bottom-[80px] -right-[80px] rounded-full bg-white/5"
+          className="hidden md:block absolute md:w-[350px] md:h-[350px] -bottom-20 -right-20 rounded-full bg-white/5"
         />
         <motion.div 
           animate={{ translateY: [0, -30, 0], scale: [1, 1.04, 1] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-          className="absolute w-[200px] h-[200px] top-[30%] left-[40%] rounded-full bg-accent/10"
+          className="hidden md:block absolute md:w-[200px] md:h-[200px] top-1/3 left-2/5 rounded-full bg-accent/10"
         />
         <div className="absolute inset-0 opacity-20" 
           style={{ 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { Link } from 'react-router-dom';
 
 const pillars = [
@@ -27,7 +27,7 @@ const pillars = [
 
 const WhyDifferent = () => {
   return (
-    <section id="different" className="relative py-24 px-[5%] bg-primary overflow-hidden text-white">
+    <section id="different" className="relative bg-primary overflow-hidden text-white section-padding">
       {/* Decorative Grid Background */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-20"
@@ -37,7 +37,7 @@ const WhyDifferent = () => {
         }}
       />
       
-      <div className="max-w-[1200px] mx-auto relative z-10">
+      <div className="section-inner relative z-10">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import StatItem from '../components/StatItem';
 import { supabase } from '../utils/supabase';
 
@@ -27,8 +27,8 @@ const WhyChooseUs = () => {
   }, []);
 
   return (
-    <section id="why" className="bg-gray-50 py-24 px-[5%]">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="why" className="bg-gray-50 py-24 section-padding">
+      <div className="section-inner">
         <div className="text-center mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -76,11 +76,11 @@ const WhyChooseUs = () => {
                   prefix={stat.prefix} 
                   suffix={stat.suffix} 
                   label={stat.label} 
-                  className="text-center px-12 flex-1 min-w-[150px]" 
+                  className="text-center px-12 flex-1 min-w-36" 
                   light={true} 
                 />
                 {index < stats.length - 1 && (
-                  <div className="hidden md:block w-[1px] h-16 bg-white/20" />
+                  <div className="hidden md:block w-px h-16 bg-white/20" />
                 )}
               </React.Fragment>
             ))
@@ -88,12 +88,12 @@ const WhyChooseUs = () => {
             // Fallback skeleton
             [1, 2, 3].map((i, index) => (
               <React.Fragment key={i}>
-                <div className="text-center px-12 flex-1 min-w-[150px] opacity-50">
+                <div className="text-center px-12 flex-1 min-w-36 opacity-50">
                   <div className="h-10 w-20 bg-white/20 rounded mx-auto mb-2 animate-pulse"></div>
                   <div className="h-4 w-24 bg-white/20 rounded mx-auto animate-pulse"></div>
                 </div>
                 {index < 2 && (
-                  <div className="hidden md:block w-[1px] h-16 bg-white/20" />
+                  <div className="hidden md:block w-px h-16 bg-white/20" />
                 )}
               </React.Fragment>
             ))

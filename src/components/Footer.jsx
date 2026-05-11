@@ -47,13 +47,13 @@ const Footer = () => {
   }, []);
   return (
     <footer className="bg-[#00253a] pt-16 px-6 text-white/60">
-      <div className="max-w-[1400px] mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-12 border-b border-white/10">
           {/* Brand */}
           <div className="lg:col-span-4 space-y-6">
             <div className="mb-6">
               <Link to="/" onClick={handleHomeClick}>
-                <img src="/images/logo.png" alt="الابتكار logo" className="h-[50px] w-auto transition-transform duration-300 hover:scale-105" />
+                <img src="/images/logo.png" alt="الابتكار logo" className="h-12 md:h-14 w-auto transition-transform duration-300 hover:scale-105" />
               </Link>
             </div>
             <p className="text-sm leading-relaxed max-w-xs">

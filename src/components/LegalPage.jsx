@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, FileText, Lock } from 'lucide-react';
 
@@ -11,13 +11,13 @@ const LegalPage = ({ title, subtitle, lastUpdated, children, icon: Icon }) => {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <header className="relative pt-[180px] pb-24 px-[5%] bg-primary-dark overflow-hidden">
+      <header className="relative pt-24 md:pt-44 pb-24 section-padding bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[60%] bg-accent blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[60%] bg-primary blur-[120px] rounded-full" />
+          <div className="hidden md:block absolute top-[-10%] right-[-10%] md:w-[40%] md:h-[60%] bg-accent blur-[120px] rounded-full" />
+          <div className="hidden md:block absolute bottom-[-10%] left-[-10%] md:w-[40%] md:h-[60%] bg-primary blur-[120px] rounded-full" />
         </div>
 
-        <div className="max-w-[900px] mx-auto text-center relative z-10">
+        <div className="max-w-3xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ const LegalPage = ({ title, subtitle, lastUpdated, children, icon: Icon }) => {
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
               {title}
             </h1>
-            <p className="text-lg md:text-xl text-white/70 max-w-[600px] mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-white/70 max-w-prose mx-auto leading-relaxed">
               {subtitle}
             </p>
           </motion.div>
@@ -37,8 +37,8 @@ const LegalPage = ({ title, subtitle, lastUpdated, children, icon: Icon }) => {
       </header>
 
       {/* Content */}
-      <section className="py-24 px-[5%]">
-        <div className="max-w-[900px] mx-auto">
+      <section className="py-24 section-padding">
+        <div className="max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

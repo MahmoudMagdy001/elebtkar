@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from '../utils/lazyFramer';
 import { X, CreditCard, Apple, CheckCircle2 } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { supabase } from '../utils/supabase';
@@ -111,7 +111,7 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.95 }}
-            className="relative bg-white w-full max-w-[550px] rounded-3xl p-8 md:p-10 shadow-2xl overflow-hidden"
+            className="relative bg-white w-full max-w-xl rounded-3xl p-8 md:p-10 shadow-2xl overflow-hidden"
           >
             <button
               onClick={onClose}
@@ -186,7 +186,8 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="mysr-form-react min-h-[300px]"
+                // Keep payment iframe area compact on mobile, expand on md and up
+                className="mysr-form-react md:min-h-[300px]"
               />
             )}
 
@@ -200,7 +201,7 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
                   <CheckCircle2 size={48} />
                 </div>
                 <h3 className="text-2xl font-extrabold text-primary mb-3">تمت عملية الدفع بنجاح!</h3>
-                <p className="text-gray-600 mb-8 max-w-[300px] mx-auto leading-relaxed">
+                <p className="text-gray-600 mb-8 max-w-sm mx-auto leading-relaxed">
                   شكراً لك {customerData.name}. تم استلام طلبك لباقة {plan?.title} وسيتم التواصل معك خلال أقل من 24 ساعة.
                 </p>
                 <button onClick={onClose} className="btn-primary px-10">

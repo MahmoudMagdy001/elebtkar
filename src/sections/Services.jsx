@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { cn } from '../utils/cn';
 import { supabase } from '../utils/supabase';
 
@@ -88,8 +88,8 @@ const Services = () => {
   }, []);
 
   return (
-    <section id="services" className="py-24 px-[5%] bg-white">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="services" className="bg-white section-padding">
+      <div className="section-inner">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -106,7 +106,7 @@ const Services = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="h-[250px] bg-gray-50 rounded-xl animate-pulse" />
+              <div key={i} className="h-64 bg-gray-50 rounded-xl animate-pulse" />
             ))}
           </div>
         ) : (

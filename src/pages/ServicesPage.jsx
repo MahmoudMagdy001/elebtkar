@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import { supabase } from '../utils/supabase';
@@ -38,13 +38,13 @@ const ServicesPage = () => {
         description="اكتشف مجموعة واسعة من الخدمات التقنية والبرمجية، من تطوير المواقع والتطبيقات إلى التسويق الرقمي وتصميم الهوية البصرية."
       />
       {/* Hero */}
-      <header className="relative pt-[180px] pb-32 px-[5%] bg-primary-dark overflow-hidden">
+      <header className="relative pt-24 md:pt-44 pb-32 section-padding bg-primary-dark overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[70%] bg-accent blur-[150px] rounded-full" />
-          <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[70%] bg-primary blur-[150px] rounded-full" />
+          <div className="hidden md:block absolute top-[-20%] right-[-10%] md:w-[50%] md:h-[70%] bg-accent blur-[150px] rounded-full" />
+          <div className="hidden md:block absolute bottom-[-20%] left-[-10%] md:w-[50%] md:h-[70%] bg-primary blur-[150px] rounded-full" />
         </div>
 
-        <div className="max-w-[1000px] mx-auto relative z-10">
+        <div className="section-inner relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -67,13 +67,13 @@ const ServicesPage = () => {
       </header>
 
       {/* Content */}
-      <section className="py-24 px-[5%] relative z-10 -mt-16">
-        <div className="max-w-[1200px] mx-auto">
+      <section className="py-24 section-padding relative z-10 -mt-16">
+        <div className="section-inner">
 
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-white rounded-2xl h-[300px] animate-pulse shadow-sm" />
+              <div key={i} className="bg-white rounded-2xl h-72 md:h-80 animate-pulse shadow-sm" />
             ))}
           </div>
         ) : services.length === 0 ? (
@@ -92,7 +92,7 @@ const ServicesPage = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group flex flex-col"
               >
-                <div className="h-[200px] bg-primary-gradient relative flex items-center justify-center overflow-hidden">
+                <div className="h-48 bg-primary-gradient relative flex items-center justify-center overflow-hidden">
                   <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent pointer-events-none" />
                   
                   {/* Icon or Image */}

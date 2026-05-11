@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { MapPin, Mail, Phone, Clock, Send } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import { cn } from '../utils/cn';
@@ -98,8 +98,8 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-[5%] bg-white">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="contact" className="bg-white section-padding">
+      <div className="section-inner">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -160,7 +160,7 @@ const Contact = () => {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full min-h-[56px] px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                  className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                 />
                 <input
                   type="email"
@@ -169,7 +169,7 @@ const Contact = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full min-h-[56px] px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                  className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -181,7 +181,7 @@ const Contact = () => {
                   dir="ltr"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full min-h-[56px] px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-right"
+                  className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-right"
                 />
                 <input
                   type="text"

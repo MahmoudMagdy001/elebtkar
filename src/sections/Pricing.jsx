@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from '../utils/lazyFramer';
 import { Check } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import { cn } from '../utils/cn';
@@ -31,13 +31,13 @@ const Pricing = ({ onSelectPlan }) => {
 
   if (loading) {
     return (
-      <section id="pricing" className="bg-primary-dark py-24 px-[5%] text-white text-center">
-        <div className="animate-pulse">
+      <section id="pricing" className="bg-primary-dark text-white text-center section-padding">
+        <div className="animate-pulse section-inner">
           <div className="h-4 w-24 bg-white/10 mx-auto rounded-full mb-4" />
           <div className="h-10 w-64 bg-white/10 mx-auto rounded-md mb-8" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1100px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 section-inner">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-[500px] bg-white/5 rounded-xl" />
+              <div key={i} className="h-80 md:h-[500px] bg-white/5 rounded-xl" />
             ))}
           </div>
         </div>
@@ -48,8 +48,8 @@ const Pricing = ({ onSelectPlan }) => {
   if (plans.length === 0) return null;
 
   return (
-    <section id="pricing" className="bg-primary-dark py-24 px-[5%] relative z-10 overflow-hidden">
-      <div className="max-w-[1200px] mx-auto">
+    <section id="pricing" className="bg-primary-dark relative z-10 overflow-hidden section-padding">
+      <div className="section-inner">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -63,7 +63,7 @@ const Pricing = ({ onSelectPlan }) => {
           </motion.div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8 max-w-[1100px] mx-auto items-stretch">
+        <div className="flex flex-wrap justify-center gap-8 section-inner items-stretch">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
@@ -72,7 +72,7 @@ const Pricing = ({ onSelectPlan }) => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={cn(
-                "w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] bg-white/5 rounded-xl p-8 border border-white/10 transition-all duration-300 relative flex flex-col min-h-[500px]",
+                "w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] bg-white/5 rounded-xl p-8 border border-white/10 transition-all duration-300 relative flex flex-col md:min-h-[500px]",
                 plan.is_popular && "border-accent border-2 pt-14 scale-105 z-10 bg-primary shadow-xl"
               )}
             >
@@ -84,7 +84,7 @@ const Pricing = ({ onSelectPlan }) => {
 
               <div className="mb-8">
                 <h3 className="text-2xl font-extrabold text-white mb-2">{plan.title}</h3>
-                <p className="text-sm text-gray-400 min-h-[40px] leading-relaxed">{plan.subtitle}</p>
+                <p className="text-sm text-gray-400 min-h-10 leading-relaxed">{plan.subtitle}</p>
                 
                 <div className="flex items-baseline gap-2 mt-6 pb-6 border-b border-white/10">
                   <span className="text-4xl font-extrabold text-white">{plan.price}</span>

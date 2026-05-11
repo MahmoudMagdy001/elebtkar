@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { supabase } from '../../utils/supabase';
 import { uploadImage } from '../../utils/uploadImage';
 import { slugify, slugifyLive } from '../../utils/slugify';
-import ReactQuill from 'react-quill-new';
-import 'react-quill-new/dist/quill.snow.css';
+const ReactQuill = React.lazy(() => import('react-quill-new'));
 
 const quillModules = {
   toolbar: [
@@ -46,6 +45,11 @@ export const AddPostSection = ({ editingId, onDone }) => {
       setImagePreview('');
     }
   }, [editingId]);
+
+  // Load Quill editor CSS only on client when this admin component mounts
+  useEffect(() => {
+    import('react-quill-new/dist/quill.snow.css').catch(() => {});
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -149,13 +153,15 @@ export const AddPostSection = ({ editingId, onDone }) => {
             <div className="field-group">
               <label>محتوى المدونة <span className="required">*</span></label>
               <div className="ql-wrapper">
-                <ReactQuill
-                  theme="snow"
-                  value={formData.content}
-                  onChange={(val) => setFormData(prev => ({ ...prev, content: val }))}
-                  modules={quillModules}
-                  placeholder="اكتب محتوى المدونة هنا..."
-                />
+                <Suspense fallback={<div>تحميل المحرر…</div>}>
+                  <ReactQuill
+                    theme="snow"
+                    value={formData.content}
+                    onChange={(val) => setFormData(prev => ({ ...prev, content: val }))}
+                    modules={quillModules}
+                    placeholder="اكتب محتوى المدونة هنا..."
+                  />
+                </Suspense>
               </div>
             </div>
 

@@ -67,6 +67,32 @@ const ServiceDetail = () => {
         title={service.title}
         description={service.subtitle || service.description?.substring(0, 160)}
         image={service.bg_icon}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": service.title,
+          "description": service.subtitle || service.description?.replace(/<[^>]*>?/gm, '').substring(0, 160),
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "الابتكار",
+            "url": "https://elebtikar-sa.com"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Saudi Arabia"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": service.title,
+            "itemListElement": (service.features || []).map((feat, i) => ({
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": feat
+              }
+            }))
+          }
+        }}
       />
       {/* Hero */}
       <header className="relative pt-24 md:pt-44 pb-32 section-padding bg-primary-dark overflow-hidden">

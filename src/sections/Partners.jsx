@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase';
 
-const Partners = () => {
+const Partners = React.memo(() => {
   const [partners, setPartners] = useState([]);
 
   useEffect(() => {
@@ -67,6 +67,6 @@ const Partners = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Partners;

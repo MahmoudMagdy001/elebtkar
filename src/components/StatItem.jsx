@@ -2,7 +2,7 @@ import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '../utils/cn';
 
-const StatItem = ({ count, prefix = '', suffix = '', label, className = '', light = false }) => {
+const StatItem = React.memo(({ count, prefix = '', suffix = '', label, className = '', light = false }) => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
   const [displayCount, setDisplayCount] = React.useState(0);
 
@@ -48,6 +48,6 @@ const StatItem = ({ count, prefix = '', suffix = '', label, className = '', ligh
       </div>
     </div>
   );
-};
+});
 
 export default StatItem;

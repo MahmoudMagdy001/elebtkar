@@ -15,16 +15,17 @@ const SEO = ({
   canonical, 
   type = 'website', 
   image,
-  keywords 
+  keywords,
+  schema
 }) => {
-  const siteName = 'وكالة ابتكار';
+  const siteName = 'الابتكار';
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
-  const defaultDescription = 'وكالة ابتكار للحلول التقنية والبرمجية - نبتكر مستقبلك الرقمي بأحدث التقنيات.';
+  const defaultDescription = 'الابتكار: شريكك في التسويق الرقمي بالمملكة العربية السعودية. خدمات SEO، تطوير مواقع ومتاجر، إدارة تواصل اجتماعي، وذكاء اصطناعي. اطلب استشارتك المجانية الآن.';
   const metaDescription = description || defaultDescription;
   
   // Base URL (Update this with your actual domain when deploying)
   const baseUrl = window.location.origin;
-  const metaImage = image ? (image.startsWith('http') ? image : `${baseUrl}${image}`) : `${baseUrl}/og-image.png`;
+  const metaImage = image ? (image.startsWith('http') ? image : `${baseUrl}${image}`) : `${baseUrl}/src/assets/images/logs.png`;
   const metaUrl = canonical || window.location.href;
 
   return (
@@ -49,8 +50,15 @@ const SEO = ({
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:image" content={metaImage} />
       
-      {/* Language Alternates (Optional - if you have multi-language) */}
+      {/* Language Alternates */}
       <html lang="ar" dir="rtl" />
+
+      {/* Structured Data */}
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   );
 };

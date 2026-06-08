@@ -3,22 +3,20 @@ import { motion } from '../utils/lazyFramer';
 import { ArrowLeft } from 'lucide-react';
 
 const Hero = () => {
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
     <section id="hero" className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden py-20 section-padding">
       {/* Background with Overlays */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('/images/${isMobile ? 'header_mobile.png' : 'header.png'}')` 
+          backgroundImage: `linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('/images/header.png')` 
+        }}
+      />
+      {/* Mobile-only background overlay to ensure proper image if header.png is too large/diff profile */}
+      <div 
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat md:hidden"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('/images/header_mobile.png')` 
         }}
       />
       

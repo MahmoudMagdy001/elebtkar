@@ -56,17 +56,19 @@ const Pricing = ({ onSelectPlan }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
             <span className="section-tag bg-white/10 text-accent border-white/20">حلول الابتكار</span>
-            <h2 className="section-title text-white">حلول تناسب جميع احتياجاتك</h2>
+            <h2 id="pricing-heading" className="section-title text-white">حلول تناسب جميع احتياجاتك</h2>
             <p className="section-subtitle text-white/70 mx-auto">اختر الابتكار الأنسب لنمو نشاطك التجاري</p>
           </motion.div>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8 section-inner items-stretch">
+        <div className="flex flex-wrap justify-center gap-8 section-inner items-stretch" role="list" aria-labelledby="pricing-heading">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
+              role="listitem"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -90,7 +92,7 @@ const Pricing = ({ onSelectPlan }) => {
                   <span className="text-4xl font-extrabold text-white">{plan.price}</span>
                   <img 
                     src="/images/currency.png" 
-                    alt="ريال" 
+                    alt="ريال سعودي" 
                     className="h-5 w-auto object-contain" 
                     style={{ filter: 'brightness(0) invert(1)' }} 
                   />

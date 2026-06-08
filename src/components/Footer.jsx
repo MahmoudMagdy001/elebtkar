@@ -90,7 +90,7 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-4 space-y-6">
             <h4 className="text-accent-light font-extrabold text-base">خدماتنا</h4>
             <ul className="space-y-3 list-none">
               {services.length > 0 ? (
@@ -120,7 +120,7 @@ const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div className="lg:col-span-3 space-y-6">
+          <div className="lg:col-span-2 space-y-6">
             <h4 className="text-accent-light font-extrabold text-base">تواصل معنا</h4>
             <div className="space-y-4">
               <div className="flex items-center gap-3 group">

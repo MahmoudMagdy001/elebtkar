@@ -122,14 +122,14 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
 
             {step < 3 && (
               <div className="text-center mb-10">
-                <h3 className="text-2xl font-extrabold text-primary mb-2">إتمام الطلب</h3>
-                <div className="inline-flex items-center gap-2 bg-accent/10 px-4 py-1.5 rounded-full text-accent font-bold">
+                <h2 className="text-2xl font-extrabold text-primary mb-2">إتمام الطلب</h2>
+                <div className="inline-flex items-center gap-2 bg-accent/10 px-4 py-1.5 rounded-full text-accent font-bold" aria-label={`باقة ${plan?.title} بسعر ${plan?.price} ريالات`}>
                   <span>{plan?.title}</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-accent/40" />
                   <span>{plan?.price?.toLocaleString()}</span>
                   <img 
                     src="/images/currency.png" 
-                    alt="ريال" 
+                    alt="ريال سعودي" 
                     className="h-4 w-auto object-contain" 
                     style={{ filter: 'brightness(0) invert(1)' }} 
                   />
@@ -138,22 +138,25 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
             )}
 
             {step === 1 && (
-              <form onSubmit={handleProceedToPay} className="flex flex-col gap-6">
+              <form onSubmit={handleProceedToPay} className="flex flex-col gap-6" aria-label="بيانات العميل">
                 <div className="space-y-4 text-right">
-                  <div>
-                    <label className="block text-sm font-bold text-gray-800 mb-2">الاسم الكامل</label>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="modal-name" className="text-sm font-bold text-gray-800 px-1">الاسم الكامل</label>
                     <input
+                      id="modal-name"
                       type="text"
                       required
-                      placeholder="ادخل اسمك"
+                      placeholder="ادخل اسمك الكامل"
                       value={customerData.name}
                       onChange={(e) => setCustomerData({ ...customerData, name: e.target.value })}
                       className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-primary transition-all"
+                      aria-required="true"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-bold text-gray-800 mb-2">البريد الإلكتروني</label>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="modal-email" className="text-sm font-bold text-gray-800 px-1">البريد الإلكتروني</label>
                     <input
+                      id="modal-email"
                       type="email"
                       required
                       placeholder="example@mail.com"
@@ -161,11 +164,13 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
                       value={customerData.email}
                       onChange={(e) => setCustomerData({ ...customerData, email: e.target.value })}
                       className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-primary transition-all text-right"
+                      aria-required="true"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-bold text-gray-800 mb-2">رقم الجوال</label>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="modal-phone" className="text-sm font-bold text-gray-800 px-1">رقم الجوال</label>
                     <input
+                      id="modal-phone"
                       type="tel"
                       required
                       placeholder="05xxxxxxxx"
@@ -173,10 +178,11 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
                       value={customerData.phone}
                       onChange={(e) => setCustomerData({ ...customerData, phone: e.target.value })}
                       className="w-full px-5 py-3.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-primary transition-all text-right"
+                      aria-required="true"
                     />
                   </div>
                 </div>
-                <button type="submit" className="btn-primary w-full justify-center py-4 text-lg">
+                <button type="submit" className="btn-primary w-full justify-center py-4 text-lg focus:ring-4 focus:ring-accent/50 transition-all">
                   الانتقال للدفع
                 </button>
               </form>

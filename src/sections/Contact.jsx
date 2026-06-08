@@ -151,56 +151,75 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="bg-white p-8 md:p-10 rounded-xl shadow-lg border border-gray-100"
           >
-            <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-5" onSubmit={handleSubmit} aria-labelledby="contact-heading">
+              <h4 id="contact-heading" className="sr-only">نموذج التواصل</h4>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <input
-                  type="text"
-                  id="name"
-                  placeholder="الاسم الكريم"
-                  required
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
-                />
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="البريد الإلكتروني"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
-                />
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="name" className="text-sm font-bold text-primary px-1">الاسم الكامل</label>
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="مثال: محمد أحمد"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                    aria-required="true"
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="email" className="text-sm font-bold text-primary px-1">البريد الإلكتروني</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="example@mail.com"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                    aria-required="true"
+                  />
+                </div>
               </div>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <input
-                  type="tel"
-                  id="phone"
-                  placeholder="رقم الجوال"
-                  required
-                  dir="ltr"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-right"
-                />
-                <input
-                  type="text"
-                  id="subject"
-                  placeholder="موضوع الرسالة"
-                  required
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  className="w-full min-h-[56px] px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
-                />
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="phone" className="text-sm font-bold text-primary px-1">رقم الجوال</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    placeholder="05xxxxxxxx"
+                    required
+                    dir="ltr"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full min-h-14 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-right"
+                    aria-required="true"
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="subject" className="text-sm font-bold text-primary px-1">الموضوع</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    placeholder="ما الذي تبحث عنه؟"
+                    required
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    className="w-full min-h-[56px] px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                    aria-required="true"
+                  />
+                </div>
               </div>
 
-              <div className="mt-2">
-                <p className="text-sm font-bold text-primary mb-4">ما هي الخدمات التي تهمك؟</p>
+              <div className="mt-2" role="group" aria-labelledby="services-label">
+                <p id="services-label" className="text-sm font-bold text-primary mb-4">ما هي الخدمات التي تهمك؟</p>
                 <div className="flex flex-wrap gap-3">
-                  <label className="cursor-pointer group">
+                  <label className="cursor-pointer group flex items-center">
                     <input
                       type="checkbox"
-                      className="hidden"
+                      className="sr-only"
                       checked={formData.services.length === availableServices.length}
                       onChange={handleSelectAll}
                     />
@@ -214,10 +233,10 @@ const Contact = () => {
                     </span>
                   </label>
                   {availableServices.map((service) => (
-                    <label key={service} className="cursor-pointer">
+                    <label key={service} className="cursor-pointer group flex items-center">
                       <input
                         type="checkbox"
-                        className="hidden"
+                        className="sr-only"
                         checked={formData.services.includes(service)}
                         onChange={() => handleServiceToggle(service)}
                       />
@@ -234,21 +253,28 @@ const Contact = () => {
                 </div>
               </div>
 
-              <textarea
-                id="message"
-                rows="5"
-                placeholder="مشكلتك..."
-                required
-                value={formData.message}
-                onChange={handleInputChange}
-                className="w-full p-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all resize-vertical"
-              />
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="message" className="text-sm font-bold text-primary px-1">تفاصيل المشروع</label>
+                <textarea
+                  id="message"
+                  rows="5"
+                  placeholder="أدخل رسالتك هنا..."
+                  required
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className="w-full p-4 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all resize-vertical"
+                  aria-required="true"
+                />
+              </div>
 
               {status && (
-                <div className={cn(
-                  "p-4 rounded-lg text-sm font-bold",
-                  status.type === 'success' ? "bg-green/10 text-green" : "bg-red-50 text-red-600"
-                )}>
+                <div 
+                  role="alert"
+                  className={cn(
+                    "p-4 rounded-lg text-sm font-bold",
+                    status.type === 'success' ? "bg-green/10 text-green" : "bg-red-50 text-red-600"
+                  )}
+                >
                   {status.message}
                 </div>
               )}
@@ -256,9 +282,9 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="btn-primary w-full justify-center py-4 text-lg disabled:opacity-70"
+                className="btn-primary w-full justify-center py-4 text-lg disabled:opacity-70 focus:ring-4 focus:ring-accent/50 transition-all"
               >
-                {loading ? 'جاري الإرسال...' : 'حل لمشكلتك'}
+                {loading ? 'جاري الإرسال...' : 'إرسال الرسالة'}
                 {!loading && <Send className="w-5 h-5 shrink-0" />}
               </button>
             </form>

@@ -103,10 +103,11 @@ const Navbar = () => {
         {/* Mobile Toggle */}
         {/* Mobile hamburger: accessible and touch-friendly */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2 touch-manipulation"
+          className="md:hidden flex flex-col gap-1.5 p-2 touch-manipulation focus:outline-none focus:ring-2 focus:ring-accent rounded-md"
           onClick={toggleMenu}
-          aria-label="Toggle menu"
+          aria-label={isOpen ? "إغلاق القائمة" : "فتح القائمة"}
           aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
           <span className={cn('block w-6 h-0.5 bg-white rounded-full transition-transform', isOpen && 'rotate-45 translate-y-1.5')} />
           <span className={cn('block w-6 h-0.5 bg-white rounded-full transition-opacity', isOpen && 'opacity-0')} />
@@ -118,11 +119,21 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
+            aria-modal="true"
+            role="dialog"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[999] bg-primary-dark/97 flex flex-col items-center justify-center gap-8 overflow-y-auto py-20"
           >
+            <button 
+              className="absolute top-6 right-8 text-white p-2 hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent rounded-full transition-colors"
+              onClick={toggleMenu}
+              aria-label="إغلاق القائمة"
+            >
+              <X size={32} />
+            </button>
             
             {navLinks.map((link, i) => (
               <motion.div
@@ -133,7 +144,7 @@ const Navbar = () => {
               >
                 <a
                   href={link.href}
-                  className="text-white text-2xl font-bold"
+                  className="text-white text-2xl font-bold hover:text-accent transition-colors focus:text-accent focus:outline-none"
                   onClick={(e) => {
                     if (link.href === '/') {
                       handleHomeClick(e);
@@ -153,7 +164,7 @@ const Navbar = () => {
               href="https://wa.me/966579644123"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent text-white px-8 py-3 rounded-full font-bold text-xl"
+              className="bg-accent text-white px-8 py-3 rounded-full font-bold text-xl shadow-lg hover:shadow-accent/40 transition-all focus:ring-4 focus:ring-accent/50"
               onClick={toggleMenu}
             >
               ابدأ الآن

@@ -76,6 +76,26 @@ const PostDetail = () => {
         description={post.meta_description}
         image={post.featured_image_url}
         type="article"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "image": post.featured_image_url,
+          "datePublished": post.created_at,
+          "author": {
+            "@type": "Organization",
+            "name": "الابتكار"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "الابتكار",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://elebtikar-sa.com/images/logo.png"
+            }
+          },
+          "description": post.meta_description
+        }}
       />
       {/* Hero */}
       <header className="relative pt-24 md:pt-44 pb-32 section-padding bg-primary-dark overflow-hidden">

@@ -37,14 +37,15 @@ const WhyChooseUs = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="section-tag">لماذا الابتكار</span>
-            <h2 className="section-title">لماذا تختار الابتكار للتطوير الرقمي؟</h2>
+            <h2 id="why-heading" className="section-title">لماذا تختار الابتكار للتطوير الرقمي؟</h2>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" role="list" aria-labelledby="why-heading">
           {whyData.map((item, index) => (
             <motion.div
               key={item.num}
+              role="listitem"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

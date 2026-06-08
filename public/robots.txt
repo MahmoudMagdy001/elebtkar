@@ -1,13 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /pages/admin/
-
-# Block common bot paths
-Disallow: /assets/js/config.js
-
-# Crawl delay for Yandex
-User-agent: Yandex
-
-# Sitemaps
-Sitemap: https://elebtkar.vercel.app/sitemap.xml
+Sitemap: https://elebtikar-sa.com/sitemap.xml

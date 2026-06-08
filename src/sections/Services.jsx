@@ -3,7 +3,7 @@ import { motion } from '../utils/lazyFramer';
 import { cn } from '../utils/cn';
 import { supabase } from '../utils/supabase';
 
-const ServiceCard = ({ service, index }) => {
+const ServiceCard = React.memo(({ service, index }) => {
   const isAccent = false;
   const isNew = false;
   
@@ -61,7 +61,7 @@ const ServiceCard = ({ service, index }) => {
       </p>
     </motion.div>
   );
-};
+});
 
 const Services = () => {
   const [services, setServices] = useState([]);

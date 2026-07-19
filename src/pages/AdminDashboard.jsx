@@ -16,6 +16,11 @@ import { PartnersSection } from './admin/PartnersSection';
 import { AddPartnerSection } from './admin/AddPartnerSection';
 import { DiscountCodesSection } from './admin/DiscountCodesSection';
 import { StatsSection } from './admin/StatsSection';
+import PagesSection from './admin/PagesSection';
+import CategoriesSection from './admin/CategoriesSection';
+import { MediaLibrarySection } from './admin/MediaLibrarySection';
+import RedirectsSection from './admin/RedirectsSection';
+import SettingsSection from './admin/SettingsSection';
 
 // Helper component for sidebar links
 const NavItem = ({ active, icon, label, onClick }) => (
@@ -140,7 +145,8 @@ const AdminDashboard = () => {
             
             <div className="nav-divider"></div>
             
-            <span className="nav-section-title">الخدمات</span>
+            <span className="nav-section-title">الصفحات والخدمات</span>
+            <NavItem active={activeSection === 'managePages'} onClick={() => setActiveSection('managePages')} icon="ph-browser" label="إدارة الصفحات والـ SEO" />
             <NavItem active={activeSection === 'manageServices'} onClick={() => setActiveSection('manageServices')} icon="ph-squares-four" label="إدارة الخدمات" />
             <NavItem active={activeSection === 'addService'} onClick={goToAddService} icon="ph-plus-circle" label="إضافة خدمة" />
             
@@ -152,10 +158,16 @@ const AdminDashboard = () => {
             
             <div className="nav-divider"></div>
             
-            <span className="nav-section-title">المقالات</span>
+            <span className="nav-section-title">المدونة</span>
             <NavItem active={activeSection === 'managePosts'} onClick={() => setActiveSection('managePosts')} icon="ph-article-ny-times" label="إدارة المقالات" />
             <NavItem active={activeSection === 'addPost'} onClick={goToAddPost} icon="ph-plus-circle" label="إضافة مدونة" />
+            <NavItem active={activeSection === 'manageCategories'} onClick={() => setActiveSection('manageCategories')} icon="ph-tag" label="تصنيفات المقالات" />
             
+            <div className="nav-divider"></div>
+
+            <span className="nav-section-title">الوسائط والملفات</span>
+            <NavItem active={activeSection === 'mediaLibrary'} onClick={() => setActiveSection('mediaLibrary')} icon="ph-image" label="مكتبة الوسائط" />
+
             <div className="nav-divider"></div>
             
             <span className="nav-section-title">الشركاء</span>
@@ -164,9 +176,11 @@ const AdminDashboard = () => {
             
             <div className="nav-divider"></div>
             
-            <span className="nav-section-title">التسويق والإحصائيات</span>
+            <span className="nav-section-title">التسويق والإعدادات</span>
             <NavItem active={activeSection === 'discountCodes'} onClick={() => setActiveSection('discountCodes')} icon="ph-ticket" label="أكواد الخصم" />
             <NavItem active={activeSection === 'manageStats'} onClick={() => setActiveSection('manageStats')} icon="ph-chart-line-up" label="إدارة الإحصائيات" />
+            <NavItem active={activeSection === 'manageRedirects'} onClick={() => setActiveSection('manageRedirects')} icon="ph-arrows-merge" label="تحويل الروابط (Redirects)" />
+            <NavItem active={activeSection === 'siteSettings'} onClick={() => setActiveSection('siteSettings')} icon="ph-gear" label="إعدادات الموقع والـ SEO" />
           </div>
           <div className="sidebar-footer">
             <button onClick={handleLogout} className="btn-logout-sidebar">
@@ -179,16 +193,21 @@ const AdminDashboard = () => {
         <main className="dash-main-content">
           {activeSection === 'contactMessages' && <ContactMessagesSection />}
           {activeSection === 'managePayments' && <PaymentsSection />}
+          {activeSection === 'managePages' && <PagesSection />}
           {activeSection === 'manageServices' && <ServicesSection onEdit={handleEditService} />}
           {activeSection === 'addService' && <AddServiceSection editingId={editingServiceId} onDone={handleServiceDone} />}
           {activeSection === 'managePricingPlans' && <PricingSection onEdit={handleEditPricing} />}
           {activeSection === 'addPricingPlan' && <AddPricingSection editingId={editingPricingId} onDone={handlePricingDone} />}
           {activeSection === 'managePosts' && <PostsSection onEdit={handleEditPost} />}
           {activeSection === 'addPost' && <AddPostSection editingId={editingPostId} onDone={handlePostDone} />}
+          {activeSection === 'manageCategories' && <CategoriesSection />}
+          {activeSection === 'mediaLibrary' && <MediaLibrarySection />}
           {activeSection === 'managePartners' && <PartnersSection onEdit={handleEditPartner} />}
           {activeSection === 'addPartner' && <AddPartnerSection editingId={editingPartnerId} onDone={handlePartnerDone} />}
           {activeSection === 'discountCodes' && <DiscountCodesSection />}
           {activeSection === 'manageStats' && <StatsSection />}
+          {activeSection === 'manageRedirects' && <RedirectsSection />}
+          {activeSection === 'siteSettings' && <SettingsSection />}
         </main>
       </div>
     </div>

@@ -2,11 +2,17 @@ import React from 'react';
 import LegalPage from '../components/LegalPage';
 import { FileText } from 'lucide-react';
 import SEO from '../components/SEO';
+import { usePageSettings } from '../utils/usePageSettings';
 
 const TermsOfService = () => {
+  const { settings: pageSettings } = usePageSettings('terms-and-conditions');
   return (
     <>
-      <SEO title="الشروط والأحكام" description="اطلع على الشروط والأحكام الخاصة باستخدام خدمات وكالة ابتكار للحلول التقنية." />
+      <SEO 
+        title="الشروط والأحكام" 
+        description="اطلع على الشروط والأحكام الخاصة باستخدام خدمات وكالة ابتكار للحلول التقنية." 
+        seoSettings={pageSettings?.seo_settings}
+      />
       <LegalPage
         title="الشروط والأحكام"
       subtitle="اتفاقية استخدام خدمات الابتكار"

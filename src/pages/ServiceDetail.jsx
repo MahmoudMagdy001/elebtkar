@@ -67,6 +67,7 @@ const ServiceDetail = () => {
         title={service.title}
         description={service.subtitle || service.description?.substring(0, 160)}
         image={service.bg_icon}
+        seoSettings={service.seo_settings}
         schema={{
           "@context": "https://schema.org",
           "@type": "Service",

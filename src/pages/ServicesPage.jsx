@@ -5,10 +5,12 @@ import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import { cn } from '../utils/cn';
 import SEO from '../components/SEO';
+import { usePageSettings } from '../utils/usePageSettings';
 
 const ServicesPage = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { settings: pageSettings } = usePageSettings('services');
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -36,6 +38,7 @@ const ServicesPage = () => {
       <SEO 
         title="خدماتنا" 
         description="اكتشف مجموعة واسعة من الخدمات التقنية والبرمجية، من تطوير المواقع والتطبيقات إلى التسويق الرقمي وتصميم الهوية البصرية."
+        seoSettings={pageSettings?.seo_settings}
       />
       {/* Hero */}
       <header className="relative pt-24 md:pt-44 pb-32 section-padding bg-primary-dark overflow-hidden">

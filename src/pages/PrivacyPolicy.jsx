@@ -2,11 +2,17 @@ import React from 'react';
 import LegalPage from '../components/LegalPage';
 import { ShieldCheck } from 'lucide-react';
 import SEO from '../components/SEO';
+import { usePageSettings } from '../utils/usePageSettings';
 
 const PrivacyPolicy = () => {
+  const { settings: pageSettings } = usePageSettings('privacy-policy');
   return (
     <>
-      <SEO title="سياسة الخصوصية" description="تعرف على سياسة الخصوصية الخاصة بوكالة ابتكار وكيفية حماية بياناتك ومعلوماتك الشخصية." />
+      <SEO 
+        title="سياسة الخصوصية" 
+        description="تعرف على سياسة الخصوصية الخاصة بوكالة ابتكار وكيفية حماية بياناتك ومعلوماتك الشخصية." 
+        seoSettings={pageSettings?.seo_settings}
+      />
       <LegalPage
         title="سياسة الخصوصية"
       subtitle="كيف نحمي بياناتك ونحترم خصوصيتك"

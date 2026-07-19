@@ -1,8 +1,11 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ContactWidget from './components/ContactWidget';
+import RedirectHandler from './components/RedirectHandler';
+import { injectScripts } from './utils/scriptInjector';
+import { supabase } from './utils/supabase';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -25,7 +28,9 @@ const PageLoader = () => (
 function App() {
   return (
     <Router>
-      <AppContent />
+      <RedirectHandler>
+        <AppContent />
+      </RedirectHandler>
     </Router>
   );
 }
@@ -33,6 +38,20 @@ function App() {
 function AppContent() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
+
+  // Inject site settings custom marketing scripts once on load
+  useEffect(() => {
+    supabase
+      .from('site_settings')
+      .select('scripts')
+      .eq('id', 1)
+      .single()
+      .then(({ data }) => {
+        if (data?.scripts) {
+          injectScripts(data.scripts);
+        }
+      });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col font-almarai text-right" dir="rtl">

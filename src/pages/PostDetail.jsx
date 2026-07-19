@@ -76,6 +76,7 @@ const PostDetail = () => {
         description={post.meta_description}
         image={post.featured_image_url}
         type="article"
+        seoSettings={post.seo_settings}
         schema={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",

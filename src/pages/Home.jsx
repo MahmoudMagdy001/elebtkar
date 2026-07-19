@@ -12,9 +12,12 @@ import Partners from '../sections/Partners';
 import Contact from '../sections/Contact';
 import PaymentModal from '../components/PaymentModal';
 
+import { usePageSettings } from '../utils/usePageSettings';
+
 const Home = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const { settings: pageSettings } = usePageSettings('home');
 
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan);
@@ -26,6 +29,7 @@ const Home = () => {
       <SEO 
         title="الرئيسية" 
         description="وكالة ابتكار للحلول التقنية والبرمجية - نبتكر مستقبلك الرقمي بأحدث التقنيات وتصميم المواقع والتطبيقات."
+        seoSettings={pageSettings?.seo_settings}
       />
       <Hero />
       <WhoWeAre />

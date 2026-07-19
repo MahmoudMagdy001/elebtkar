@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { Calendar, ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import SEO from '../components/SEO';
+import { usePageSettings } from '../utils/usePageSettings';
 
 const BlogPage = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { settings: pageSettings } = usePageSettings('blog');
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -35,6 +37,7 @@ const BlogPage = () => {
       <SEO 
         title="المدونة" 
         description="استكشف أحدث المقالات والنصائح في عالم التقنية، التسويق الرقمي، وتطوير الأعمال من خبراء وكالة ابتكار."
+        seoSettings={pageSettings?.seo_settings}
       />
       {/* Hero */}
       <header className="relative pt-24 md:pt-44 pb-32 section-padding bg-primary-dark overflow-hidden">

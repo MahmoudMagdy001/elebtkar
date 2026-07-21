@@ -30,7 +30,8 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
           return;
         }
 
-        const publishableKey = 'pk_test_GeBNMe6XGH9JBAfgP4FWRcZLXk7SrnSopAUcA6G8'; // Hardcoded as in config.js
+        // ponytail: Load Moyasar publishable key from environment variables.
+        const publishableKey = import.meta.env.VITE_MOYASAR_PUBLISHABLE_KEY;
         const amountInHalalas = Math.round(plan.price * 100);
 
         window.Moyasar.init({

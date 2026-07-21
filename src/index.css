@@ -177,10 +177,72 @@
   .toast.error { @apply bg-red-800; }
   .spinner { @apply w-4 h-4 border-2 border-white/35 border-t-white rounded-full animate-spin hidden; }
   .ql-wrapper { @apply mb-2; }
-  .ql-wrapper .ql-toolbar { @apply rounded-t-lg border-slate-200 bg-slate-50; direction: ltr; }
-  .ql-wrapper .ql-container { @apply rounded-b-lg border-slate-200 min-h-48 font-almarai text-[0.95rem]; direction: rtl; }
-  .ql-wrapper .ql-editor { @apply min-h-48; }
-  .ql-wrapper .ql-editor.ql-blank::before { @apply right-4 left-auto; }
+  /* ─── QUILL & TIPTAP EDITOR WORKSPACE (MS WORD STYLE) ─── */
+  .ql-wrapper .ql-toolbar.ql-snow {
+    background-color: #f8fafc;
+    border: 1px solid #e1edf3 !important;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 12px !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    border-bottom: none !important;
+    direction: ltr;
+  }
+
+  .ql-wrapper .ql-container.ql-snow {
+    border: 1px solid #e1edf3 !important;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: #f1f5f9; /* Slate-100 grey background like Word desktop background */
+    padding: 1.5rem 1rem !important;
+    min-height: 480px;
+    display: flex;
+    justify-content: center;
+    direction: rtl;
+    font-family: 'Almarai', sans-serif;
+  }
+
+  .ql-wrapper .ql-editor,
+  .ql-wrapper .ProseMirror {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 15px rgba(2, 59, 101, 0.05); /* Premium soft drop shadow */
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px; /* Standard layout page width */
+    min-height: 400px;
+    padding: 2.5rem 2rem !important; /* Document side margins like MS Word */
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1e293b;
+    outline: none;
+    direction: rtl;
+    text-align: right;
+  }
+
+  .ql-wrapper .ql-editor.ql-blank::before {
+    right: 2rem;
+    left: auto;
+    font-style: normal;
+    color: #94a3b8;
+  }
+
+  /* TipTap Specifics */
+  .ql-wrapper .ProseMirror-focused {
+    border-color: #004561 !important;
+    box-shadow: 0 10px 25px rgba(2, 59, 101, 0.1);
+  }
+
+  .ql-wrapper .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: right;
+    color: #94a3b8;
+    pointer-events: none;
+    height: 0;
+    font-style: normal;
+  }
   .form-row { @apply flex gap-4 flex-wrap; }
   .form-row .field-group { @apply flex-1 min-w-36; }
   .checkbox-group { @apply flex items-center gap-2 mb-4; }

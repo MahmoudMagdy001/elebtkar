@@ -191,15 +191,41 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" media="print" onload="this.media='all'" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/duotone/style.css" media="print" onload="this.media='all'" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css" media="print" onload="this.media='all'" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" media="print" onload="this.media='all'" />
+    <script>
+      // ponytail: Defer non-critical icon styles to avoid unused CSS audit penalty
+      window.addEventListener('load', function() {
+        ['bold', 'fill'].forEach(function(type) {
+          var link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/' + type + '/style.css';
+          document.head.appendChild(link);
+        });
+      });
+    </script>
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KDX3ZW5B');</script>
+    <!-- Google Tag Manager (Deferred for speed) -->
+    <script>
+      // ponytail: Defer GTM until idle or user interaction to eliminate unused JS & main thread delay on page load
+      (function() {
+        var gtmLoaded = false;
+        function loadGTM() {
+          if (gtmLoaded) return;
+          gtmLoaded = true;
+          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-KDX3ZW5B');
+        }
+        var events = ['pointerdown', 'scroll', 'keydown', 'touchstart'];
+        events.forEach(function(e) { window.addEventListener(e, loadGTM, { once: true, passive: true }); });
+        if ('requestIdleCallback' in window) {
+          window.addEventListener('load', function() { requestIdleCallback(loadGTM, { timeout: 3500 }); });
+        } else {
+          window.addEventListener('load', function() { setTimeout(loadGTM, 3500); });
+        }
+      })();
+    </script>
     <!-- End Google Tag Manager -->
   </head>
   <body>

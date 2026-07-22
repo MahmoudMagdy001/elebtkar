@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { motion } from '../../../shared/utils/lazyFramer';
 import { ArrowLeft } from 'lucide-react';
 import StatItem from '../../../shared/components/StatItem';
-import { supabase } from '../../../shared/utils/supabase';
+import { supabase, fetchCached } from '../../../shared/utils/supabase';
 
 const WhoWeAre = () => {
   const [stats, setStats] = useState([]);
 
   useEffect(() => {
     const fetchStats = async () => {
-      const { data } = await supabase
-        .from('statistics')
-        .select('*')
-        .eq('section', 'who')
-        .eq('is_active', true)
-        .order('sort_order', { ascending: true });
+      const { data } = await fetchCached('stats_who', () =>
+        supabase
+          .from('statistics')
+          .select('*')
+          .eq('section', 'who')
+          .eq('is_active', true)
+          .order('sort_order', { ascending: true })
+      );
       if (data) setStats(data);
     };
     fetchStats();

@@ -5,20 +5,24 @@ import { ArrowLeft } from 'lucide-react';
 const Hero = () => {
   return (
     <section id="hero" className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden py-20 section-padding">
-      {/* Background with Overlays */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700"
-        style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('/images/header.png')` 
-        }}
-      />
-      {/* Mobile-only background overlay to ensure proper image if header.png is too large/diff profile */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat md:hidden"
-        style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 37, 58, 0.7), rgba(0, 37, 58, 0.8)), url('/images/header_mobile.png')` 
-        }}
-      />
+      {/* Background Hero Image with fetchpriority=high */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <picture>
+          <source media="(max-width: 767px)" srcSet="/images/header_mobile.webp" />
+          <img 
+            src="/images/header.webp" 
+            alt="الابتكار خلفية الهيدر" 
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            width="1920"
+            height="1080"
+            className="w-full h-full object-cover" 
+          />
+        </picture>
+        {/* Dark Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#00253a]/70 via-[#00253a]/75 to-[#00253a]/85" />
+      </div>
       
       {/* Decorative Shapes */}
       <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
@@ -56,15 +60,12 @@ const Hero = () => {
           رؤية المملكة 2030 شريكك الرقمي
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
+        <h1
           // Responsive typography: adjusted for mobile to prevent awkward wrapping
           className="text-white text-[1.45rem] sm:text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-5 px-2"
         >
           لتتصدر سوق المملكة..<br/>
-        </motion.h1>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}

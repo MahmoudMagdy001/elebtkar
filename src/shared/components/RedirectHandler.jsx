@@ -1,37 +1,24 @@
-// ponytail: Simple client-side router hook to handle 301/302 redirects defined by CMS.
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { supabase } from '../utils/supabase';
-
-let redirectsCache = null;
+import { supabase, fetchCached } from '../utils/supabase';
 
 export default function RedirectHandler({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [redirects, setRedirects] = useState(redirectsCache);
-  const [loading, setLoading] = useState(!redirectsCache);
+  const [redirects, setRedirects] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Load redirects once
+  // Load redirects once with caching
   useEffect(() => {
-    if (redirectsCache) {
-      setRedirects(redirectsCache);
-      setLoading(false);
-      return;
-    }
-
     let isMounted = true;
-    supabase
-      .from('redirects')
-      .select('source_url, target_url, status_code')
-      .then(({ data, error }) => {
-        if (!error && data) {
-          redirectsCache = data;
-          if (isMounted) {
-            setRedirects(data);
-            setLoading(false);
-          }
-        }
-      });
+    fetchCached('redirects_all', () =>
+      supabase.from('redirects').select('source_url, target_url, status_code')
+    ).then(({ data, error }) => {
+      if (!error && data && isMounted) {
+        setRedirects(data);
+        setLoading(false);
+      }
+    });
 
     return () => { isMounted = false; };
   }, []);

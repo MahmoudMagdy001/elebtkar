@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from '../../../shared/utils/lazyFramer';
 import { cn } from '../../../shared/utils/cn';
-import { supabase } from '../../../shared/utils/supabase';
+import { supabase, fetchCached } from '../../../shared/utils/supabase';
 
 const ServiceCard = React.memo(({ service, index }) => {
   const isAccent = false;
@@ -70,10 +70,9 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const { data, error } = await supabase
-          .from('services')
-          .select('*')
-          .order('order_num', { ascending: true });
+        const { data, error } = await fetchCached('services_all', () =>
+          supabase.from('services').select('*').order('order_num', { ascending: true })
+        );
 
         if (error) throw error;
         setServices(data || []);

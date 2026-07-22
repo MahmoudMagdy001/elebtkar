@@ -6,10 +6,11 @@ import Footer from './shared/components/Footer';
 import ContactWidget from './shared/components/ContactWidget';
 import RedirectHandler from './shared/components/RedirectHandler';
 import { injectScripts } from './shared/utils/scriptInjector';
-import { supabase } from './shared/utils/supabase';
+import { supabase, fetchCached } from './shared/utils/supabase';
+
+import Home from './features/home'; // ponytail: eager home import prevents CLS layout shift
 
 // Lazy load user-facing pages
-const Home = lazy(() => import('./features/home'));
 const BlogPage = lazy(() => import('./features/blog/pages/BlogPage'));
 const PostDetail = lazy(() => import('./features/blog/pages/PostDetail'));
 const ServicesPage = lazy(() => import('./features/services/pages/ServicesPage'));
@@ -64,16 +65,13 @@ function AppContent() {
 
   // Inject site settings custom marketing scripts once on load
   useEffect(() => {
-    supabase
-      .from('site_settings')
-      .select('scripts')
-      .eq('id', 1)
-      .single()
-      .then(({ data }) => {
-        if (data?.scripts) {
-          injectScripts(data.scripts);
-        }
-      });
+    fetchCached('site_settings_all', () =>
+      supabase.from('site_settings').select('*').eq('id', 1).single()
+    ).then(({ data }) => {
+      if (data?.scripts) {
+        injectScripts(data.scripts);
+      }
+    });
   }, []);
 
   return (

@@ -20,10 +20,17 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -62,12 +69,14 @@ const Navbar = () => {
           scrolled ? 'bg-primary-dark/85 backdrop-blur-md shadow-lg' : 'bg-transparent'
         )}
       >
-        <Link to="/" onClick={handleHomeClick} className="flex items-center group">
+        <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0">
           <img
-            src="/images/logo.png"
+            src="/images/logo.webp"
             alt="الابتكار logo"
+            width="200"
+            height="120"
             // Make logo responsive: smaller on mobile to avoid crowding
-            className="h-8 md:h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+            className="h-9 md:h-11 w-auto aspect-[200/120] transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
 
@@ -93,7 +102,7 @@ const Navbar = () => {
               target="_blank"
               rel="noopener noreferrer"
               // Touch-friendly padding and responsive text
-              className="bg-accent text-white px-4 py-2 sm:px-6 rounded-full font-bold text-sm sm:text-[0.95rem] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg animate-pulse hover:animate-none"
+              className="bg-accent text-white px-4 py-2 sm:px-6 rounded-full font-bold text-sm sm:text-[0.95rem] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
               ابدأ الآن
             </a>

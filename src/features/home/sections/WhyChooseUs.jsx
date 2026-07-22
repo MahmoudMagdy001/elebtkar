@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from '../../../shared/utils/lazyFramer';
 import StatItem from '../../../shared/components/StatItem';
-import { supabase } from '../../../shared/utils/supabase';
+import { supabase, fetchCached } from '../../../shared/utils/supabase';
 
 const whyData = [
   { num: '01', title: 'رقمي حقيقي وليس مؤقت', desc: 'نركز على النتائج الحقيقية والأصول الرقمية التي تبقى وتنمو مع الوقت' },
@@ -15,12 +15,14 @@ const WhyChooseUs = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const { data } = await supabase
-        .from('statistics')
-        .select('*')
-        .eq('section', 'stats')
-        .eq('is_active', true)
-        .order('sort_order', { ascending: true });
+      const { data } = await fetchCached('stats_stats', () =>
+        supabase
+          .from('statistics')
+          .select('*')
+          .eq('section', 'stats')
+          .eq('is_active', true)
+          .order('sort_order', { ascending: true })
+      );
       if (data) setStats(data);
     };
     fetchStats();

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../../../shared/utils/supabase';
+import { supabase, fetchCached } from '../../../shared/utils/supabase';
 
 const Partners = React.memo(() => {
   const [partners, setPartners] = useState([]);
 
   useEffect(() => {
     const fetchPartners = async () => {
-      const { data, error } = await supabase
-        .from('partners')
-        .select('*')
-        .order('order_num', { ascending: true });
+      const { data, error } = await fetchCached('partners_all', () =>
+        supabase.from('partners').select('*').order('order_num', { ascending: true })
+      );
         
       if (!error && data) {
         setPartners(data);
@@ -58,7 +57,7 @@ const Partners = React.memo(() => {
               rel="noopener noreferrer" 
               className="inline-flex items-center justify-center gap-2 bg-accent-gradient text-[#1a0a00] font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 hover:scale-105 transition-all duration-300 relative group"
             >
-              <span className="absolute inset-0 rounded-full animate-ping opacity-20 bg-accent"></span>
+              <span className="absolute inset-0 rounded-full animate-pulse opacity-20 bg-accent pointer-events-none"></span>
               <span className="relative z-10">ابتكر معنا الآن</span>
               <i className="ph ph-arrow-left text-2xl relative z-10 group-hover:-translate-x-1 transition-transform"></i>
             </a>

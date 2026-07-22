@@ -7,10 +7,17 @@ const ContactWidget = () => {
   const [showBackTop, setShowBackTop] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setShowBackTop(window.scrollY > 300);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setShowBackTop(window.scrollY > 300);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -52,6 +59,7 @@ const ContactWidget = () => {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="خيارات التواصل"
           className={cn(
             "w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300",
             isOpen ? "bg-red-500 text-white rotate-45" : "bg-primary text-white hover:scale-110"
@@ -69,6 +77,7 @@ const ContactWidget = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="العودة إلى الأعلى"
             className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[999] w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg transition-all hover:bg-accent hover:-translate-y-1"
           >
             <i className="ph ph-arrow-up text-[24px]"></i>

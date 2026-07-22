@@ -24,11 +24,38 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
 
   useEffect(() => {
     if (step === 2 && plan) {
-      const initMoyasar = () => {
-        if (!window.Moyasar) {
-          console.error('Moyasar SDK not loaded');
-          return;
-        }
+      let isMounted = true;
+
+      const loadMoyasarSDK = () => {
+        return new Promise((resolve, reject) => {
+          if (window.Moyasar) {
+            resolve();
+            return;
+          }
+          if (!document.getElementById('moyasar-css')) {
+            const link = document.createElement('link');
+            link.id = 'moyasar-css';
+            link.rel = 'stylesheet';
+            link.href = 'https://cdn.moyasar.com/mpf/1.14.0/moyasar.css';
+            document.head.appendChild(link);
+          }
+          if (!document.getElementById('moyasar-js')) {
+            const script = document.createElement('script');
+            script.id = 'moyasar-js';
+            script.src = 'https://cdn.moyasar.com/mpf/1.14.0/moyasar.js';
+            script.onload = () => resolve();
+            script.onerror = (err) => reject(err);
+            document.head.appendChild(script);
+          } else {
+            const script = document.getElementById('moyasar-js');
+            if (window.Moyasar) resolve();
+            else script.addEventListener('load', () => resolve());
+          }
+        });
+      };
+
+      loadMoyasarSDK().then(() => {
+        if (!isMounted || !window.Moyasar) return;
 
         // ponytail: Load Moyasar publishable key from environment variables.
         const publishableKey = import.meta.env.VITE_MOYASAR_PUBLISHABLE_KEY;
@@ -57,11 +84,11 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
             alert('فشلت عملية الدفع. يرجى المحاولة مرة أخرى.');
           }
         });
-      };
+      }).catch(err => {
+        console.error('Failed to load Moyasar payment SDK:', err);
+      });
 
-      // Small delay to ensure the container is rendered
-      const timer = setTimeout(initMoyasar, 100);
-      return () => clearTimeout(timer);
+      return () => { isMounted = false; };
     }
   }, [step, plan]);
 
@@ -129,8 +156,12 @@ const PaymentModal = ({ plan, isOpen, onClose }) => {
                   <span className="w-1.5 h-1.5 rounded-full bg-accent/40" />
                   <span>{plan?.price?.toLocaleString()}</span>
                   <img 
-                    src="/images/currency.png" 
+                    src="/images/currency.webp" 
                     alt="ريال سعودي" 
+                    width="40"
+                    height="40"
+                    loading="lazy"
+                    decoding="async"
                     className="h-4 w-auto object-contain" 
                     style={{ filter: 'brightness(0) invert(1)' }} 
                   />

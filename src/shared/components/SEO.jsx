@@ -1,9 +1,7 @@
 // ponytail: Merges dynamic page SEO configurations with site-wide settings and schemas in the head.
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { supabase } from '../utils/supabase';
-
-let siteSettingsCache = null;
+import { supabase, fetchCached } from '../utils/supabase';
 
 /**
  * SEO Component for managing page metadata dynamically.
@@ -19,25 +17,17 @@ const SEO = ({
   schema,
   seoSettings = {}
 }) => {
-  const [siteSettings, setSiteSettings] = useState(siteSettingsCache);
+  const [siteSettings, setSiteSettings] = useState(null);
 
   useEffect(() => {
-    if (siteSettingsCache) {
-      setSiteSettings(siteSettingsCache);
-      return;
-    }
     let isMounted = true;
-    supabase
-      .from('site_settings')
-      .select('*')
-      .eq('id', 1)
-      .single()
-      .then(({ data }) => {
-        if (data && isMounted) {
-          siteSettingsCache = data;
-          setSiteSettings(data);
-        }
-      });
+    fetchCached('site_settings_all', () =>
+      supabase.from('site_settings').select('*').eq('id', 1).single()
+    ).then(({ data }) => {
+      if (data && isMounted) {
+        setSiteSettings(data);
+      }
+    });
     return () => { isMounted = false; };
   }, []);
 
@@ -56,7 +46,7 @@ const SEO = ({
   const rawImage = ogImgFromDB || image;
   const metaImage = rawImage 
     ? (rawImage.startsWith('http') ? rawImage : `${baseUrl}${rawImage}`) 
-    : `${baseUrl}/src/assets/images/logs.png`;
+    : `${baseUrl}/images/logo.webp`;
 
   // Canonical Url
   const metaUrl = seoSettings?.canonical_url || canonical || window.location.href;

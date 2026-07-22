@@ -2,6 +2,38 @@
 @config "../tailwind.config.js";
 
 @layer base {
+  /* ponytail: font-display: swap for Phosphor icon fonts to resolve FOIT & 3,000ms Lighthouse delay */
+  @font-face {
+    font-family: 'Phosphor';
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/Phosphor.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Phosphor-Duotone';
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/duotone/Phosphor-Duotone.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Phosphor-Bold';
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/Phosphor-Bold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Phosphor-Fill';
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/Phosphor-Fill.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Phosphor-Light';
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/light/Phosphor-Light.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Phosphor-Thin';
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/thin/Phosphor-Thin.woff2') format('woff2');
+  }
+
   :root {
     --primary: #004561;
     --accent: #c9952a;

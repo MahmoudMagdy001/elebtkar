@@ -53,7 +53,7 @@ export default function Login() {
         className="max-w-md w-full bg-white rounded-2xl shadow-lg border border-primary-100 p-8 sm:p-10"
       >
         <div className="text-center mb-8">
-          <img src="/images/logo.png" alt="Elebtkar Logo" className="h-14 mx-auto mb-4" />
+          <img src="/images/logo.webp" alt="Elebtkar Logo" width="505" height="304" className="h-14 w-auto aspect-[505/304] mx-auto mb-4" />
           <h2 className="text-2xl font-extrabold text-primary mb-2">لوحة التحكم</h2>
           <p className="text-sm text-gray-500 font-bold">سجل دخولك لإدارة محتوى الموقع</p>
         </div>

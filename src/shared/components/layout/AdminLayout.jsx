@@ -37,7 +37,7 @@ export default function AdminLayout() {
         {/* Brand Header */}
         <div className="p-6 border-b border-white/10 flex items-center justify-between gap-3 max-md:justify-center">
           <Link to="/" className="flex items-center gap-3 no-underline">
-            <img src="/images/logo.png" alt="Ebtkar Logo" className="h-8 max-md:h-6 transition-transform duration-300 hover:scale-105" />
+            <img src="/images/logo.webp" alt="Ebtkar Logo" width="505" height="304" className="h-8 max-md:h-6 w-auto aspect-[505/304] transition-transform duration-300 hover:scale-105" />
             <div className="flex flex-col text-start max-md:hidden">
               <span className="font-extrabold text-sm text-white tracking-wide">لوحة تحكم</span>
               <span className="text-[10px] text-accent-light font-bold">ADMIN CONTROL</span>

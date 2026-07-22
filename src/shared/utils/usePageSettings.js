@@ -1,8 +1,6 @@
 // ponytail: Simple custom hook to fetch page content and SEO from database, caching locally in-memory.
 import { useState, useEffect } from 'react';
-import { supabase } from './supabase';
-
-const pageCache = {};
+import { supabase, fetchCached } from './supabase';
 
 /**
  * Custom hook to load page settings (SEO and content) dynamically from Supabase.
@@ -10,28 +8,19 @@ const pageCache = {};
  * @returns {{settings: Object|null, loading: boolean}}
  */
 export function usePageSettings(pageName) {
-  const [settings, setSettings] = useState(pageCache[pageName] || null);
-  const [loading, setLoading] = useState(!pageCache[pageName]);
+  const [settings, setSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (pageCache[pageName]) {
-      setSettings(pageCache[pageName]);
-      setLoading(false);
-      return;
-    }
-
     let isMounted = true;
     const fetchPage = async () => {
       try {
-        const { data, error } = await supabase
-          .from('pages')
-          .select('*')
-          .eq('name', pageName)
-          .single();
+        const res = await fetchCached(`page_${pageName}`, () =>
+          supabase.from('pages').select('*').eq('name', pageName).single()
+        );
 
-        if (!error && data) {
-          pageCache[pageName] = data;
-          if (isMounted) setSettings(data);
+        if (!res.error && res.data) {
+          if (isMounted) setSettings(res.data);
         }
       } catch (err) {
         console.error(`Error loading page settings for ${pageName}:`, err);

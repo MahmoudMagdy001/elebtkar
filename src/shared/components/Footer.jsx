@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '../utils/cn';
-import { supabase } from '../utils/supabase';
+import { supabase, fetchCached } from '../utils/supabase';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const socialLinks = [
@@ -13,8 +13,18 @@ const socialLinks = [
   { iconClass: 'ph ph-whatsapp-logo', href: 'https://wa.me/966579644123', label: 'واتساب' },
 ];
 
+const DEFAULT_SERVICES = [
+  { title: 'SEO & GEO', slug: 'seo' },
+  { title: 'المتاجر والمواقع الإلكترونية', slug: 'web-stores' },
+  { title: 'تطوير المحتوى', slug: 'content-development' },
+  { title: 'إدارة منصات التواصل الاجتماعي', slug: 'social-media' },
+  { title: 'إدارة الإعلانات', slug: 'ad-management' },
+  { title: 'تطبيقات الهواتف الذكية', slug: 'mobile-apps' },
+  { title: 'الذكاء الاصطناعي المؤسسي', slug: 'ai-solutions' }
+];
+
 const Footer = () => {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState(DEFAULT_SERVICES);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -31,13 +41,14 @@ const Footer = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const { data, error } = await supabase
-          .from('services')
-          .select('title, slug')
-          .order('order_num', { ascending: true });
+        const { data, error } = await fetchCached('services_all', () =>
+          supabase.from('services').select('*').order('order_num', { ascending: true })
+        );
 
         if (error) throw error;
-        setServices(data || []);
+        if (data && data.length > 0) {
+          setServices(data);
+        }
       } catch (err) {
         console.error('Error fetching services for footer:', err);
       }
@@ -46,14 +57,14 @@ const Footer = () => {
     fetchServices();
   }, []);
   return (
-    <footer className="bg-[#00253a] pt-16 px-6 text-white/60">
+    <footer className="bg-[#00253a] pt-16 px-6 text-slate-300">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-12 border-b border-white/10">
           {/* Brand */}
           <div className="lg:col-span-4 space-y-6">
             <div className="mb-6">
               <Link to="/" onClick={handleHomeClick}>
-                <img src="/images/logo.png" alt="الابتكار logo" className="h-12 md:h-14 w-auto transition-transform duration-300 hover:scale-105" />
+                <img src="/images/logo.webp" alt="الابتكار logo" width="200" height="120" className="h-10 md:h-12 w-auto aspect-[200/120] transition-transform duration-300 hover:scale-105" />
               </Link>
             </div>
             <p className="text-sm leading-relaxed max-w-xs">
@@ -150,13 +161,13 @@ const Footer = () => {
             <div className="flex flex-wrap gap-4 pt-4">
               <a href="/assets/docs/sgl.pdf" target="_blank" className="flex flex-col items-center gap-2 group text-center">
                 <div className="w-10 h-10 rounded-full border-2 border-white/10 overflow-hidden group-hover:border-accent group-hover:scale-110 transition-all">
-                  <img src="/images/1.png" alt="SGL" className="w-full h-full object-cover" />
+                  <img src="/images/1.webp" alt="SGL" width="40" height="40" className="w-full h-full object-cover" />
                 </div>
                 <span className="text-[0.7rem] group-hover:text-white">السجل التجاري</span>
               </a>
               <a href="/assets/docs/location.pdf" target="_blank" className="flex flex-col items-center gap-2 group text-center">
                 <div className="w-10 h-10 rounded-full border-2 border-white/10 overflow-hidden group-hover:border-accent group-hover:scale-110 transition-all">
-                  <img src="/images/2.webp" alt="Location" className="w-full h-full object-cover" />
+                  <img src="/images/2.webp" alt="Location" width="40" height="40" className="w-full h-full object-cover" />
                 </div>
                 <span className="text-[0.7rem] group-hover:text-white">العنوان الوطني</span>
               </a>
@@ -164,7 +175,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[0.8rem] opacity-60 text-center md:text-right">
+        <div className="py-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[0.85rem] opacity-90 text-center md:text-right">
           <p>© {new Date().getFullYear()} الابتكار - جميع الحقوق محفوظة</p>
         </div>
       </div>

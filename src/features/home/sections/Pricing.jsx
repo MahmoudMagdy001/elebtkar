@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from '../../../shared/utils/lazyFramer';
 import { Check } from 'lucide-react';
-import { supabase } from '../../../shared/utils/supabase';
+import { supabase, fetchCached } from '../../../shared/utils/supabase';
 import { cn } from '../../../shared/utils/cn';
 
 const Pricing = ({ onSelectPlan }) => {
@@ -11,11 +11,13 @@ const Pricing = ({ onSelectPlan }) => {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const { data, error } = await supabase
-          .from('pricing_plans')
-          .select('*')
-          .eq('is_active', true)
-          .order('order_num', { ascending: true });
+        const { data, error } = await fetchCached('pricing_plans_active', () =>
+          supabase
+            .from('pricing_plans')
+            .select('*')
+            .eq('is_active', true)
+            .order('order_num', { ascending: true })
+        );
 
         if (error) throw error;
         setPlans(data || []);
@@ -91,8 +93,12 @@ const Pricing = ({ onSelectPlan }) => {
                 <div className="flex items-baseline gap-2 mt-6 pb-6 border-b border-white/10">
                   <span className="text-4xl font-extrabold text-white">{plan.price}</span>
                   <img 
-                    src="/images/currency.png" 
+                    src="/images/currency.webp" 
                     alt="ريال سعودي" 
+                    width="50"
+                    height="56"
+                    loading="lazy"
+                    decoding="async"
                     className="h-5 w-auto object-contain" 
                     style={{ filter: 'brightness(0) invert(1)' }} 
                   />
